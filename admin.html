@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
+<!-- saved from url=(0045)file:///C:/Users/qmako/Downloads/admin_1.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AFTERFRAME — Admin</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<link href="./admin_files/css2" rel="stylesheet">
 <style>
 :root {
   --green: #4dff4d;
@@ -113,11 +113,11 @@ select.form-input option { background: #09100a; }
 <div id="loginScreen">
   <div class="login-box">
     <div class="login-logo">AFTERFRAME</div>
-    <div class="login-tag">> Admin access only</div>
-    <div class="login-error" id="loginError">> Wrong password. Try again.</div>
+    <div class="login-tag">&gt; Admin access only</div>
+    <div class="login-error" id="loginError">&gt; Wrong password. Try again.</div>
     <div class="form-group">
       <label class="form-label">Admin password</label>
-      <input class="form-input" type="password" id="passwordInput" placeholder="Enter password" onkeydown="if(event.key==='Enter')login()">
+      <input class="form-input" type="password" id="passwordInput" placeholder="Enter password" onkeydown="if(event.key===&#39;Enter&#39;)login()">
     </div>
     <button class="submit-btn" onclick="login()">Access admin panel</button>
   </div>
@@ -129,7 +129,7 @@ select.form-input option { background: #09100a; }
     <div>
       <div class="header-logo">AFTERFRAME</div>
     </div>
-    <div class="header-tag">> Admin panel</div>
+    <div class="header-tag">&gt; Admin panel</div>
     <button class="logout-btn" onclick="logout()">Log out</button>
   </header>
 
@@ -137,7 +137,7 @@ select.form-input option { background: #09100a; }
 
     <!-- UPLOAD FORM -->
     <div class="upload-card">
-      <div class="card-title">> Upload new image</div>
+      <div class="card-title">&gt; Upload new image</div>
 
       <img id="imagePreview" alt="Preview">
 
@@ -169,7 +169,7 @@ select.form-input option { background: #09100a; }
           <label class="form-label" style="margin-bottom:0;">Prompt used</label>
           <span class="char-count" id="charCount">0 chars</span>
         </div>
-        <textarea class="form-input" id="promptText" rows="4" placeholder="Paste the full prompt here..." oninput="document.getElementById('charCount').textContent=this.value.length+' chars'"></textarea>
+        <textarea class="form-input" id="promptText" rows="4" placeholder="Paste the full prompt here..." oninput="document.getElementById(&#39;charCount&#39;).textContent=this.value.length+&#39; chars&#39;"></textarea>
       </div>
 
       <div class="toggle-row">
@@ -191,10 +191,10 @@ select.form-input option { background: #09100a; }
     <!-- IMAGE LIST -->
     <div class="images-card" style="margin-top:3px;">
       <div class="images-header">
-        <div class="card-title" style="margin-bottom:0;">> Published images</div>
+        <div class="card-title" style="margin-bottom:0;">&gt; Published images</div>
         <div class="images-count" id="imagesCount">Loading...</div>
       </div>
-      <div class="img-list" id="imgList"><div class="empty-state">> Loading images...</div></div>
+      <div class="img-list" id="imgList"><div class="empty-state">&gt; Loading images...</div></div>
     </div>
 
   </div>
@@ -382,5 +382,6 @@ function setProgress(pct) {
   document.getElementById('progressBar').style.width = pct + '%';
 }
 </script>
-</body>
-</html>
+
+
+</body></html>
