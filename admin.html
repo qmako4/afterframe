@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AFTERFRAME — Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --green: #4dff4d;
+  --bg: #050805;
+  --bg2: #09100a;
+  --border: #1e321e;
+  --border-bright: #2a4a2a;
+  --text: #9dcf9d;
+  --text-bright: #c8e8c8;
+  --text-dim: #4a6e4a;
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-display: 'Syne', sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-mono); min-height: 100vh; padding: 0 0 60px; }
+
+/* LOGIN */
+#loginScreen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+.login-box { background: var(--bg2); border: 1px solid var(--border-bright); padding: 48px 40px; max-width: 380px; width: 100%; }
+.login-logo { font-family: var(--font-display); font-size: 20px; font-weight: 800; letter-spacing: 6px; color: var(--green); margin-bottom: 6px; }
+.login-tag { font-size: 10px; letter-spacing: 3px; color: var(--text-dim); margin-bottom: 32px; }
+.login-error { font-size: 11px; color: #ff6060; letter-spacing: 2px; margin-bottom: 16px; display: none; }
+
+/* ADMIN */
+#adminScreen { display: none; }
+header { background: rgba(5,8,5,0.96); border-bottom: 1px solid var(--border); padding: 0 24px; height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+.header-logo { font-family: var(--font-display); font-size: 15px; font-weight: 800; letter-spacing: 5px; color: var(--green); }
+.header-tag { font-size: 10px; letter-spacing: 3px; color: var(--text-dim); }
+.logout-btn { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; color: var(--text-dim); background: none; border: 1px solid var(--border); padding: 6px 14px; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+.logout-btn:hover { color: var(--text-bright); border-color: var(--border-bright); }
+
+.admin-wrap { max-width: 680px; margin: 0 auto; padding: 32px 24px; }
+
+/* UPLOAD CARD */
+.upload-card { background: var(--bg2); border: 1px solid var(--border-bright); padding: 32px; margin-bottom: 3px; }
+.card-title { font-size: 11px; letter-spacing: 4px; color: var(--green); text-transform: uppercase; margin-bottom: 24px; }
+
+/* IMAGE PICKER */
+.image-picker { border: 1px dashed var(--border-bright); padding: 32px; text-align: center; cursor: pointer; transition: all 0.2s; margin-bottom: 20px; position: relative; }
+.image-picker:hover { border-color: var(--green); background: #4dff4d06; }
+.image-picker input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+.picker-icon { font-size: 28px; margin-bottom: 10px; opacity: 0.4; }
+.picker-text { font-size: 12px; letter-spacing: 2px; color: var(--text-dim); }
+.picker-hint { font-size: 10px; letter-spacing: 1px; color: var(--text-dim); margin-top: 6px; opacity: 0.6; }
+#imagePreview { width: 100%; max-height: 280px; object-fit: cover; display: none; margin-bottom: 20px; border: 1px solid var(--border); }
+
+/* FORM */
+.form-group { margin-bottom: 18px; }
+.form-label { font-size: 10px; letter-spacing: 3px; color: var(--text-dim); text-transform: uppercase; display: block; margin-bottom: 8px; }
+.form-input { width: 100%; background: var(--bg); border: 1px solid var(--border-bright); color: var(--text-bright); font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.5px; padding: 12px 14px; outline: none; transition: border-color 0.2s; resize: none; }
+.form-input:focus { border-color: var(--green); }
+.form-input::placeholder { color: var(--text-dim); }
+select.form-input { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234a6e4a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
+select.form-input option { background: #09100a; }
+
+/* FREE TOGGLE */
+.toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 24px; }
+.toggle-label { font-size: 12px; letter-spacing: 1px; color: var(--text-bright); }
+.toggle-hint { font-size: 10px; letter-spacing: 1px; color: var(--text-dim); margin-top: 3px; }
+.toggle { position: relative; width: 44px; height: 24px; }
+.toggle input { opacity: 0; width: 0; height: 0; }
+.toggle-slider { position: absolute; inset: 0; background: var(--border-bright); cursor: pointer; transition: 0.3s; border: 1px solid var(--border-bright); }
+.toggle-slider::before { content: ''; position: absolute; height: 16px; width: 16px; left: 3px; bottom: 3px; background: var(--text-dim); transition: 0.3s; }
+.toggle input:checked + .toggle-slider { background: #4dff4d30; border-color: var(--green); }
+.toggle input:checked + .toggle-slider::before { transform: translateX(20px); background: var(--green); }
+
+/* SUBMIT */
+.submit-btn { width: 100%; font-family: var(--font-mono); font-size: 12px; letter-spacing: 3px; color: #050805; background: var(--green); border: none; padding: 16px; cursor: pointer; font-weight: 700; text-transform: uppercase; transition: all 0.2s; }
+.submit-btn:hover { background: #3de63d; }
+.submit-btn:disabled { background: var(--border-bright); color: var(--text-dim); cursor: not-allowed; }
+
+/* STATUS */
+.status { font-size: 12px; letter-spacing: 2px; text-align: center; padding: 14px; margin-top: 12px; display: none; }
+.status.success { color: var(--green); background: #4dff4d10; border: 1px solid #4dff4d30; }
+.status.error { color: #ff6060; background: #ff606010; border: 1px solid #ff606030; }
+.status.loading { color: var(--text-dim); background: var(--bg); border: 1px solid var(--border); }
+
+/* PROGRESS */
+.progress-wrap { height: 2px; background: var(--border); margin-top: 12px; display: none; }
+.progress-bar { height: 100%; background: var(--green); width: 0%; transition: width 0.3s; }
+
+/* IMAGES LIST */
+.images-card { background: var(--bg2); border: 1px solid var(--border); padding: 32px; }
+.images-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+.images-count { font-size: 10px; letter-spacing: 3px; color: var(--text-dim); }
+.img-list { display: flex; flex-direction: column; gap: 3px; }
+.img-row { display: flex; align-items: center; gap: 16px; padding: 12px; background: var(--bg); border: 1px solid var(--border); }
+.img-thumb { width: 56px; height: 56px; object-fit: cover; border: 1px solid var(--border); flex-shrink: 0; }
+.img-info { flex: 1; min-width: 0; }
+.img-model { font-size: 9px; letter-spacing: 3px; color: var(--green); margin-bottom: 4px; }
+.img-prompt { font-size: 11px; color: var(--text-bright); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0.5px; }
+.img-meta { font-size: 9px; color: var(--text-dim); letter-spacing: 1px; margin-top: 4px; }
+.img-free-badge { font-size: 9px; letter-spacing: 2px; color: var(--green); background: #4dff4d10; border: 1px solid #4dff4d30; padding: 2px 7px; flex-shrink: 0; }
+.img-delete { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px; color: var(--text-dim); background: none; border: 1px solid var(--border); padding: 6px 10px; cursor: pointer; flex-shrink: 0; transition: all 0.2s; }
+.img-delete:hover { color: #ff6060; border-color: #ff6060; }
+.empty-state { text-align: center; padding: 40px; font-size: 12px; color: var(--text-dim); letter-spacing: 2px; }
+
+/* SHARED FORM STYLES */
+.form-label-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.char-count { font-size: 10px; color: var(--text-dim); letter-spacing: 1px; }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">AFTERFRAME</div>
+    <div class="login-tag">> Admin access only</div>
+    <div class="login-error" id="loginError">> Wrong password. Try again.</div>
+    <div class="form-group">
+      <label class="form-label">Admin password</label>
+      <input class="form-input" type="password" id="passwordInput" placeholder="Enter password" onkeydown="if(event.key==='Enter')login()">
+    </div>
+    <button class="submit-btn" onclick="login()">Access admin panel</button>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="adminScreen">
+  <header>
+    <div>
+      <div class="header-logo">AFTERFRAME</div>
+    </div>
+    <div class="header-tag">> Admin panel</div>
+    <button class="logout-btn" onclick="logout()">Log out</button>
+  </header>
+
+  <div class="admin-wrap">
+
+    <!-- UPLOAD FORM -->
+    <div class="upload-card">
+      <div class="card-title">> Upload new image</div>
+
+      <img id="imagePreview" alt="Preview">
+
+      <div class="image-picker" id="pickerArea">
+        <input type="file" id="imageFile" accept="image/*" onchange="previewImage(event)">
+        <div class="picker-icon">+</div>
+        <div class="picker-text">Tap to choose image</div>
+        <div class="picker-hint">JPG, PNG, WEBP — from camera roll or camera</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">AI model used</label>
+        <select class="form-input" id="aiModel">
+          <option value="">Select model...</option>
+          <option value="Midjourney v6">Midjourney v6</option>
+          <option value="Midjourney v6.1">Midjourney v6.1</option>
+          <option value="Flux 1.1 Pro">Flux 1.1 Pro</option>
+          <option value="Nano Banana Pro">Nano Banana Pro</option>
+          <option value="DALL·E 3">DALL·E 3</option>
+          <option value="Stable Diffusion XL">Stable Diffusion XL</option>
+          <option value="Ideogram 2.0">Ideogram 2.0</option>
+          <option value="Sora">Sora</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <div class="form-label-row">
+          <label class="form-label" style="margin-bottom:0;">Prompt used</label>
+          <span class="char-count" id="charCount">0 chars</span>
+        </div>
+        <textarea class="form-input" id="promptText" rows="4" placeholder="Paste the full prompt here..." oninput="document.getElementById('charCount').textContent=this.value.length+' chars'"></textarea>
+      </div>
+
+      <div class="toggle-row">
+        <div>
+          <div class="toggle-label">Free preview</div>
+          <div class="toggle-hint">Show prompt to free users</div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="isFree">
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <button class="submit-btn" id="uploadBtn" onclick="uploadImage()">Publish image</button>
+      <div class="progress-wrap" id="progressWrap"><div class="progress-bar" id="progressBar"></div></div>
+      <div class="status" id="statusMsg"></div>
+    </div>
+
+    <!-- IMAGE LIST -->
+    <div class="images-card" style="margin-top:3px;">
+      <div class="images-header">
+        <div class="card-title" style="margin-bottom:0;">> Published images</div>
+        <div class="images-count" id="imagesCount">Loading...</div>
+      </div>
+      <div class="img-list" id="imgList"><div class="empty-state">> Loading images...</div></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://jbsyzrzoiawruusdowpx.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_5yHqsw-CdIykq2jiCDwTpw_otaDsUlF';
+const ADMIN_PASSWORD = 'afterframe2026';
+
+// AUTH
+function login() {
+  const pw = document.getElementById('passwordInput').value;
+  if (pw === ADMIN_PASSWORD) {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminScreen').style.display = 'block';
+    loadImages();
+  } else {
+    document.getElementById('loginError').style.display = 'block';
+  }
+}
+
+function logout() {
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('adminScreen').style.display = 'none';
+  document.getElementById('passwordInput').value = '';
+}
+
+// IMAGE PREVIEW
+function previewImage(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const preview = document.getElementById('imagePreview');
+    preview.src = ev.target.result;
+    preview.style.display = 'block';
+    document.getElementById('pickerArea').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+// UPLOAD
+async function uploadImage() {
+  const file = document.getElementById('imageFile').files[0];
+  const model = document.getElementById('aiModel').value;
+  const prompt = document.getElementById('promptText').value.trim();
+  const isFree = document.getElementById('isFree').checked;
+
+  if (!file) return showStatus('error', '> Please select an image.');
+  if (!model) return showStatus('error', '> Please select an AI model.');
+  if (!prompt) return showStatus('error', '> Please enter the prompt.');
+
+  const btn = document.getElementById('uploadBtn');
+  btn.disabled = true;
+  btn.textContent = 'Uploading...';
+  showStatus('loading', '> Uploading image...');
+  showProgress(true);
+
+  try {
+    // Upload image to storage
+    const ext = file.name.split('.').pop();
+    const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+    setProgress(30);
+
+    const storageRes = await fetch(`${SUPABASE_URL}/storage/v1/object/images/${fileName}`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Content-Type': file.type,
+        'Cache-Control': '3600',
+      },
+      body: file
+    });
+
+    if (!storageRes.ok) {
+      const err = await storageRes.text();
+      throw new Error('Storage upload failed: ' + err);
+    }
+
+    setProgress(70);
+
+    const imageUrl = `${SUPABASE_URL}/storage/v1/object/public/images/${fileName}`;
+
+    // Insert record into DB
+    const dbRes = await fetch(`${SUPABASE_URL}/rest/v1/images`, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({ image_url: imageUrl, prompt, ai_model: model, is_free: isFree })
+    });
+
+    if (!dbRes.ok) {
+      const err = await dbRes.text();
+      throw new Error('Database insert failed: ' + err);
+    }
+
+    setProgress(100);
+    showStatus('success', '> Image published successfully!');
+    resetForm();
+    loadImages();
+
+  } catch (err) {
+    showStatus('error', '> Error: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Publish image';
+    setTimeout(() => showProgress(false), 1000);
+  }
+}
+
+// LOAD IMAGES
+async function loadImages() {
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/images?select=*&order=created_at.desc`, {
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+    });
+    const images = await res.json();
+    document.getElementById('imagesCount').textContent = `${images.length} image${images.length !== 1 ? 's' : ''} published`;
+    const list = document.getElementById('imgList');
+    if (!images.length) { list.innerHTML = '<div class="empty-state">> No images yet. Upload your first one above.</div>'; return; }
+    list.innerHTML = images.map(img => `
+      <div class="img-row" id="row-${img.id}">
+        <img class="img-thumb" src="${img.image_url}" alt="">
+        <div class="img-info">
+          <div class="img-model">${img.ai_model}</div>
+          <div class="img-prompt">${img.prompt}</div>
+          <div class="img-meta">${new Date(img.created_at).toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'})}</div>
+        </div>
+        ${img.is_free ? '<div class="img-free-badge">FREE</div>' : ''}
+        <button class="img-delete" onclick="deleteImage('${img.id}','${img.image_url}')">Delete</button>
+      </div>
+    `).join('');
+  } catch (err) {
+    document.getElementById('imgList').innerHTML = '<div class="empty-state">> Failed to load images.</div>';
+  }
+}
+
+// DELETE
+async function deleteImage(id, url) {
+  if (!confirm('Delete this image?')) return;
+  const fileName = url.split('/images/')[1];
+  await fetch(`${SUPABASE_URL}/storage/v1/object/images/${fileName}`, {
+    method: 'DELETE',
+    headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+  });
+  await fetch(`${SUPABASE_URL}/rest/v1/images?id=eq.${id}`, {
+    method: 'DELETE',
+    headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
+  });
+  document.getElementById('row-' + id)?.remove();
+  loadImages();
+}
+
+// HELPERS
+function resetForm() {
+  document.getElementById('imageFile').value = '';
+  document.getElementById('imagePreview').style.display = 'none';
+  document.getElementById('pickerArea').style.display = 'block';
+  document.getElementById('aiModel').value = '';
+  document.getElementById('promptText').value = '';
+  document.getElementById('isFree').checked = false;
+  document.getElementById('charCount').textContent = '0 chars';
+}
+
+function showStatus(type, msg) {
+  const el = document.getElementById('statusMsg');
+  el.className = 'status ' + type;
+  el.textContent = msg;
+  el.style.display = 'block';
+  if (type === 'success') setTimeout(() => el.style.display = 'none', 4000);
+}
+
+function showProgress(show) {
+  document.getElementById('progressWrap').style.display = show ? 'block' : 'none';
+  if (!show) setProgress(0);
+}
+
+function setProgress(pct) {
+  document.getElementById('progressBar').style.width = pct + '%';
+}
+</script>
+</body>
+</html>
