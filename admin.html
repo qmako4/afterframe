@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<!-- saved from url=(0045)file:///C:/Users/qmako/Downloads/admin_1.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="en">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AFTERFRAME — Admin</title>
-<link href="./admin_files/css2" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
 :root {
   --green: #4dff4d;
   --bg: #050805;
   --bg2: #09100a;
+  --bg3: #0d160d;
   --border: #1e321e;
   --border-bright: #2a4a2a;
   --text: #9dcf9d;
@@ -21,46 +22,44 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: var(--bg); color: var(--text); font-family: var(--font-mono); min-height: 100vh; padding: 0 0 60px; }
 
-/* LOGIN */
 #loginScreen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
 .login-box { background: var(--bg2); border: 1px solid var(--border-bright); padding: 48px 40px; max-width: 380px; width: 100%; }
 .login-logo { font-family: var(--font-display); font-size: 20px; font-weight: 800; letter-spacing: 6px; color: var(--green); margin-bottom: 6px; }
 .login-tag { font-size: 10px; letter-spacing: 3px; color: var(--text-dim); margin-bottom: 32px; }
 .login-error { font-size: 11px; color: #ff6060; letter-spacing: 2px; margin-bottom: 16px; display: none; }
 
-/* ADMIN */
 #adminScreen { display: none; }
 header { background: rgba(5,8,5,0.96); border-bottom: 1px solid var(--border); padding: 0 24px; height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
 .header-logo { font-family: var(--font-display); font-size: 15px; font-weight: 800; letter-spacing: 5px; color: var(--green); }
-.header-tag { font-size: 10px; letter-spacing: 3px; color: var(--text-dim); }
-.logout-btn { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; color: var(--text-dim); background: none; border: 1px solid var(--border); padding: 6px 14px; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
+.logout-btn { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; color: var(--text-dim); background: none; border: 1px solid var(--border); padding: 6px 14px; cursor: pointer; text-transform: uppercase; }
 .logout-btn:hover { color: var(--text-bright); border-color: var(--border-bright); }
 
-.admin-wrap { max-width: 680px; margin: 0 auto; padding: 32px 24px; }
+/* TABS */
+.admin-tabs { display: flex; border-bottom: 1px solid var(--border); background: var(--bg2); }
+.admin-tab { flex: 1; font-family: var(--font-mono); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; padding: 16px; background: none; border: none; color: var(--text-dim); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; }
+.admin-tab.active { color: var(--green); border-bottom-color: var(--green); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
 
-/* UPLOAD CARD */
+.admin-wrap { max-width: 680px; margin: 0 auto; padding: 32px 24px; }
 .upload-card { background: var(--bg2); border: 1px solid var(--border-bright); padding: 32px; margin-bottom: 3px; }
 .card-title { font-size: 11px; letter-spacing: 4px; color: var(--green); text-transform: uppercase; margin-bottom: 24px; }
-
-/* IMAGE PICKER */
 .image-picker { border: 1px dashed var(--border-bright); padding: 32px; text-align: center; cursor: pointer; transition: all 0.2s; margin-bottom: 20px; position: relative; }
 .image-picker:hover { border-color: var(--green); background: #4dff4d06; }
 .image-picker input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
 .picker-icon { font-size: 28px; margin-bottom: 10px; opacity: 0.4; }
 .picker-text { font-size: 12px; letter-spacing: 2px; color: var(--text-dim); }
 .picker-hint { font-size: 10px; letter-spacing: 1px; color: var(--text-dim); margin-top: 6px; opacity: 0.6; }
-#imagePreview { width: 100%; max-height: 280px; object-fit: cover; display: none; margin-bottom: 20px; border: 1px solid var(--border); }
-
-/* FORM */
+.preview-img { width: 100%; max-height: 280px; object-fit: cover; display: none; margin-bottom: 20px; border: 1px solid var(--border); }
 .form-group { margin-bottom: 18px; }
 .form-label { font-size: 10px; letter-spacing: 3px; color: var(--text-dim); text-transform: uppercase; display: block; margin-bottom: 8px; }
+.form-label-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+.char-count { font-size: 10px; color: var(--text-dim); letter-spacing: 1px; }
 .form-input { width: 100%; background: var(--bg); border: 1px solid var(--border-bright); color: var(--text-bright); font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.5px; padding: 12px 14px; outline: none; transition: border-color 0.2s; resize: none; }
 .form-input:focus { border-color: var(--green); }
 .form-input::placeholder { color: var(--text-dim); }
 select.form-input { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%234a6e4a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
 select.form-input option { background: #09100a; }
-
-/* FREE TOGGLE */
 .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 24px; }
 .toggle-label { font-size: 12px; letter-spacing: 1px; color: var(--text-bright); }
 .toggle-hint { font-size: 10px; letter-spacing: 1px; color: var(--text-dim); margin-top: 3px; }
@@ -70,133 +69,188 @@ select.form-input option { background: #09100a; }
 .toggle-slider::before { content: ''; position: absolute; height: 16px; width: 16px; left: 3px; bottom: 3px; background: var(--text-dim); transition: 0.3s; }
 .toggle input:checked + .toggle-slider { background: #4dff4d30; border-color: var(--green); }
 .toggle input:checked + .toggle-slider::before { transform: translateX(20px); background: var(--green); }
-
-/* SUBMIT */
 .submit-btn { width: 100%; font-family: var(--font-mono); font-size: 12px; letter-spacing: 3px; color: #050805; background: var(--green); border: none; padding: 16px; cursor: pointer; font-weight: 700; text-transform: uppercase; transition: all 0.2s; }
 .submit-btn:hover { background: #3de63d; }
 .submit-btn:disabled { background: var(--border-bright); color: var(--text-dim); cursor: not-allowed; }
-
-/* STATUS */
 .status { font-size: 12px; letter-spacing: 2px; text-align: center; padding: 14px; margin-top: 12px; display: none; }
 .status.success { color: var(--green); background: #4dff4d10; border: 1px solid #4dff4d30; }
 .status.error { color: #ff6060; background: #ff606010; border: 1px solid #ff606030; }
 .status.loading { color: var(--text-dim); background: var(--bg); border: 1px solid var(--border); }
-
-/* PROGRESS */
 .progress-wrap { height: 2px; background: var(--border); margin-top: 12px; display: none; }
 .progress-bar { height: 100%; background: var(--green); width: 0%; transition: width 0.3s; }
-
-/* IMAGES LIST */
-.images-card { background: var(--bg2); border: 1px solid var(--border); padding: 32px; }
-.images-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
-.images-count { font-size: 10px; letter-spacing: 3px; color: var(--text-dim); }
-.img-list { display: flex; flex-direction: column; gap: 3px; }
-.img-row { display: flex; align-items: center; gap: 16px; padding: 12px; background: var(--bg); border: 1px solid var(--border); }
-.img-thumb { width: 56px; height: 56px; object-fit: cover; border: 1px solid var(--border); flex-shrink: 0; }
-.img-info { flex: 1; min-width: 0; }
-.img-model { font-size: 9px; letter-spacing: 3px; color: var(--green); margin-bottom: 4px; }
-.img-prompt { font-size: 11px; color: var(--text-bright); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0.5px; }
-.img-meta { font-size: 9px; color: var(--text-dim); letter-spacing: 1px; margin-top: 4px; }
-.img-free-badge { font-size: 9px; letter-spacing: 2px; color: var(--green); background: #4dff4d10; border: 1px solid #4dff4d30; padding: 2px 7px; flex-shrink: 0; }
-.img-delete { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px; color: var(--text-dim); background: none; border: 1px solid var(--border); padding: 6px 10px; cursor: pointer; flex-shrink: 0; transition: all 0.2s; }
-.img-delete:hover { color: #ff6060; border-color: #ff6060; }
-.empty-state { text-align: center; padding: 40px; font-size: 12px; color: var(--text-dim); letter-spacing: 2px; }
-
-/* SHARED FORM STYLES */
-.form-label-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
-.char-count { font-size: 10px; color: var(--text-dim); letter-spacing: 1px; }
+.list-card { background: var(--bg2); border: 1px solid var(--border); padding: 32px; margin-top: 3px; }
+.list-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+.items-count { font-size: 10px; letter-spacing: 3px; color: var(--text-dim); }
+.item-row { display: flex; align-items: center; gap: 16px; padding: 12px; background: var(--bg); border: 1px solid var(--border); margin-bottom: 3px; }
+.item-thumb { width: 56px; height: 56px; object-fit: cover; border: 1px solid var(--border); flex-shrink: 0; }
+.item-info { flex: 1; min-width: 0; }
+.item-model { font-size: 9px; letter-spacing: 3px; color: var(--green); margin-bottom: 4px; }
+.item-name { font-size: 11px; color: var(--text-bright); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; letter-spacing: 0.5px; }
+.item-meta { font-size: 9px; color: var(--text-dim); letter-spacing: 1px; margin-top: 4px; }
+.item-free { font-size: 9px; letter-spacing: 2px; color: var(--green); background: #4dff4d10; border: 1px solid #4dff4d30; padding: 2px 7px; flex-shrink: 0; }
+.item-delete { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px; color: var(--text-dim); background: none; border: 1px solid var(--border); padding: 6px 10px; cursor: pointer; flex-shrink: 0; transition: all 0.2s; }
+.item-delete:hover { color: #ff6060; border-color: #ff6060; }
+.empty-list { text-align: center; padding: 40px; font-size: 12px; color: var(--text-dim); letter-spacing: 2px; }
+.section-divider { height: 1px; background: var(--border); margin: 24px 0; }
+.lora-note { font-size: 11px; color: var(--text-dim); letter-spacing: 1px; line-height: 1.7; background: var(--bg3); border: 1px solid var(--border); padding: 14px; margin-bottom: 20px; }
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
 <div id="loginScreen">
   <div class="login-box">
     <div class="login-logo">AFTERFRAME</div>
-    <div class="login-tag">&gt; Admin access only</div>
-    <div class="login-error" id="loginError">&gt; Wrong password. Try again.</div>
+    <div class="login-tag">> Admin access only</div>
+    <div class="login-error" id="loginError">> Wrong password. Try again.</div>
     <div class="form-group">
       <label class="form-label">Admin password</label>
-      <input class="form-input" type="password" id="passwordInput" placeholder="Enter password" onkeydown="if(event.key===&#39;Enter&#39;)login()">
+      <input class="form-input" type="password" id="passwordInput" placeholder="Enter password" onkeydown="if(event.key==='Enter')login()">
     </div>
     <button class="submit-btn" onclick="login()">Access admin panel</button>
   </div>
 </div>
 
-<!-- ADMIN -->
 <div id="adminScreen">
   <header>
-    <div>
-      <div class="header-logo">AFTERFRAME</div>
-    </div>
-    <div class="header-tag">&gt; Admin panel</div>
+    <div class="header-logo">AFTERFRAME</div>
+    <div style="font-size:10px;letter-spacing:3px;color:var(--text-dim);">> Admin</div>
     <button class="logout-btn" onclick="logout()">Log out</button>
   </header>
 
-  <div class="admin-wrap">
+  <div class="admin-tabs">
+    <button class="admin-tab active" id="tab-images" onclick="switchTab('images')">Images</button>
+    <button class="admin-tab" id="tab-models" onclick="switchTab('models')">Models</button>
+  </div>
 
-    <!-- UPLOAD FORM -->
-    <div class="upload-card">
-      <div class="card-title">&gt; Upload new image</div>
-
-      <img id="imagePreview" alt="Preview">
-
-      <div class="image-picker" id="pickerArea">
-        <input type="file" id="imageFile" accept="image/*" onchange="previewImage(event)">
-        <div class="picker-icon">+</div>
-        <div class="picker-text">Tap to choose image</div>
-        <div class="picker-hint">JPG, PNG, WEBP — from camera roll or camera</div>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">AI model used</label>
-        <select class="form-input" id="aiModel">
-          <option value="">Select model...</option>
-          <option value="Midjourney v6">Midjourney v6</option>
-          <option value="Midjourney v6.1">Midjourney v6.1</option>
-          <option value="Flux 1.1 Pro">Flux 1.1 Pro</option>
-          <option value="Nano Banana Pro">Nano Banana Pro</option>
-          <option value="DALL·E 3">DALL·E 3</option>
-          <option value="Stable Diffusion XL">Stable Diffusion XL</option>
-          <option value="Ideogram 2.0">Ideogram 2.0</option>
-          <option value="Sora">Sora</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <div class="form-label-row">
-          <label class="form-label" style="margin-bottom:0;">Prompt used</label>
-          <span class="char-count" id="charCount">0 chars</span>
+  <!-- IMAGES TAB -->
+  <div class="tab-panel active" id="panel-images">
+    <div class="admin-wrap">
+      <div class="upload-card">
+        <div class="card-title">> Upload new image</div>
+        <img id="imagePreview" class="preview-img" alt="">
+        <div class="image-picker" id="imgPickerArea">
+          <input type="file" id="imageFile" accept="image/*" onchange="previewFile('imageFile','imagePreview','imgPickerArea')">
+          <div class="picker-icon">+</div>
+          <div class="picker-text">Tap to choose image</div>
+          <div class="picker-hint">JPG, PNG, WEBP from camera roll</div>
         </div>
-        <textarea class="form-input" id="promptText" rows="4" placeholder="Paste the full prompt here..." oninput="document.getElementById(&#39;charCount&#39;).textContent=this.value.length+&#39; chars&#39;"></textarea>
-      </div>
-
-      <div class="toggle-row">
-        <div>
-          <div class="toggle-label">Free preview</div>
-          <div class="toggle-hint">Show prompt to free users</div>
+        <div class="form-group">
+          <label class="form-label">AI model used</label>
+          <select class="form-input" id="aiModel">
+            <option value="">Select model...</option>
+            <option>Midjourney v6</option>
+            <option>Midjourney v6.1</option>
+            <option>Flux 1.1 Pro</option>
+            <option>Nano Banana Pro</option>
+            <option>DALL-E 3</option>
+            <option>Stable Diffusion XL</option>
+            <option>Ideogram 2.0</option>
+            <option>Sora</option>
+            <option>Other</option>
+          </select>
         </div>
-        <label class="toggle">
-          <input type="checkbox" id="isFree">
-          <span class="toggle-slider"></span>
-        </label>
+        <div class="form-group">
+          <div class="form-label-row">
+            <label class="form-label" style="margin-bottom:0;">Prompt used</label>
+            <span class="char-count" id="imgCharCount">0 chars</span>
+          </div>
+          <textarea class="form-input" id="promptText" rows="4" placeholder="Paste the full prompt here..." oninput="document.getElementById('imgCharCount').textContent=this.value.length+' chars'"></textarea>
+        </div>
+        <div class="toggle-row">
+          <div>
+            <div class="toggle-label">Free preview</div>
+            <div class="toggle-hint">Show prompt to free users</div>
+          </div>
+          <label class="toggle"><input type="checkbox" id="isFree"><span class="toggle-slider"></span></label>
+        </div>
+        <button class="submit-btn" id="uploadImgBtn" onclick="uploadImage()">Publish image</button>
+        <div class="progress-wrap" id="imgProgressWrap"><div class="progress-bar" id="imgProgressBar"></div></div>
+        <div class="status" id="imgStatus"></div>
       </div>
 
-      <button class="submit-btn" id="uploadBtn" onclick="uploadImage()">Publish image</button>
-      <div class="progress-wrap" id="progressWrap"><div class="progress-bar" id="progressBar"></div></div>
-      <div class="status" id="statusMsg"></div>
-    </div>
-
-    <!-- IMAGE LIST -->
-    <div class="images-card" style="margin-top:3px;">
-      <div class="images-header">
-        <div class="card-title" style="margin-bottom:0;">&gt; Published images</div>
-        <div class="images-count" id="imagesCount">Loading...</div>
+      <div class="list-card">
+        <div class="list-header">
+          <div class="card-title" style="margin-bottom:0;">> Published images</div>
+          <div class="items-count" id="imagesCount">Loading...</div>
+        </div>
+        <div id="imgList"><div class="empty-list">Loading...</div></div>
       </div>
-      <div class="img-list" id="imgList"><div class="empty-state">&gt; Loading images...</div></div>
     </div>
+  </div>
 
+  <!-- MODELS TAB -->
+  <div class="tab-panel" id="panel-models">
+    <div class="admin-wrap">
+      <div class="upload-card">
+        <div class="card-title">> Upload new model</div>
+
+        <img id="modelPreview" class="preview-img" alt="">
+        <div class="image-picker" id="modelPickerArea">
+          <input type="file" id="modelImageFile" accept="image/*" onchange="previewFile('modelImageFile','modelPreview','modelPickerArea')">
+          <div class="picker-icon">+</div>
+          <div class="picker-text">Tap to choose model image</div>
+          <div class="picker-hint">Portrait image works best</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Model name</label>
+          <input class="form-input" type="text" id="modelName" placeholder="e.g. The Surfer">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Style / Category</label>
+          <select class="form-input" id="modelStyle">
+            <option value="">Select style...</option>
+            <option value="portrait">Portrait</option>
+            <option value="lifestyle">Lifestyle</option>
+            <option value="editorial">Editorial</option>
+            <option value="athletic">Athletic</option>
+            <option value="street">Street</option>
+            <option value="cinematic">Cinematic</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">AI model used</label>
+          <select class="form-input" id="modelAI">
+            <option value="">Select model...</option>
+            <option>Midjourney v6</option>
+            <option>Midjourney v6.1</option>
+            <option>Flux 1.1 Pro</option>
+            <option>Stable Diffusion XL</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <div class="form-label-row">
+            <label class="form-label" style="margin-bottom:0;">Prompt</label>
+            <span class="char-count" id="modelCharCount">0 chars</span>
+          </div>
+          <textarea class="form-input" id="modelPrompt" rows="4" placeholder="Full prompt to recreate this model..." oninput="document.getElementById('modelCharCount').textContent=this.value.length+' chars'"></textarea>
+        </div>
+
+        <div class="section-divider"></div>
+        <div class="lora-note">> LoRA file upload: paste a public download URL below (e.g. from Google Drive, Dropbox, or Civitai). Pro members will get a direct download link.</div>
+
+        <div class="form-group">
+          <label class="form-label">LoRA file URL (optional)</label>
+          <input class="form-input" type="url" id="modelLoraUrl" placeholder="https://civitai.com/models/... or Google Drive link">
+        </div>
+
+        <button class="submit-btn" id="uploadModelBtn" onclick="uploadModel()">Publish model</button>
+        <div class="progress-wrap" id="modelProgressWrap"><div class="progress-bar" id="modelProgressBar"></div></div>
+        <div class="status" id="modelStatus"></div>
+      </div>
+
+      <div class="list-card">
+        <div class="list-header">
+          <div class="card-title" style="margin-bottom:0;">> Published models</div>
+          <div class="items-count" id="modelsCount">Loading...</div>
+        </div>
+        <div id="modelList"><div class="empty-list">Loading...</div></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -205,13 +259,11 @@ const SUPABASE_URL = 'https://jbsyzrzoiawruusdowpx.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_5yHqsw-CdIykq2jiCDwTpw_otaDsUlF';
 const ADMIN_PASSWORD = 'afterframe2026';
 
-// AUTH
 function login() {
-  const pw = document.getElementById('passwordInput').value;
-  if (pw === ADMIN_PASSWORD) {
+  if (document.getElementById('passwordInput').value === ADMIN_PASSWORD) {
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('adminScreen').style.display = 'block';
-    loadImages();
+    loadImages(); loadModels();
   } else {
     document.getElementById('loginError').style.display = 'block';
   }
@@ -223,165 +275,205 @@ function logout() {
   document.getElementById('passwordInput').value = '';
 }
 
-// IMAGE PREVIEW
-function previewImage(e) {
-  const file = e.target.files[0];
+function switchTab(tab) {
+  ['images','models'].forEach(function(t) {
+    document.getElementById('tab-' + t).classList.toggle('active', t === tab);
+    document.getElementById('panel-' + t).classList.toggle('active', t === tab);
+  });
+  if (tab === 'images') loadImages();
+  else loadModels();
+}
+
+function previewFile(inputId, previewId, pickerId) {
+  var file = document.getElementById(inputId).files[0];
   if (!file) return;
-  const reader = new FileReader();
-  reader.onload = ev => {
-    const preview = document.getElementById('imagePreview');
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    var preview = document.getElementById(previewId);
     preview.src = ev.target.result;
     preview.style.display = 'block';
-    document.getElementById('pickerArea').style.display = 'none';
+    document.getElementById(pickerId).style.display = 'none';
   };
   reader.readAsDataURL(file);
 }
 
-// UPLOAD
+// UPLOAD IMAGE
 async function uploadImage() {
-  const file = document.getElementById('imageFile').files[0];
-  const model = document.getElementById('aiModel').value;
-  const prompt = document.getElementById('promptText').value.trim();
-  const isFree = document.getElementById('isFree').checked;
-
-  if (!file) return showStatus('error', '> Please select an image.');
-  if (!model) return showStatus('error', '> Please select an AI model.');
-  if (!prompt) return showStatus('error', '> Please enter the prompt.');
-
-  const btn = document.getElementById('uploadBtn');
-  btn.disabled = true;
-  btn.textContent = 'Uploading...';
-  showStatus('loading', '> Uploading image...');
-  showProgress(true);
-
+  var file = document.getElementById('imageFile').files[0];
+  var model = document.getElementById('aiModel').value;
+  var prompt = document.getElementById('promptText').value.trim();
+  var isFree = document.getElementById('isFree').checked;
+  var btn = document.getElementById('uploadImgBtn');
+  if (!file) return showStatus('imgStatus', 'error', '> Please select an image.');
+  if (!model) return showStatus('imgStatus', 'error', '> Please select an AI model.');
+  if (!prompt) return showStatus('imgStatus', 'error', '> Please enter the prompt.');
+  btn.disabled = true; btn.textContent = 'Uploading...';
+  showStatus('imgStatus', 'loading', '> Uploading...');
+  showProgress('img', true); setProgress('img', 30);
   try {
-    // Upload image to storage
-    const ext = file.name.split('.').pop();
-    const fileName = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-    setProgress(30);
-
-    const storageRes = await fetch(`${SUPABASE_URL}/storage/v1/object/images/${fileName}`, {
+    var ext = file.name.split('.').pop();
+    var fileName = Date.now() + '-' + Math.random().toString(36).slice(2) + '.' + ext;
+    var storageRes = await fetch(SUPABASE_URL + '/storage/v1/object/images/' + fileName, {
       method: 'POST',
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': file.type,
-        'Cache-Control': '3600',
-      },
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': file.type, 'Cache-Control': '3600' },
       body: file
     });
-
-    if (!storageRes.ok) {
-      const err = await storageRes.text();
-      throw new Error('Storage upload failed: ' + err);
-    }
-
-    setProgress(70);
-
-    const imageUrl = `${SUPABASE_URL}/storage/v1/object/public/images/${fileName}`;
-
-    // Insert record into DB
-    const dbRes = await fetch(`${SUPABASE_URL}/rest/v1/images`, {
+    if (!storageRes.ok) throw new Error('Storage failed: ' + await storageRes.text());
+    setProgress('img', 70);
+    var imageUrl = SUPABASE_URL + '/storage/v1/object/public/images/' + fileName;
+    var dbRes = await fetch(SUPABASE_URL + '/rest/v1/images', {
       method: 'POST',
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify({ image_url: imageUrl, prompt, ai_model: model, is_free: isFree })
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      body: JSON.stringify({ image_url: imageUrl, prompt: prompt, ai_model: model, is_free: isFree })
     });
-
-    if (!dbRes.ok) {
-      const err = await dbRes.text();
-      throw new Error('Database insert failed: ' + err);
-    }
-
-    setProgress(100);
-    showStatus('success', '> Image published successfully!');
-    resetForm();
-    loadImages();
-
-  } catch (err) {
-    showStatus('error', '> Error: ' + err.message);
+    if (!dbRes.ok) throw new Error('Database failed: ' + await dbRes.text());
+    setProgress('img', 100);
+    showStatus('imgStatus', 'success', '> Image published!');
+    resetImageForm(); loadImages();
+  } catch(err) {
+    showStatus('imgStatus', 'error', '> Error: ' + err.message);
   } finally {
-    btn.disabled = false;
-    btn.textContent = 'Publish image';
-    setTimeout(() => showProgress(false), 1000);
+    btn.disabled = false; btn.textContent = 'Publish image';
+    setTimeout(function(){ showProgress('img', false); }, 1000);
+  }
+}
+
+// UPLOAD MODEL
+async function uploadModel() {
+  var file = document.getElementById('modelImageFile').files[0];
+  var name = document.getElementById('modelName').value.trim();
+  var style = document.getElementById('modelStyle').value;
+  var aiModel = document.getElementById('modelAI').value;
+  var prompt = document.getElementById('modelPrompt').value.trim();
+  var loraUrl = document.getElementById('modelLoraUrl').value.trim();
+  var btn = document.getElementById('uploadModelBtn');
+  if (!file) return showStatus('modelStatus', 'error', '> Please select a model image.');
+  if (!name) return showStatus('modelStatus', 'error', '> Please enter a model name.');
+  if (!aiModel) return showStatus('modelStatus', 'error', '> Please select the AI model used.');
+  if (!prompt) return showStatus('modelStatus', 'error', '> Please enter the prompt.');
+  btn.disabled = true; btn.textContent = 'Uploading...';
+  showStatus('modelStatus', 'loading', '> Uploading...');
+  showProgress('model', true); setProgress('model', 30);
+  try {
+    var ext = file.name.split('.').pop();
+    var fileName = 'model-' + Date.now() + '-' + Math.random().toString(36).slice(2) + '.' + ext;
+    var storageRes = await fetch(SUPABASE_URL + '/storage/v1/object/images/' + fileName, {
+      method: 'POST',
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': file.type, 'Cache-Control': '3600' },
+      body: file
+    });
+    if (!storageRes.ok) throw new Error('Storage failed: ' + await storageRes.text());
+    setProgress('model', 70);
+    var imageUrl = SUPABASE_URL + '/storage/v1/object/public/images/' + fileName;
+    var dbRes = await fetch(SUPABASE_URL + '/rest/v1/models', {
+      method: 'POST',
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+      body: JSON.stringify({ name: name, style: style, ai_model: aiModel, prompt: prompt, image_url: imageUrl, lora_url: loraUrl || null })
+    });
+    if (!dbRes.ok) throw new Error('Database failed: ' + await dbRes.text());
+    setProgress('model', 100);
+    showStatus('modelStatus', 'success', '> Model published!');
+    resetModelForm(); loadModels();
+  } catch(err) {
+    showStatus('modelStatus', 'error', '> Error: ' + err.message);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Publish model';
+    setTimeout(function(){ showProgress('model', false); }, 1000);
   }
 }
 
 // LOAD IMAGES
 async function loadImages() {
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/images?select=*&order=created_at.desc`, {
-      headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
-    });
-    const images = await res.json();
-    document.getElementById('imagesCount').textContent = `${images.length} image${images.length !== 1 ? 's' : ''} published`;
-    const list = document.getElementById('imgList');
-    if (!images.length) { list.innerHTML = '<div class="empty-state">> No images yet. Upload your first one above.</div>'; return; }
-    list.innerHTML = images.map(img => `
-      <div class="img-row" id="row-${img.id}">
-        <img class="img-thumb" src="${img.image_url}" alt="">
-        <div class="img-info">
-          <div class="img-model">${img.ai_model}</div>
-          <div class="img-prompt">${img.prompt}</div>
-          <div class="img-meta">${new Date(img.created_at).toLocaleDateString('en-GB', {day:'numeric',month:'short',year:'numeric'})}</div>
-        </div>
-        ${img.is_free ? '<div class="img-free-badge">FREE</div>' : ''}
-        <button class="img-delete" onclick="deleteImage('${img.id}','${img.image_url}')">Delete</button>
-      </div>
-    `).join('');
-  } catch (err) {
-    document.getElementById('imgList').innerHTML = '<div class="empty-state">> Failed to load images.</div>';
-  }
+  var res = await fetch(SUPABASE_URL + '/rest/v1/images?select=*&order=created_at.desc', {
+    headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
+  });
+  var images = await res.json();
+  document.getElementById('imagesCount').textContent = images.length + ' published';
+  var list = document.getElementById('imgList');
+  if (!images.length) { list.innerHTML = '<div class="empty-list">No images yet.</div>'; return; }
+  list.innerHTML = images.map(function(img) {
+    return '<div class="item-row" id="img-' + img.id + '">'
+      + '<img class="item-thumb" src="' + img.image_url + '" alt="">'
+      + '<div class="item-info"><div class="item-model">' + img.ai_model + '</div><div class="item-name">' + img.prompt + '</div><div class="item-meta">' + new Date(img.created_at).toLocaleDateString('en-GB') + '</div></div>'
+      + (img.is_free ? '<div class="item-free">FREE</div>' : '')
+      + '<button class="item-delete" onclick="deleteImage(\'' + img.id + '\',\'' + img.image_url + '\')">Delete</button>'
+      + '</div>';
+  }).join('');
+}
+
+// LOAD MODELS
+async function loadModels() {
+  var res = await fetch(SUPABASE_URL + '/rest/v1/models?select=*&order=created_at.desc', {
+    headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
+  });
+  var models = await res.json();
+  if (!Array.isArray(models)) models = [];
+  document.getElementById('modelsCount').textContent = models.length + ' published';
+  var list = document.getElementById('modelList');
+  if (!models.length) { list.innerHTML = '<div class="empty-list">No models yet.</div>'; return; }
+  list.innerHTML = models.map(function(m) {
+    return '<div class="item-row" id="model-' + m.id + '">'
+      + (m.image_url ? '<img class="item-thumb" src="' + m.image_url + '" alt="">' : '<div class="item-thumb" style="background:var(--bg3);"></div>')
+      + '<div class="item-info"><div class="item-model">' + m.ai_model + '</div><div class="item-name">' + m.name + '</div><div class="item-meta">' + (m.style || '') + ' // ' + new Date(m.created_at).toLocaleDateString('en-GB') + '</div></div>'
+      + (m.lora_url ? '<div class="item-free">LORA</div>' : '')
+      + '<button class="item-delete" onclick="deleteModel(\'' + m.id + '\')">Delete</button>'
+      + '</div>';
+  }).join('');
 }
 
 // DELETE
 async function deleteImage(id, url) {
   if (!confirm('Delete this image?')) return;
-  const fileName = url.split('/images/')[1];
-  await fetch(`${SUPABASE_URL}/storage/v1/object/images/${fileName}`, {
-    method: 'DELETE',
-    headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
-  });
-  await fetch(`${SUPABASE_URL}/rest/v1/images?id=eq.${id}`, {
-    method: 'DELETE',
-    headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` }
-  });
-  document.getElementById('row-' + id)?.remove();
+  var fileName = url.split('/images/')[1];
+  await fetch(SUPABASE_URL + '/storage/v1/object/images/' + fileName, { method: 'DELETE', headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY } });
+  await fetch(SUPABASE_URL + '/rest/v1/images?id=eq.' + id, { method: 'DELETE', headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY } });
   loadImages();
 }
 
-// HELPERS
-function resetForm() {
+async function deleteModel(id) {
+  if (!confirm('Delete this model?')) return;
+  await fetch(SUPABASE_URL + '/rest/v1/models?id=eq.' + id, { method: 'DELETE', headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY } });
+  loadModels();
+}
+
+function resetImageForm() {
   document.getElementById('imageFile').value = '';
   document.getElementById('imagePreview').style.display = 'none';
-  document.getElementById('pickerArea').style.display = 'block';
+  document.getElementById('imgPickerArea').style.display = 'block';
   document.getElementById('aiModel').value = '';
   document.getElementById('promptText').value = '';
   document.getElementById('isFree').checked = false;
-  document.getElementById('charCount').textContent = '0 chars';
+  document.getElementById('imgCharCount').textContent = '0 chars';
 }
 
-function showStatus(type, msg) {
-  const el = document.getElementById('statusMsg');
+function resetModelForm() {
+  document.getElementById('modelImageFile').value = '';
+  document.getElementById('modelPreview').style.display = 'none';
+  document.getElementById('modelPickerArea').style.display = 'block';
+  document.getElementById('modelName').value = '';
+  document.getElementById('modelStyle').value = '';
+  document.getElementById('modelAI').value = '';
+  document.getElementById('modelPrompt').value = '';
+  document.getElementById('modelLoraUrl').value = '';
+  document.getElementById('modelCharCount').textContent = '0 chars';
+}
+
+function showStatus(id, type, msg) {
+  var el = document.getElementById(id);
   el.className = 'status ' + type;
   el.textContent = msg;
   el.style.display = 'block';
-  if (type === 'success') setTimeout(() => el.style.display = 'none', 4000);
+  if (type === 'success') setTimeout(function(){ el.style.display = 'none'; }, 4000);
 }
 
-function showProgress(show) {
-  document.getElementById('progressWrap').style.display = show ? 'block' : 'none';
-  if (!show) setProgress(0);
+function showProgress(prefix, show) {
+  document.getElementById(prefix + 'ProgressWrap').style.display = show ? 'block' : 'none';
+  if (!show) setProgress(prefix, 0);
 }
 
-function setProgress(pct) {
-  document.getElementById('progressBar').style.width = pct + '%';
+function setProgress(prefix, pct) {
+  document.getElementById(prefix + 'ProgressBar').style.width = pct + '%';
 }
 </script>
-
-
-</body></html>
+</body>
+</html>
