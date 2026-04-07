@@ -119,6 +119,7 @@ select.form-input option { background: #09100a; }
 
   <div class="admin-tabs">
     <button class="admin-tab active" id="tab-images" onclick="switchTab('images')">Images</button>
+    <button class="admin-tab" id="tab-shoots" onclick="switchTab('shoots')">Shoots</button>
     <button class="admin-tab" id="tab-models" onclick="switchTab('models')">Models</button>
   </div>
 
@@ -174,6 +175,49 @@ select.form-input option { background: #09100a; }
           <div class="items-count" id="imagesCount">Loading...</div>
         </div>
         <div id="imgList"><div class="empty-list">Loading...</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHOOTS TAB -->
+  <div class="tab-panel" id="panel-shoots">
+    <div class="admin-wrap">
+      <div class="upload-card">
+        <div class="card-title">> Create new shoot</div>
+        <div class="form-group">
+          <label class="form-label">Shoot title</label>
+          <input class="form-input" type="text" id="shootTitle" placeholder="e.g. The Surfer — Golden Hour Series">
+        </div>
+        <div class="form-group">
+          <label class="form-label">AI model used</label>
+          <select class="form-input" id="shootAI">
+            <option value="">Select model...</option>
+            <option>Midjourney v6</option>
+            <option>Midjourney v6.1</option>
+            <option>Flux 1.1 Pro</option>
+            <option>Nano Banana Pro</option>
+            <option>DALL-E 3</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="section-divider"></div>
+        <div class="card-title" style="margin-bottom:16px;">> Add images (up to 5)</div>
+        <div id="shootSteps"></div>
+        <button class="submit-btn" style="background:transparent;color:var(--green);border:1px solid var(--border-bright);margin-bottom:16px;" id="addStepBtn" onclick="addShootStep()">+ Add image</button>
+
+        <div class="section-divider"></div>
+        <button class="submit-btn" id="uploadShootBtn" onclick="uploadShoot()">Publish shoot</button>
+        <div class="progress-wrap" id="shootProgressWrap"><div class="progress-bar" id="shootProgressBar"></div></div>
+        <div class="status" id="shootStatus"></div>
+      </div>
+
+      <div class="list-card">
+        <div class="list-header">
+          <div class="card-title" style="margin-bottom:0;">> Published shoots</div>
+          <div class="items-count" id="shootsCount">Loading...</div>
+        </div>
+        <div id="shootList"><div class="empty-list">Loading...</div></div>
       </div>
     </div>
   </div>
@@ -276,12 +320,136 @@ function logout() {
 }
 
 function switchTab(tab) {
-  ['images','models'].forEach(function(t) {
+  ['images','shoots','models'].forEach(function(t) {
     document.getElementById('tab-' + t).classList.toggle('active', t === tab);
     document.getElementById('panel-' + t).classList.toggle('active', t === tab);
   });
   if (tab === 'images') loadImages();
+  else if (tab === 'shoots') loadShoots();
   else loadModels();
+}
+
+// SHOOT STEPS
+var shootStepCount = 0;
+function addShootStep() {
+  if (shootStepCount >= 5) return;
+  shootStepCount++;
+  var idx = shootStepCount;
+  var div = document.createElement('div');
+  div.id = 'step-' + idx;
+  div.style.cssText = 'background:var(--bg3);border:1px solid var(--border);padding:20px;margin-bottom:12px;';
+  div.innerHTML = '<div style="font-size:10px;letter-spacing:3px;color:var(--green);margin-bottom:14px;">' + (idx===1?'> STARTING IMAGE':'> STEP '+idx) + '</div>'
+    + (idx > 1 ? '<div class="form-group"><label class="form-label">Reference note</label><input class="form-input" type="text" id="step-note-'+idx+'" placeholder="e.g. Used image '+(idx-1)+' as reference, then added warm sunset tones"></div>' : '')
+    + '<div class="form-group"><label class="form-label">'+(idx===1?'Starting prompt':'New prompt added')+'</label><textarea class="form-input" id="step-prompt-'+idx+'" rows="3" placeholder="Full prompt for this step..."></textarea></div>'
+    + '<div class="image-picker" id="step-picker-'+idx+'" style="margin-bottom:0;"><input type="file" accept="image/*" id="step-file-'+idx+'" onchange="previewStepFile('+idx+')"><div class="picker-icon">+</div><div class="picker-text">Tap to choose image '+idx+'</div></div>'
+    + '<img id="step-preview-'+idx+'" class="preview-img" alt="">';
+  document.getElementById('shootSteps').appendChild(div);
+  if (shootStepCount >= 5) document.getElementById('addStepBtn').style.display = 'none';
+}
+
+function previewStepFile(idx) {
+  var file = document.getElementById('step-file-'+idx).files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    var preview = document.getElementById('step-preview-'+idx);
+    preview.src = ev.target.result; preview.style.display = 'block';
+    document.getElementById('step-picker-'+idx).style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+async function uploadShoot() {
+  var title = document.getElementById('shootTitle').value.trim();
+  var aiModel = document.getElementById('shootAI').value;
+  var btn = document.getElementById('uploadShootBtn');
+  if (!title) return showStatus('shootStatus','error','> Please enter a shoot title.');
+  if (!aiModel) return showStatus('shootStatus','error','> Please select an AI model.');
+  if (shootStepCount === 0) return showStatus('shootStatus','error','> Please add at least one image.');
+  btn.disabled = true; btn.textContent = 'Uploading...';
+  showStatus('shootStatus','loading','> Uploading shoot...');
+  showProgress('shoot', true);
+  try {
+    var coverUrl = null;
+    var stepData = [];
+    for (var i = 1; i <= shootStepCount; i++) {
+      setProgress('shoot', Math.round((i/shootStepCount)*60));
+      var file = document.getElementById('step-file-'+i) ? document.getElementById('step-file-'+i).files[0] : null;
+      var prompt = document.getElementById('step-prompt-'+i) ? document.getElementById('step-prompt-'+i).value.trim() : '';
+      var note = i > 1 && document.getElementById('step-note-'+i) ? document.getElementById('step-note-'+i).value.trim() : '';
+      if (!file) continue;
+      var ext = file.name.split('.').pop();
+      var fileName = 'shoot-'+Date.now()+'-'+i+'-'+Math.random().toString(36).slice(2)+'.'+ext;
+      var storageRes = await fetch(SUPABASE_URL+'/storage/v1/object/images/'+fileName, {
+        method: 'POST',
+        headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer '+SUPABASE_KEY, 'Content-Type': file.type, 'Cache-Control': '3600' },
+        body: file
+      });
+      if (!storageRes.ok) throw new Error('Image '+i+' upload failed');
+      var url = SUPABASE_URL+'/storage/v1/object/public/images/'+fileName;
+      if (i === 1) coverUrl = url;
+      stepData.push({ image_url: url, prompt: prompt, reference_note: note, position: i-1 });
+    }
+    setProgress('shoot', 70);
+    var shootRes = await fetch(SUPABASE_URL+'/rest/v1/shoots', {
+      method: 'POST',
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer '+SUPABASE_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=representation' },
+      body: JSON.stringify({ title: title, ai_model: aiModel, cover_url: coverUrl })
+    });
+    if (!shootRes.ok) throw new Error('Shoot creation failed');
+    var shoots = await shootRes.json();
+    var shootId = shoots[0].id;
+    setProgress('shoot', 85);
+    for (var j = 0; j < stepData.length; j++) {
+      stepData[j].shoot_id = shootId;
+      await fetch(SUPABASE_URL+'/rest/v1/shoot_images', {
+        method: 'POST',
+        headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer '+SUPABASE_KEY, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' },
+        body: JSON.stringify(stepData[j])
+      });
+    }
+    setProgress('shoot', 100);
+    showStatus('shootStatus','success','> Shoot published!');
+    resetShootForm(); loadShoots();
+  } catch(err) {
+    showStatus('shootStatus','error','> Error: '+err.message);
+  } finally {
+    btn.disabled = false; btn.textContent = 'Publish shoot';
+    setTimeout(function(){ showProgress('shoot',false); }, 1000);
+  }
+}
+
+async function loadShoots() {
+  var res = await fetch(SUPABASE_URL+'/rest/v1/shoots?select=*&order=created_at.desc', {
+    headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer '+SUPABASE_KEY }
+  });
+  var shoots = await res.json();
+  if (!Array.isArray(shoots)) shoots = [];
+  document.getElementById('shootsCount').textContent = shoots.length + ' published';
+  var list = document.getElementById('shootList');
+  if (!shoots.length) { list.innerHTML = '<div class="empty-list">No shoots yet.</div>'; return; }
+  list.innerHTML = shoots.map(function(s) {
+    return '<div class="item-row">'
+      + (s.cover_url ? '<img class="item-thumb" src="'+s.cover_url+'" alt="">' : '<div class="item-thumb" style="background:var(--bg3);"></div>')
+      + '<div class="item-info"><div class="item-model">'+(s.ai_model||'')+'</div><div class="item-name">'+s.title+'</div><div class="item-meta">'+new Date(s.created_at).toLocaleDateString('en-GB')+'</div></div>'
+      + '<button class="item-delete" onclick="deleteShoot(\''+s.id+'\')">Delete</button>'
+      + '</div>';
+  }).join('');
+}
+
+async function deleteShoot(id) {
+  if (!confirm('Delete this shoot and all its images?')) return;
+  await fetch(SUPABASE_URL+'/rest/v1/shoot_images?shoot_id=eq.'+id, { method: 'DELETE', headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer '+SUPABASE_KEY } });
+  await fetch(SUPABASE_URL+'/rest/v1/shoots?id=eq.'+id, { method: 'DELETE', headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer '+SUPABASE_KEY } });
+  loadShoots();
+}
+
+function resetShootForm() {
+  document.getElementById('shootTitle').value = '';
+  document.getElementById('shootAI').value = '';
+  document.getElementById('shootSteps').innerHTML = '';
+  document.getElementById('addStepBtn').style.display = 'block';
+  shootStepCount = 0;
 }
 
 function previewFile(inputId, previewId, pickerId) {
