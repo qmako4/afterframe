@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)file:///C:/Users/qmako/Downloads/browse.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Browse — AFTERFRAME</title>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="./browse_files/css2" rel="stylesheet">
+<script src="./browse_files/supabase.js.download"></script>
+<style>
+:root {
+  --green: #4dff4d;
+  --bg: #050805;
+  --bg2: #09100a;
+  --bg3: #0d160d;
+  --border: #1e321e;
+  --border-bright: #304830;
+  --text: #b8d8b8;
+  --text-bright: #e2f2e2;
+  --text-dim: #6a8a6a;
+  --text-mid: #94b894;
+  --font-mono: 'Share Tech Mono', monospace;
+  --font-display: 'Syne', sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-mono); overflow-x: hidden; cursor: crosshair; line-height: 1.6; }
+body::before { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 4px); pointer-events: none; z-index: 9999; }
+.cursor { width: 12px; height: 12px; border: 1px solid var(--green); position: fixed; pointer-events: none; z-index: 99999; transform: translate(-50%,-50%); }
+.cursor-dot { width: 3px; height: 3px; background: var(--green); position: fixed; pointer-events: none; z-index: 99999; transform: translate(-50%,-50%); border-radius: 50%; }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 64px; border-bottom: 1px solid var(--border); background: rgba(5,8,5,0.95); backdrop-filter: blur(20px); }
+.nav-logo { font-family: var(--font-display); font-size: 17px; font-weight: 800; letter-spacing: 6px; color: var(--green); text-decoration: none; }
+.nav-links { display: flex; align-items: center; gap: 32px; }
+.nav-links a { font-size: 12px; letter-spacing: 2px; color: var(--text-mid); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--text-bright); }
+.nav-cta { display: flex; gap: 10px; align-items: center; }
+.nav-user-email { font-size: 11px; letter-spacing: 1px; color: var(--text-dim); }
+.btn-ghost { font-family: var(--font-mono); font-size: 12px; letter-spacing: 2px; color: var(--text-bright); background: transparent; border: 1px solid var(--border-bright); padding: 9px 20px; cursor: crosshair; text-transform: uppercase; transition: all 0.2s; }
+.btn-ghost:hover { border-color: var(--green); color: var(--green); }
+.btn-solid { font-family: var(--font-mono); font-size: 12px; letter-spacing: 2px; color: #050805; background: var(--green); border: 1px solid var(--green); padding: 9px 20px; cursor: crosshair; text-transform: uppercase; font-weight: 700; transition: all 0.2s; }
+.btn-solid:hover { background: #3de63d; }
+.btn-text { font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px; color: var(--text-dim); background: none; border: none; cursor: crosshair; text-transform: uppercase; padding: 9px 12px; }
+.btn-text:hover { color: var(--text-bright); }
+
+/* LOGIN GATE */
+#loginGate { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+.gate-box { max-width: 440px; width: 100%; text-align: center; padding: 64px 48px; border: 1px solid var(--border-bright); background: var(--bg2); }
+.gate-tag { font-size: 11px; letter-spacing: 4px; color: var(--text-dim); margin-bottom: 20px; }
+.gate-box h2 { font-family: var(--font-display); font-size: 28px; font-weight: 800; letter-spacing: 4px; color: var(--text-bright); margin-bottom: 14px; }
+.gate-box p { font-size: 14px; color: var(--text-mid); line-height: 1.8; margin-bottom: 32px; }
+.gate-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+/* PAGE HEADER */
+#browseContent { display: none; padding-top: 64px; }
+.page-header { padding: 48px 40px 32px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+.page-header-left { }
+.page-tag { font-size: 11px; letter-spacing: 4px; color: var(--text-dim); margin-bottom: 10px; }
+.page-header h1 { font-family: var(--font-display); font-size: 42px; font-weight: 800; letter-spacing: 6px; color: var(--text-bright); }
+.image-count { font-size: 12px; letter-spacing: 2px; color: var(--text-dim); margin-top: 6px; }
+.pro-badge { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: 2px; color: var(--bg); background: var(--green); padding: 6px 14px; font-weight: 700; }
+
+/* FILTERS */
+.filter-bar { padding: 20px 40px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; background: var(--bg2); }
+.filter-label { font-size: 10px; letter-spacing: 3px; color: var(--text-dim); text-transform: uppercase; margin-right: 8px; }
+.f-btn { font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px; color: var(--text-dim); border: 1px solid transparent; padding: 7px 18px; cursor: crosshair; text-transform: uppercase; transition: all 0.2s; background: transparent; }
+.f-btn:hover, .f-btn.active { color: var(--text-bright); border-color: var(--border-bright); background: #ffffff06; }
+.f-btn.active { color: var(--green); border-color: #4dff4d50; }
+.filter-divider { width: 1px; height: 24px; background: var(--border); margin: 0 4px; }
+
+/* MASONRY GRID */
+.grid-container { padding: 3px; columns: 4; column-gap: 3px; }
+.grid-item { break-inside: avoid; margin-bottom: 3px; position: relative; overflow: hidden; cursor: crosshair; background: var(--bg2); }
+.grid-item img { width: 100%; display: block; transition: transform 0.5s ease; }
+.grid-item:hover img { transform: scale(1.04); }
+.grid-item:hover .item-overlay { opacity: 1; }
+
+/* IMAGE BLURRED STATE */
+.img-blur-wrap { position: relative; overflow: hidden; }
+.img-blur-wrap img { width: 100%; display: block; }
+.img-blur-overlay { position: absolute; inset: 0; backdrop-filter: blur(12px); background: rgba(5,8,5,0.4); display: flex; align-items: center; justify-content: center; }
+.img-blur-msg { text-align: center; }
+.img-blur-msg p { font-size: 12px; letter-spacing: 2px; color: var(--text-bright); margin-bottom: 10px; }
+
+/* OVERLAY */
+.item-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(4,7,4,0.99) 0%, rgba(4,7,4,0.65) 45%, transparent 100%); opacity: 0; transition: opacity 0.35s; display: flex; flex-direction: column; justify-content: flex-end; padding: 20px; }
+.item-model-tag { font-size: 9px; letter-spacing: 3px; color: var(--green); border: 1px solid #4dff4d50; padding: 4px 10px; display: inline-block; margin-bottom: 10px; width: fit-content; }
+.item-prompt-text { font-size: 13px; color: var(--text-bright); line-height: 1.6; }
+
+/* PARTIAL BLUR — only some words blurred */
+.word-blur { filter: blur(5px); user-select: none; display: inline; }
+
+/* BADGES */
+.badge-free { position: absolute; top: 12px; left: 12px; font-size: 9px; letter-spacing: 2px; color: var(--green); background: rgba(77,255,77,0.12); border: 1px solid #4dff4d50; padding: 4px 10px; z-index: 2; }
+.badge-locked { position: absolute; top: 12px; right: 12px; background: rgba(5,8,5,0.92); border: 1px solid var(--border-bright); padding: 6px 12px; font-size: 10px; letter-spacing: 2px; color: var(--text-mid); z-index: 2; cursor: crosshair; transition: all 0.2s; }
+.badge-locked:hover { color: var(--green); border-color: var(--green); }
+
+/* PROMPT MODAL */
+.modal-overlay { position: fixed; inset: 0; background: rgba(3,6,3,0.95); z-index: 10000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.25s; padding: 20px; }
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal { border: 1px solid var(--border-bright); background: var(--bg2); padding: 48px 44px; max-width: 480px; width: 100%; position: relative; }
+.modal-close { position: absolute; top: 16px; right: 16px; font-size: 12px; letter-spacing: 2px; color: var(--text-dim); cursor: crosshair; background: none; border: none; font-family: var(--font-mono); }
+.modal-close:hover { color: var(--text-bright); }
+.modal-tag { font-size: 10px; letter-spacing: 4px; color: var(--text-dim); margin-bottom: 12px; }
+.modal h3 { font-family: var(--font-display); font-size: 22px; font-weight: 800; letter-spacing: 3px; color: var(--text-bright); margin-bottom: 10px; }
+.modal-desc { font-size: 14px; color: var(--text-mid); line-height: 1.8; margin-bottom: 24px; }
+.form-submit { width: 100%; font-family: var(--font-mono); font-size: 13px; letter-spacing: 3px; color: #050805; background: var(--green); border: 1px solid var(--green); padding: 15px; cursor: crosshair; font-weight: 700; text-transform: uppercase; transition: background 0.2s; }
+.form-submit:hover { background: #3de63d; }
+.modal-switch { font-size: 13px; color: var(--text-dim); text-align: center; margin-top: 16px; }
+.modal-switch span { color: var(--green); cursor: crosshair; }
+
+/* AUTH MODAL */
+.modal-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 28px; }
+.modal-tab { flex: 1; font-family: var(--font-mono); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; padding: 11px; background: none; border: none; color: var(--text-dim); cursor: crosshair; border-bottom: 2px solid transparent; transition: all 0.2s; margin-bottom: -1px; }
+.modal-tab.active { color: var(--green); border-bottom-color: var(--green); }
+.form-group { margin-bottom: 18px; }
+.form-label { font-size: 11px; letter-spacing: 3px; color: var(--text-dim); text-transform: uppercase; display: block; margin-bottom: 8px; }
+.form-input { width: 100%; background: var(--bg); border: 1px solid var(--border-bright); color: var(--text-bright); font-family: var(--font-mono); font-size: 14px; padding: 13px 15px; outline: none; transition: border-color 0.2s; }
+.form-input:focus { border-color: var(--green); }
+.form-input::placeholder { color: var(--text-dim); }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.form-error { font-size: 12px; color: #ff6060; margin-top: 10px; display: none; padding: 10px; background: #ff606010; border: 1px solid #ff606030; }
+.form-success { font-size: 12px; color: var(--green); margin-top: 10px; display: none; padding: 10px; background: #4dff4d10; border: 1px solid #4dff4d30; }
+.upgrade-note { background: var(--bg3); border: 1px solid var(--border); padding: 14px 16px; margin-top: 20px; font-size: 13px; color: var(--text-mid); line-height: 1.8; }
+.upgrade-note span { color: var(--green); cursor: crosshair; }
+
+/* EMPTY */
+.empty-state { column-span: all; padding: 80px; text-align: center; font-size: 13px; letter-spacing: 2px; color: var(--text-dim); }
+
+/* RESPONSIVE */
+@media (max-width: 960px) { .grid-container { columns: 2; } nav { padding: 0 20px; } .nav-links { display: none; } .page-header { padding: 32px 20px 24px; } .filter-bar { padding: 16px 20px; } }
+@media (max-width: 600px) { .grid-container { columns: 2; } .page-header h1 { font-size: 28px; } .modal { padding: 36px 24px; } }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor" style="left: 1034px; top: 1px;"></div>
+<div class="cursor-dot" id="cursorDot" style="left: 1034px; top: 1px;"></div>
+
+<nav>
+  <a href="file:///C:/" class="nav-logo">AFTERFRAME</a>
+  <div class="nav-links">
+    <a href="file:///C:/">Home</a>
+    <a href="file:///C:/browse.html" class="active">Browse</a>
+    <a href="file:///C:/#models">Models</a>
+    <a href="file:///C:/#plans">Pricing</a>
+  </div>
+  <div class="nav-cta" id="navGuest" style="display: none;">
+    <button class="btn-ghost" onclick="openAuth(&#39;login&#39;)">Log in</button>
+    <button class="btn-solid" onclick="openAuth(&#39;signup&#39;)">Sign up free</button>
+  </div>
+  <div class="nav-cta" id="navLoggedIn" style="display: flex;">
+    <span class="nav-user-email" id="navEmail">qmako41212@gmail.com</span>
+    <button class="btn-text" onclick="doSignOut()">Sign out</button>
+  </div>
+</nav>
+
+<!-- LOGIN GATE -->
+<div id="loginGate" style="display: none;">
+  <div class="gate-box">
+    <div class="gate-tag">&gt; MEMBERS ONLY</div>
+    <h2>Sign in to browse</h2>
+    <p>Create a free account to access the full image library. Upgrade to Pro to unlock every prompt and model setting.</p>
+    <div class="gate-actions">
+      <button class="btn-solid" onclick="openAuth(&#39;signup&#39;)">Sign up free</button>
+      <button class="btn-ghost" onclick="openAuth(&#39;login&#39;)">Log in</button>
+    </div>
+  </div>
+</div>
+
+<!-- BROWSE CONTENT -->
+<div id="browseContent" style="display: block;">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="page-tag">&gt; FULL IMAGE LIBRARY</div>
+      <h1>Browse</h1>
+      <div class="image-count" id="imageCount">3 images</div>
+    </div>
+    <div id="proBadge" style="display:none;">
+      <div class="pro-badge">PRO MEMBER</div>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <span class="filter-label">Filter</span>
+    <button class="f-btn active" onclick="setFilter(this,&#39;all&#39;)">All</button>
+    <div class="filter-divider"></div>
+    <button class="f-btn" onclick="setFilter(this,&#39;Midjourney&#39;)">Midjourney</button>
+    <button class="f-btn" onclick="setFilter(this,&#39;Flux&#39;)">Flux</button>
+    <button class="f-btn" onclick="setFilter(this,&#39;Nano Banana&#39;)">Nano Banana</button>
+    <button class="f-btn" onclick="setFilter(this,&#39;DALL-E&#39;)">DALL-E</button>
+    <div class="filter-divider"></div>
+    <button class="f-btn" onclick="setFilter(this,&#39;free&#39;)">Free only</button>
+  </div>
+
+  <div class="grid-container" id="imageGrid"><div class="grid-item"><div class="badge-free">FREE</div><img src="./browse_files/1775497151863-u31qopd902.png" alt="" style="width:100%;display:block;"><div class="item-overlay"><div class="item-model-tag">Midjourney v6</div><div class="item-prompt-text">a small faceless woman in a white dress walking away into a surreal landscape of giant rounded topiary hedges in every direction, perfectly manicured vivid green bushes of all sizes, lush green grass floor, figure tiny in the distance, dreamlike and eerie, shot from slightly elevated angle, soft overcast light, no harsh shadows, hyper detailed texture on hedges, immersive and vast
+--chaos 20 
+--ar 2:3 
+--raw 
+--v 6.1 
+added vivid in lightroom</div></div></div><div class="grid-item"><div class="badge-free">FREE</div><img src="./browse_files/1775495387651-55r8r9lplv.png" alt="" style="width:100%;display:block;"><div class="item-overlay"><div class="item-model-tag">Midjourney v6</div><div class="item-prompt-text">five faceless figures standing in a row in the foreground wearing bright cobalt blue robes and wide brim straw hats, long white beards, completely dark featureless faces with no eyes or nose, giant perfectly symmetrical cone shaped mountain filling the background behind them, soft mist at the base of the mountain, hazy blue purple sky above, figures cropped at waist, flat even focus throughout, no depth of field, everything in sharp focus, 1970s documentary photography style, slight film grain, kodachrome colours, eerie surreal atmosphere</div></div></div><div class="grid-item" onclick="openUnlock()"><div class="badge-locked">Unlock</div><div class="img-blur-wrap"><img src="./browse_files/1775484923520-1l7m8w2nhp3.jpeg" alt=""><div class="img-blur-overlay"><div class="img-blur-msg"><p>Image locked</p></div></div></div><div class="item-overlay"><div class="item-model-tag">Midjourney v6</div><div class="item-prompt-text">A confident <span class="word-blur">elderly</span> woman <span class="word-blur">in</span> a <span class="word-blur">pastel</span> pink <span class="word-blur">suit,</span> sitting <span class="word-blur">atop</span> a <span class="word-blur">giant</span> surreal <span class="word-blur">creature</span> resembling <span class="word-blur">a</span> moss-covered <span class="word-blur">alligator</span> with <span class="word-blur">soft</span> green <span class="word-blur">and</span> pink <span class="word-blur">hues.</span> The <span class="word-blur">scene</span> is <span class="word-blur">minimalist,</span> neutral <span class="word-blur">studio</span> background, <span class="word-blur">ultra-realistic,</span> 8K <span class="word-blur">resolution,</span> surrealism <span class="word-blur">style.</span></div></div></div></div>
+</div>
+
+<!-- UNLOCK MODAL -->
+<div class="modal-overlay" id="unlockModal" onclick="closeModalOutside(event,&#39;unlockModal&#39;)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal(&#39;unlockModal&#39;)">[ close ]</button>
+    <div class="modal-tag">&gt; PRO ACCESS</div>
+    <h3>Unlock this prompt</h3>
+    <p class="modal-desc">Upgrade to Pro to reveal every prompt, AI model, and setting. New images every Monday.</p>
+    <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:24px;">
+      <span style="font-family:var(--font-display);font-size:48px;font-weight:800;color:var(--green);">£7</span>
+      <span style="font-size:14px;color:var(--text-dim);letter-spacing:2px;">/month</span>
+    </div>
+    <button class="form-submit" onclick="goToStripe()">Unlock for £7 / month</button>
+    <div style="font-size:11px;color:var(--text-dim);text-align:center;margin-top:12px;">Cancel anytime</div>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="authModal" onclick="closeModalOutside(event,&#39;authModal&#39;)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal(&#39;authModal&#39;)">[ close ]</button>
+    <div class="modal-tag">&gt; AFTERFRAME</div>
+    <h3>Join for free</h3>
+    <p class="modal-desc">Create your free account to access the browse library.</p>
+    <div class="modal-tabs">
+      <button class="modal-tab active" id="tab-signup" onclick="switchTab(&#39;signup&#39;)">Sign up</button>
+      <button class="modal-tab" id="tab-login" onclick="switchTab(&#39;login&#39;)">Log in</button>
+    </div>
+    <div class="tab-content active" id="content-signup">
+      <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" id="signupEmail" placeholder="you@example.com"></div>
+      <div class="form-group"><label class="form-label">Password</label><input class="form-input" type="password" id="signupPassword" placeholder="At least 6 characters"></div>
+      <button class="form-submit" id="signupBtn" onclick="doSignUp()">Create free account</button>
+      <div class="form-error" id="signupError"></div>
+      <div class="form-success" id="signupSuccess"></div>
+      <div class="upgrade-note">Want full access? <span onclick="closeModal(&#39;authModal&#39;);goToStripe()">Upgrade to Pro for £7/month</span></div>
+    </div>
+    <div class="tab-content" id="content-login">
+      <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" id="loginEmail" placeholder="you@example.com"></div>
+      <div class="form-group"><label class="form-label">Password</label><input class="form-input" type="password" id="loginPassword" placeholder="Your password"></div>
+      <button class="form-submit" id="loginBtn" onclick="doLogIn()">Log in</button>
+      <div class="form-error" id="loginError"></div>
+      <div class="modal-switch" style="margin-top:16px;">No account? <span onclick="switchTab(&#39;signup&#39;)">Sign up free</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const SUPABASE_URL = 'https://jbsyzrzoiawruusdowpx.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_5yHqsw-CdIykq2jiCDwTpw_otaDsUlF';
+let sb, currentUser, userProfile, allImages = [], currentFilter = 'all';
+
+window.onload = function() {
+  sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  initCursor();
+
+  sb.auth.getSession().then(function(res) {
+    var session = res.data.session;
+    if (session) {
+      currentUser = session.user;
+      loadProfile().then(function() { showBrowse(); loadImages(); });
+    } else {
+      showGate();
+    }
+  });
+
+  sb.auth.onAuthStateChange(function(_e, session) {
+    if (session) {
+      currentUser = session.user;
+      loadProfile().then(function() { showBrowse(); loadImages(); });
+    } else {
+      currentUser = null; userProfile = null; showGate();
+    }
+  });
+};
+
+async function loadProfile() {
+  var res = await sb.from('profiles').select('*').eq('id', currentUser.id).single();
+  userProfile = res.data;
+}
+
+function showGate() {
+  document.getElementById('loginGate').style.display = 'flex';
+  document.getElementById('browseContent').style.display = 'none';
+  document.getElementById('navGuest').style.display = 'flex';
+  document.getElementById('navLoggedIn').style.display = 'none';
+}
+
+function showBrowse() {
+  document.getElementById('loginGate').style.display = 'none';
+  document.getElementById('browseContent').style.display = 'block';
+  document.getElementById('navGuest').style.display = 'none';
+  document.getElementById('navLoggedIn').style.display = 'flex';
+  var e = currentUser.email;
+  document.getElementById('navEmail').textContent = e.length > 22 ? e.slice(0,20)+'...' : e;
+  if (userProfile && userProfile.is_pro) {
+    document.getElementById('proBadge').style.display = 'block';
+  }
+}
+
+async function loadImages() {
+  var res = await fetch(SUPABASE_URL + '/rest/v1/images?select=*&order=created_at.desc', {
+    headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
+  });
+  allImages = await res.json();
+  if (!Array.isArray(allImages)) allImages = [];
+  renderGrid(currentFilter);
+}
+
+function renderGrid(filter) {
+  var isPro = userProfile && userProfile.is_pro;
+  var filtered = allImages;
+  if (filter === 'free') { filtered = allImages.filter(function(i){ return i.is_free; }); }
+  else if (filter !== 'all') { filtered = allImages.filter(function(i){ return i.ai_model.toLowerCase().includes(filter.toLowerCase()); }); }
+
+  document.getElementById('imageCount').textContent = filtered.length + ' image' + (filtered.length !== 1 ? 's' : '');
+
+  if (!filtered.length) {
+    document.getElementById('imageGrid').innerHTML = '<div class="empty-state">No images found.</div>';
+    return;
+  }
+
+  document.getElementById('imageGrid').innerHTML = filtered.map(function(img, idx) {
+    var canView = isPro || img.is_free;
+
+    // For locked images alternate between: blur image, blur prompt words
+    var blurImage = !canView && idx % 2 === 0;
+    var blurPromptWords = !canView;
+
+    // Partially blur prompt — blur only some words
+    var promptHtml = img.prompt;
+    if (blurPromptWords && !canView) {
+      var words = img.prompt.split(' ');
+      promptHtml = words.map(function(word, wi) {
+        // blur every other word roughly — skip first 2 words so start is readable
+        return (wi > 1 && wi % 2 === 0)
+          ? '<span class="word-blur">' + word + '</span>'
+          : word;
+      }).join(' ');
+    }
+
+    var safeUrl = img.image_url;
+    var imgHtml = blurImage
+      ? '<div class="img-blur-wrap"><img src="' + safeUrl + '" alt=""><div class="img-blur-overlay"><div class="img-blur-msg"><p>Image locked</p></div></div></div>'
+      : '<img src="' + safeUrl + '" alt="" style="width:100%;display:block;">';
+
+    return '<div class="grid-item" ' + (!canView ? 'onclick="openUnlock()"' : '') + '>'
+      + (img.is_free ? '<div class="badge-free">FREE</div>' : (!canView ? '<div class="badge-locked">Unlock</div>' : ''))
+      + imgHtml
+      + '<div class="item-overlay">'
+      + '<div class="item-model-tag">' + img.ai_model + '</div>'
+      + '<div class="item-prompt-text">' + promptHtml + '</div>'
+      + '</div></div>';
+  }).join('');
+}
+
+function setFilter(el, filter) {
+  document.querySelectorAll('.f-btn').forEach(function(b){ b.classList.remove('active'); });
+  el.classList.add('active');
+  currentFilter = filter;
+  renderGrid(filter);
+}
+
+function openUnlock() { document.getElementById('unlockModal').classList.add('open'); }
+function goToStripe() {
+  var email = currentUser ? currentUser.email : '';
+  var base = 'https://buy.stripe.com/6oU28t4GH66g5P976SgA800';
+  window.open(email ? base + '?prefilled_email=' + encodeURIComponent(email) : base, '_blank');
+}
+
+async function doSignUp() {
+  var email = document.getElementById('signupEmail').value.trim();
+  var password = document.getElementById('signupPassword').value;
+  var btn = document.getElementById('signupBtn');
+  document.getElementById('signupError').style.display = 'none';
+  document.getElementById('signupSuccess').style.display = 'none';
+  if (!email || !password) return showMsg('signupError', 'Please fill in both fields.');
+  if (password.length < 6) return showMsg('signupError', 'Password must be at least 6 characters.');
+  btn.disabled = true; btn.textContent = 'Creating account...';
+  var res = await sb.auth.signUp({ email: email, password: password });
+  btn.disabled = false; btn.textContent = 'Create free account';
+  if (res.error) { showMsg('signupError', res.error.message); }
+  else { showMsg('signupSuccess', 'Account created! You are now logged in.'); setTimeout(function(){ closeModal('authModal'); }, 2000); }
+}
+
+async function doLogIn() {
+  var email = document.getElementById('loginEmail').value.trim();
+  var password = document.getElementById('loginPassword').value;
+  var btn = document.getElementById('loginBtn');
+  document.getElementById('loginError').style.display = 'none';
+  if (!email || !password) return showMsg('loginError', 'Please fill in both fields.');
+  btn.disabled = true; btn.textContent = 'Logging in...';
+  var res = await sb.auth.signInWithPassword({ email: email, password: password });
+  btn.disabled = false; btn.textContent = 'Log in';
+  if (res.error) { showMsg('loginError', res.error.message); }
+  else { closeModal('authModal'); }
+}
+
+async function doSignOut() { await sb.auth.signOut(); }
+
+function showMsg(id, msg) { var el = document.getElementById(id); el.textContent = msg; el.style.display = 'block'; }
+function openAuth(tab) { document.getElementById('authModal').classList.add('open'); switchTab(tab); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function closeModalOutside(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') ['authModal','unlockModal'].forEach(closeModal); });
+function switchTab(tab) {
+  ['signup','login'].forEach(function(t) {
+    document.getElementById('tab-' + t).classList.toggle('active', t === tab);
+    document.getElementById('content-' + t).classList.toggle('active', t === tab);
+  });
+}
+
+function initCursor() {
+  var cursor = document.getElementById('cursor');
+  var dot = document.getElementById('cursorDot');
+  document.addEventListener('mousemove', function(e) {
+    cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px';
+    dot.style.left = e.clientX + 'px'; dot.style.top = e.clientY + 'px';
+  });
+}
+</script>
+
+
+</body></html>
