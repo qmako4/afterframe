@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
+<!-- saved from url=(0046)file:///C:/Users/qmako/Downloads/index_17.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AFTERFRAME — Curated AI Imagery</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="./index_files/css2" rel="stylesheet">
+<script src="./index_files/supabase.js.download"></script>
 <style>
 :root {
   --green: #4dff4d;
@@ -178,36 +178,33 @@ footer { border-top: 1px solid var(--border); padding: 32px 40px; display: flex;
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor" id="cursor" style="left: 1167px; top: 2px;"></div>
+<div class="cursor-dot" id="cursorDot" style="left: 1167px; top: 2px;"></div>
 
 <nav>
   <div class="nav-logo">AFTERFRAME</div>
   <div class="nav-links">
-    <a href="#gallery">Latest drop</a>
-    <a href="/afterframe/browse.html">Browse</a>
-    <a href="#models">Models</a>
-    <a href="#plans">Pricing</a>
+    <a href="file:///C:/Users/qmako/Downloads/index_17.html#gallery">Latest drop</a>
+    <a href="file:///C:/afterframe/browse.html">Browse</a>
+    <a href="file:///C:/Users/qmako/Downloads/index_17.html#models">Models</a>
+    <a href="file:///C:/Users/qmako/Downloads/index_17.html#plans">Pricing</a>
   </div>
-  <div class="nav-cta" id="navGuest">
-    <button class="btn-ghost" onclick="openAuth('login')">Log in</button>
-    <button class="btn-solid" onclick="openAuth('signup')">Sign up free</button>
+  <div class="nav-cta" id="navGuest" style="display: none;">
+    <button class="btn-ghost" onclick="openAuth(&#39;login&#39;)">Log in</button>
+    <button class="btn-solid" onclick="openAuth(&#39;signup&#39;)">Sign up free</button>
   </div>
-  <div class="nav-cta" id="navLoggedIn" style="display:none;">
-    <span class="nav-user-email" id="navEmail"></span>
+  <div class="nav-cta" id="navLoggedIn" style="display: flex;">
+    <span class="nav-user-email" id="navEmail">qmako41212@gmail.com</span>
     <button class="btn-text" onclick="doSignOut()">Sign out</button>
   </div>
 </nav>
 
 <section class="hero">
-  <canvas id="matrixCanvas"></canvas>
-  <div class="hero-tag">> CURATED AI IMAGE PROMPTS // NEW DROP EVERY MONDAY</div>
+  <canvas id="matrixCanvas" width="800" height="723"></canvas>
+  <div class="hero-tag">&gt; CURATED AI IMAGE PROMPTS // NEW DROP EVERY MONDAY</div>
   <h1>AFTER<br>FRAME</h1>
   <p class="hero-sub">The finest AI-generated images with the exact prompts and model settings behind them. Browse free. Unlock everything for £7/month.</p>
-  <div class="hero-actions" id="heroActions">
-    <button class="btn-solid" onclick="openAuth('signup')">Create free account</button>
-    <button class="btn-ghost" onclick="document.getElementById('plans').scrollIntoView({behavior:'smooth'})">See pricing</button>
-  </div>
+  <div class="hero-actions" id="heroActions"><button class="btn-solid" onclick="openSubscribe()">Upgrade to Pro — £7/mo</button><button class="btn-ghost" onclick="document.getElementById(&#39;gallery&#39;).scrollIntoView({behavior:&#39;smooth&#39;})">Browse images</button></div>
   <div class="hero-stats">
     <div class="stat"><div class="stat-num">340+</div><div class="stat-label">Curated images</div></div>
     <div class="stat"><div class="stat-num">6</div><div class="stat-label">AI models</div></div>
@@ -217,7 +214,7 @@ footer { border-top: 1px solid var(--border); padding: 32px 40px; display: flex;
 </section>
 
 <div class="drop-banner">
-  <div class="drop-live">> LIVE</div>
+  <div class="drop-live">&gt; LIVE</div>
   <div class="drop-ticker-wrap">
     <div class="drop-ticker">WEEK 12 DROP NOW LIVE &nbsp;&nbsp;&nbsp; 28 NEW IMAGES &nbsp;&nbsp;&nbsp; MIDJOURNEY v6 // FLUX 1.1 PRO // NANO BANANA PRO // DALL-E 3 &nbsp;&nbsp;&nbsp; SCROLL TO EXPLORE &nbsp;&nbsp;&nbsp; WEEK 12 DROP NOW LIVE &nbsp;&nbsp;&nbsp; 28 NEW IMAGES &nbsp;&nbsp;&nbsp; MIDJOURNEY v6 // FLUX 1.1 PRO // NANO BANANA PRO // DALL-E 3 &nbsp;&nbsp;&nbsp; SCROLL TO EXPLORE &nbsp;&nbsp;&nbsp;</div>
   </div>
@@ -237,13 +234,21 @@ footer { border-top: 1px solid var(--border); padding: 32px 40px; display: flex;
   </div>
 </div>
 
-<div class="grid-wrap" id="imageGrid">
-  <div style="column-span:all;padding:80px;text-align:center;font-size:13px;letter-spacing:2px;color:var(--text-dim);">Loading images...</div>
-</div>
+<div class="grid-wrap" id="imageGrid"><div class="grid-item" onclick="" data-url="https://jbsyzrzoiawruusdowpx.supabase.co/storage/v1/object/public/images/1775497151863-u31qopd902.png" data-model="Midjourney v6" data-prompt="a small faceless woman in a white dress walking away into a surreal landscape of giant rounded topiary hedges in every direction, perfectly manicured vivid green bushes of all sizes, lush green grass floor, figure tiny in the distance, dreamlike and eerie, shot from slightly elevated angle, soft overcast light, no harsh shadows, hyper detailed texture on hedges, immersive and vast
+--chaos 20 
+--ar 2:3 
+--raw 
+--v 6.1 
+added vivid in lightroom"><div class="free-tag">FREE</div><img src="./index_files/1775497151863-u31qopd902.png" alt="" style="width:100%;display:block;"><div class="item-overlay"><div class="item-model">Midjourney v6</div><div class="item-prompt">a small faceless woman in a white dress walking away into a surreal landscape of giant rounded topiary hedges in every direction, perfectly manicured vivid green bushes of all sizes, lush green grass floor, figure tiny in the distance, dreamlike and eerie, shot from slightly elevated angle, soft overcast light, no harsh shadows, hyper detailed texture on hedges, immersive and vast
+--chaos 20 
+--ar 2:3 
+--raw 
+--v 6.1 
+added vivid in lightroom</div></div></div><div class="grid-item" onclick="" data-url="https://jbsyzrzoiawruusdowpx.supabase.co/storage/v1/object/public/images/1775495387651-55r8r9lplv.png" data-model="Midjourney v6" data-prompt="five faceless figures standing in a row in the foreground wearing bright cobalt blue robes and wide brim straw hats, long white beards, completely dark featureless faces with no eyes or nose, giant perfectly symmetrical cone shaped mountain filling the background behind them, soft mist at the base of the mountain, hazy blue purple sky above, figures cropped at waist, flat even focus throughout, no depth of field, everything in sharp focus, 1970s documentary photography style, slight film grain, kodachrome colours, eerie surreal atmosphere"><div class="free-tag">FREE</div><img src="./index_files/1775495387651-55r8r9lplv.png" alt="" style="width:100%;display:block;"><div class="item-overlay"><div class="item-model">Midjourney v6</div><div class="item-prompt">five faceless figures standing in a row in the foreground wearing bright cobalt blue robes and wide brim straw hats, long white beards, completely dark featureless faces with no eyes or nose, giant perfectly symmetrical cone shaped mountain filling the background behind them, soft mist at the base of the mountain, hazy blue purple sky above, figures cropped at waist, flat even focus throughout, no depth of field, everything in sharp focus, 1970s documentary photography style, slight film grain, kodachrome colours, eerie surreal atmosphere</div></div></div><div class="grid-item" onclick="openPromptPreview(this)" data-url="https://jbsyzrzoiawruusdowpx.supabase.co/storage/v1/object/public/images/1775484923520-1l7m8w2nhp3.jpeg" data-model="Midjourney v6" data-prompt="A confident elderly woman in a pastel pink suit, sitting atop a giant surreal creature resembling a moss-covered alligator with soft green and pink hues. The scene is minimalist, neutral studio background, ultra-realistic, 8K resolution, surrealism style."><div class="lock-badge">Unlock prompt</div><img src="./index_files/1775484923520-1l7m8w2nhp3.jpeg" alt="" style="width:100%;display:block;"><div class="item-overlay"><div class="item-model">Midjourney v6</div><div class="item-prompt blurred">A confident elderly woman in a pastel pink suit, sitting atop a giant surreal creature resembling a moss-covered alligator with soft green and pink hues. The scene is minimalist, neutral studio background, ultra-realistic, 8K resolution, surrealism style.</div></div></div></div>
 
 <section class="models-section" id="models">
   <div class="models-header">
-    <div class="models-tag">> AI CHARACTER MODELS</div>
+    <div class="models-tag">&gt; AI CHARACTER MODELS</div>
     <h2>Browse the model library</h2>
     <p>A curated collection of AI character models with a distinct style and vibe. Prompts locked to Pro members.</p>
   </div>
@@ -251,7 +256,7 @@ footer { border-top: 1px solid var(--border); padding: 32px 40px; display: flex;
     <div class="model-card" onclick="openSubscribe()">
       <div class="model-lock">PROMPT LOCKED</div>
       <div class="model-img-placeholder" style="background:linear-gradient(160deg,#0a1e28,#0d2a1a,#1a1e0a);">
-        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" opacity="0.08"><circle cx="30" cy="18" r="10" stroke="#4dff4d" stroke-width="1"/><path d="M10 55 Q30 35 50 55" stroke="#4dff4d" stroke-width="1" fill="none"/></svg>
+        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" opacity="0.08"><circle cx="30" cy="18" r="10" stroke="#4dff4d" stroke-width="1"></circle><path d="M10 55 Q30 35 50 55" stroke="#4dff4d" stroke-width="1" fill="none"></path></svg>
       </div>
       <div class="model-label"><div class="model-label-name">The Surfer</div><div class="model-label-style">Coastal // Sun-bleached // Free spirit</div></div>
       <div class="model-overlay"><div class="model-name">The Surfer</div><div class="model-style">Coastal // Sun-bleached // Free spirit</div><div class="model-prompt-locked">Subscribe to unlock the full prompt</div></div>
@@ -259,7 +264,7 @@ footer { border-top: 1px solid var(--border); padding: 32px 40px; display: flex;
     <div class="model-card" onclick="openSubscribe()">
       <div class="model-lock">PROMPT LOCKED</div>
       <div class="model-img-placeholder" style="background:linear-gradient(160deg,#1a0a0a,#280d0d,#1a1208);">
-        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" opacity="0.08"><circle cx="30" cy="16" r="9" stroke="#4dff4d" stroke-width="1"/><rect x="18" y="28" width="24" height="20" stroke="#4dff4d" stroke-width="1" rx="2"/></svg>
+        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" opacity="0.08"><circle cx="30" cy="16" r="9" stroke="#4dff4d" stroke-width="1"></circle><rect x="18" y="28" width="24" height="20" stroke="#4dff4d" stroke-width="1" rx="2"></rect></svg>
       </div>
       <div class="model-label"><div class="model-label-name">The Gym Model</div><div class="model-label-style">Athletic // High contrast // Powerful</div></div>
       <div class="model-overlay"><div class="model-name">The Gym Model</div><div class="model-style">Athletic // High contrast // Powerful</div><div class="model-prompt-locked">Subscribe to unlock the full prompt</div></div>
@@ -267,7 +272,7 @@ footer { border-top: 1px solid var(--border); padding: 32px 40px; display: flex;
     <div class="model-card" onclick="openSubscribe()">
       <div class="model-lock">PROMPT LOCKED</div>
       <div class="model-img-placeholder" style="background:linear-gradient(160deg,#181818,#201820,#181020);">
-        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" opacity="0.08"><circle cx="30" cy="16" r="9" stroke="#4dff4d" stroke-width="1"/><line x1="30" y1="25" x2="30" y2="50" stroke="#4dff4d" stroke-width="1"/></svg>
+        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" opacity="0.08"><circle cx="30" cy="16" r="9" stroke="#4dff4d" stroke-width="1"></circle><line x1="30" y1="25" x2="30" y2="50" stroke="#4dff4d" stroke-width="1"></line></svg>
       </div>
       <div class="model-label"><div class="model-label-name">The Editorial</div><div class="model-label-style">High fashion // Moody // Magazine</div></div>
       <div class="model-overlay"><div class="model-name">The Editorial</div><div class="model-style">High fashion // Moody // Magazine</div><div class="model-prompt-locked">Subscribe to unlock the full prompt</div></div>
@@ -285,33 +290,41 @@ footer { border-top: 1px solid var(--border); padding: 32px 40px; display: flex;
 <section class="browse-section" id="browse">
   <div class="browse-header">
     <div>
-      <div class="browse-tag">> FULL IMAGE LIBRARY</div>
+      <div class="browse-tag">&gt; FULL IMAGE LIBRARY</div>
       <h2>Browse all images</h2>
     </div>
   </div>
   <div class="browse-filters" id="browseFilters">
-    <div class="browse-filter active" onclick="setBrowseFilter(this,'all')">All</div>
-    <div class="browse-filter" onclick="setBrowseFilter(this,'Midjourney')">Midjourney</div>
-    <div class="browse-filter" onclick="setBrowseFilter(this,'Flux')">Flux</div>
-    <div class="browse-filter" onclick="setBrowseFilter(this,'Nano Banana')">Nano Banana</div>
-    <div class="browse-filter" onclick="setBrowseFilter(this,'DALL-E')">DALL-E</div>
-    <div class="browse-filter" onclick="setBrowseFilter(this,'free')">Free only</div>
+    <div class="browse-filter active" onclick="setBrowseFilter(this,&#39;all&#39;)">All</div>
+    <div class="browse-filter" onclick="setBrowseFilter(this,&#39;Midjourney&#39;)">Midjourney</div>
+    <div class="browse-filter" onclick="setBrowseFilter(this,&#39;Flux&#39;)">Flux</div>
+    <div class="browse-filter" onclick="setBrowseFilter(this,&#39;Nano Banana&#39;)">Nano Banana</div>
+    <div class="browse-filter" onclick="setBrowseFilter(this,&#39;DALL-E&#39;)">DALL-E</div>
+    <div class="browse-filter" onclick="setBrowseFilter(this,&#39;free&#39;)">Free only</div>
   </div>
-  <div class="browse-grid" id="browseGrid">
-    <div class="browse-empty">Loading images...</div>
-  </div>
+  <div class="browse-grid" id="browseGrid"><div class="browse-item" onclick="" data-url="https://jbsyzrzoiawruusdowpx.supabase.co/storage/v1/object/public/images/1775497151863-u31qopd902.png" data-model="Midjourney v6" data-prompt="a small faceless woman in a white dress walking away into a surreal landscape of giant rounded topiary hedges in every direction, perfectly manicured vivid green bushes of all sizes, lush green grass floor, figure tiny in the distance, dreamlike and eerie, shot from slightly elevated angle, soft overcast light, no harsh shadows, hyper detailed texture on hedges, immersive and vast
+--chaos 20 
+--ar 2:3 
+--raw 
+--v 6.1 
+added vivid in lightroom"><div class="browse-free">FREE</div><img src="./index_files/1775497151863-u31qopd902.png" alt=""><div class="browse-overlay"><div class="browse-model">Midjourney v6</div><div class="browse-prompt">a small faceless woman in a white dress walking away into a surreal landscape of giant rounded topiary hedges in every direction, perfectly manicured vivid green bushes of all sizes, lush green grass floor, figure tiny in the distance, dreamlike and eerie, shot from slightly elevated angle, soft overcast light, no harsh shadows, hyper detailed texture on hedges, immersive and vast
+--chaos 20 
+--ar 2:3 
+--raw 
+--v 6.1 
+added vivid in lightroom</div></div></div><div class="browse-item" onclick="" data-url="https://jbsyzrzoiawruusdowpx.supabase.co/storage/v1/object/public/images/1775495387651-55r8r9lplv.png" data-model="Midjourney v6" data-prompt="five faceless figures standing in a row in the foreground wearing bright cobalt blue robes and wide brim straw hats, long white beards, completely dark featureless faces with no eyes or nose, giant perfectly symmetrical cone shaped mountain filling the background behind them, soft mist at the base of the mountain, hazy blue purple sky above, figures cropped at waist, flat even focus throughout, no depth of field, everything in sharp focus, 1970s documentary photography style, slight film grain, kodachrome colours, eerie surreal atmosphere"><div class="browse-free">FREE</div><img src="./index_files/1775495387651-55r8r9lplv.png" alt=""><div class="browse-overlay"><div class="browse-model">Midjourney v6</div><div class="browse-prompt">five faceless figures standing in a row in the foreground wearing bright cobalt blue robes and wide brim straw hats, long white beards, completely dark featureless faces with no eyes or nose, giant perfectly symmetrical cone shaped mountain filling the background behind them, soft mist at the base of the mountain, hazy blue purple sky above, figures cropped at waist, flat even focus throughout, no depth of field, everything in sharp focus, 1970s documentary photography style, slight film grain, kodachrome colours, eerie surreal atmosphere</div></div></div><div class="browse-item" onclick="openPromptPreview(this)" data-url="https://jbsyzrzoiawruusdowpx.supabase.co/storage/v1/object/public/images/1775484923520-1l7m8w2nhp3.jpeg" data-model="Midjourney v6" data-prompt="A confident elderly woman in a pastel pink suit, sitting atop a giant surreal creature resembling a moss-covered alligator with soft green and pink hues. The scene is minimalist, neutral studio background, ultra-realistic, 8K resolution, surrealism style."><div class="browse-lock">Unlock prompt</div><img src="./index_files/1775484923520-1l7m8w2nhp3.jpeg" alt=""><div class="browse-overlay"><div class="browse-model">Midjourney v6</div><div class="browse-prompt blurred">A confident elderly woman in a pastel pink suit, sitting atop a giant surreal creature resembling a moss-covered alligator with soft green and pink hues. The scene is minimalist, neutral studio background, ultra-realistic, 8K resolution, surrealism style.</div></div></div></div>
 </section>
 
 <section class="plans-section" id="plans">
   <div class="plans-header">
-    <div class="plans-tag">> CHOOSE YOUR ACCESS LEVEL</div>
+    <div class="plans-tag">&gt; CHOOSE YOUR ACCESS LEVEL</div>
     <p>Create a free account to browse and save favourites. Upgrade anytime to unlock every prompt.</p>
   </div>
   <div class="plans-grid">
     <div class="plan-card">
       <div class="plan-name">Free</div>
       <div class="plan-price">£0</div>
-      <div class="plan-period">> Forever free</div>
+      <div class="plan-period">&gt; Forever free</div>
       <ul class="plan-features">
         <li>Browse all images</li>
         <li>A few free prompts per drop</li>
@@ -322,13 +335,13 @@ footer { border-top: 1px solid var(--border); padding: 32px 40px; display: flex;
         <li class="muted">AI model + settings</li>
         <li class="muted">Early drop access</li>
       </ul>
-      <button class="plan-btn plan-btn-outline" onclick="openAuth('signup')">Create free account</button>
+      <button class="plan-btn plan-btn-outline" onclick="openAuth(&#39;signup&#39;)">Create free account</button>
     </div>
     <div class="plan-card featured">
       <div class="plan-featured-tag">MOST POPULAR</div>
       <div class="plan-name">Pro</div>
       <div class="plan-price">£7</div>
-      <div class="plan-period">> Per month // cancel anytime</div>
+      <div class="plan-period">&gt; Per month // cancel anytime</div>
       <ul class="plan-features">
         <li>Browse all images</li>
         <li>Full prompt access</li>
@@ -348,17 +361,17 @@ footer { border-top: 1px solid var(--border); padding: 32px 40px; display: flex;
   <div class="footer-logo">AFTERFRAME</div>
   <div class="footer-links">
     <a href="https://instagram.com/afterframe" target="_blank">Instagram</a>
-    <a href="/afterframe/privacy.html">Privacy</a>
-    <a href="/afterframe/terms.html">Terms</a>
-    <a href="/afterframe/refunds.html">Refunds</a>
+    <a href="file:///C:/afterframe/privacy.html">Privacy</a>
+    <a href="file:///C:/afterframe/terms.html">Terms</a>
+    <a href="file:///C:/afterframe/refunds.html">Refunds</a>
   </div>
   <div class="footer-copy">2026 AFTERFRAME</div>
 </footer>
 
-<div class="modal-overlay" id="promptModal" onclick="closeModalOutside(event,'promptModal')">
+<div class="modal-overlay" id="promptModal" onclick="closeModalOutside(event,&#39;promptModal&#39;)">
   <div class="modal" style="max-width:520px;">
-    <button class="modal-close" onclick="closeModal('promptModal')">[ close ]</button>
-    <div class="modal-tag">> PROMPT PREVIEW</div>
+    <button class="modal-close" onclick="closeModal(&#39;promptModal&#39;)">[ close ]</button>
+    <div class="modal-tag">&gt; PROMPT PREVIEW</div>
     <img id="promptModalImage" style="width:100%;max-height:240px;object-fit:cover;margin-bottom:20px;display:none;" alt="">
     <div style="margin-bottom:12px;"><span id="promptModalModel" style="font-size:10px;letter-spacing:3px;color:var(--green);border:1px solid #4dff4d50;padding:4px 10px;display:inline-block;"></span></div>
     <div style="font-size:12px;letter-spacing:2px;color:var(--text-dim);margin-bottom:10px;text-transform:uppercase;">Prompt</div>
@@ -369,20 +382,20 @@ footer { border-top: 1px solid var(--border); padding: 32px 40px; display: flex;
         <div style="font-size:11px;color:var(--text-dim);">Subscribe to reveal the full prompt</div>
       </div>
     </div>
-    <button class="form-submit" onclick="closeModal('promptModal');openSubscribe()">Unlock for £7 / month</button>
-    <div class="modal-switch" style="margin-top:14px;">No account? <span onclick="closeModal('promptModal');openAuth('signup')">Sign up free</span></div>
+    <button class="form-submit" onclick="closeModal(&#39;promptModal&#39;);openSubscribe()">Unlock for £7 / month</button>
+    <div class="modal-switch" style="margin-top:14px;">No account? <span onclick="closeModal(&#39;promptModal&#39;);openAuth(&#39;signup&#39;)">Sign up free</span></div>
   </div>
 </div>
 
-<div class="modal-overlay" id="authModal" onclick="closeModalOutside(event,'authModal')">
+<div class="modal-overlay" id="authModal" onclick="closeModalOutside(event,&#39;authModal&#39;)">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal('authModal')">[ close ]</button>
-    <div class="modal-tag">> AFTERFRAME</div>
+    <button class="modal-close" onclick="closeModal(&#39;authModal&#39;)">[ close ]</button>
+    <div class="modal-tag">&gt; AFTERFRAME</div>
     <h3>Join for free</h3>
     <p class="modal-desc">Create your free account to browse, save favourites, and get notified on drops.</p>
     <div class="modal-tabs">
-      <button class="modal-tab active" id="tab-signup" onclick="switchTab('signup')">Sign up</button>
-      <button class="modal-tab" id="tab-login" onclick="switchTab('login')">Log in</button>
+      <button class="modal-tab active" id="tab-signup" onclick="switchTab(&#39;signup&#39;)">Sign up</button>
+      <button class="modal-tab" id="tab-login" onclick="switchTab(&#39;login&#39;)">Log in</button>
     </div>
     <div class="tab-content active" id="content-signup">
       <div class="form-group"><label class="form-label">Email address</label><input class="form-input" type="email" id="signupEmail" placeholder="you@example.com"></div>
@@ -390,35 +403,36 @@ footer { border-top: 1px solid var(--border); padding: 32px 40px; display: flex;
       <button class="form-submit" id="signupBtn" onclick="doSignUp()">Create free account</button>
       <div class="form-error" id="signupError"></div>
       <div class="form-success" id="signupSuccess"></div>
-      <div class="upgrade-note" style="margin-top:20px;">Want full prompt access? <span onclick="closeModal('authModal');openSubscribe()">Upgrade to Pro for £7/month</span></div>
+      <div class="upgrade-note" style="margin-top:20px;">Want full prompt access? <span onclick="closeModal(&#39;authModal&#39;);openSubscribe()">Upgrade to Pro for £7/month</span></div>
     </div>
     <div class="tab-content" id="content-login">
       <div class="form-group"><label class="form-label">Email address</label><input class="form-input" type="email" id="loginEmail" placeholder="you@example.com"></div>
       <div class="form-group"><label class="form-label">Password</label><input class="form-input" type="password" id="loginPassword" placeholder="Your password"></div>
       <button class="form-submit" id="loginBtn" onclick="doLogIn()">Log in</button>
       <div class="form-error" id="loginError"></div>
-      <div class="modal-switch" style="margin-top:16px;">No account? <span onclick="switchTab('signup')">Sign up free</span></div>
+      <div class="modal-switch" style="margin-top:16px;">No account? <span onclick="switchTab(&#39;signup&#39;)">Sign up free</span></div>
     </div>
   </div>
 </div>
 
-<div class="modal-overlay" id="subModal" onclick="closeModalOutside(event,'subModal')">
+<div class="modal-overlay" id="subModal" onclick="closeModalOutside(event,&#39;subModal&#39;)">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal('subModal')">[ close ]</button>
-    <div class="modal-tag">> PRO ACCESS</div>
+    <button class="modal-close" onclick="closeModal(&#39;subModal&#39;)">[ close ]</button>
+    <div class="modal-tag">&gt; PRO ACCESS</div>
     <h3>Unlock AFTERFRAME</h3>
     <p class="modal-desc">Access every prompt, model, and setting. New images every Monday. Cancel anytime.</p>
     <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:6px;">
       <span style="font-family:var(--font-display);font-size:54px;font-weight:800;color:var(--green);">£7</span>
       <span style="font-size:14px;color:var(--text-dim);letter-spacing:2px;">/month</span>
     </div>
-    <div style="font-size:12px;letter-spacing:2px;color:var(--text-dim);margin-bottom:28px;">> Cancel anytime. No contracts.</div>
-    <div class="form-group"><label class="form-label">Email address</label><input class="form-input" type="email" id="subEmail" placeholder="you@example.com"></div>
-    <button class="form-submit" onclick="doSubscribe()">Continue to payment</button>
-    <div style="font-size:11px;color:var(--text-dim);text-align:center;margin-top:14px;">Secured by Stripe</div>
-    <div class="modal-switch" style="margin-top:12px;">Just want to browse? <span onclick="closeModal('subModal');openAuth('signup')">Create free account</span></div>
+    <div style="font-size:12px;letter-spacing:2px;color:var(--text-dim);margin-bottom:24px;">&gt; Cancel anytime. No contracts.</div>
+    <div id="paypal-button-container-P-2A405868K6260041WNHKGJUQ"></div>
+    <div style="font-size:11px;color:var(--text-dim);text-align:center;margin-top:14px;">Secured by PayPal</div>
+    <div class="modal-switch" style="margin-top:12px;">Just want to browse? <span onclick="closeModal(&#39;subModal&#39;);openAuth(&#39;signup&#39;)">Create free account</span></div>
   </div>
 </div>
+
+<script src="./index_files/js" data-sdk-integration-source="button-factory" data-uid-auto="uid_mjhnbdvtjqseghzieuoeabthzjrlbg"></script>
 
 <script>
 const SUPABASE_URL = 'https://jbsyzrzoiawruusdowpx.supabase.co';
@@ -599,8 +613,8 @@ function doSubscribe() {
 
 function openAuth(tab) { document.getElementById('authModal').classList.add('open'); switchTab(tab); }
 function openSubscribe() {
-  if (currentUser) document.getElementById('subEmail').value = currentUser.email;
   document.getElementById('subModal').classList.add('open');
+  setTimeout(initPayPalButton, 100);
 }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 function closeModalOutside(e, id) { if (e.target === document.getElementById(id)) closeModal(id); }
@@ -640,5 +654,24 @@ function initMatrix() {
   }, 50);
 }
 </script>
-</body>
-</html>
+<script>
+// Init PayPal button when modal opens
+function initPayPalButton() {
+  var container = document.getElementById('paypal-button-container-P-2A405868K6260041WNHKGJUQ');
+  if (container && container.children.length === 0 && window.paypal) {
+    paypal.Buttons({
+      style: { shape: 'rect', color: 'black', layout: 'vertical', label: 'subscribe' },
+      createSubscription: function(data, actions) {
+        return actions.subscription.create({ plan_id: 'P-2A405868K6260041WNHKGJUQ' });
+      },
+      onApprove: function(data, actions) {
+        closeModal('subModal');
+        alert('Subscription successful! Your Pro access will be activated shortly.');
+      }
+    }).render('#paypal-button-container-P-2A405868K6260041WNHKGJUQ');
+  }
+}
+</script>
+
+
+</body></html>
