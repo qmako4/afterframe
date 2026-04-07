@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<!-- saved from url=(0044)file:///C:/Users/qmako/Downloads/models.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="en">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Models — AFTERFRAME</title>
-<link rel="preconnect" href="https://fonts.googleapis.com/">
-<link href="./models_files/css2" rel="stylesheet">
-<script src="./models_files/supabase.js.download"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <style>
 :root {
   --green: #4dff4d;
@@ -125,20 +125,20 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
 </style>
 </head>
 <body>
-<div class="cursor" id="cursor" style="left: 1343px; top: 11px;"></div>
-<div class="cursor-dot" id="cursorDot" style="left: 1343px; top: 11px;"></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
 
 <nav>
-  <a href="file:///C:/afterframe/" class="nav-logo">AFTERFRAME</a>
+  <a href="https://qmako4.github.io/afterframe/" class="nav-logo">AFTERFRAME</a>
   <div class="nav-links">
-    <a href="file:///C:/afterframe/">Home</a>
-    <a href="file:///C:/afterframe/browse.html">Images</a>
-    <a href="file:///C:/afterframe/models.html" class="active">Models</a>
-    <a href="file:///C:/afterframe/#plans">Pricing</a>
+    <a href="https://qmako4.github.io/afterframe/">Home</a>
+    <a href="https://qmako4.github.io/afterframe/browse.html">Images</a>
+    <a href="https://qmako4.github.io/afterframe/models.html" class="active">Models</a>
+    <a href="https://qmako4.github.io/afterframe/#plans">Pricing</a>
   </div>
-  <div class="nav-cta" id="navGuest" style="display: flex;">
-    <button class="btn-ghost" onclick="openAuth(&#39;login&#39;)">Log in</button>
-    <button class="btn-solid" onclick="openAuth(&#39;signup&#39;)">Sign up free</button>
+  <div class="nav-cta" id="navGuest">
+    <button class="btn-ghost" onclick="openAuth('login')">Log in</button>
+    <button class="btn-solid" onclick="openAuth('signup')">Sign up free</button>
   </div>
   <div class="nav-cta" id="navLoggedIn" style="display:none;">
     <span class="nav-user-email" id="navEmail"></span>
@@ -147,23 +147,23 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
 </nav>
 
 <!-- LOGIN GATE -->
-<div id="loginGate" style="display: flex;">
+<div id="loginGate">
   <div class="gate-box">
-    <div class="gate-tag">&gt; MEMBERS ONLY</div>
+    <div class="gate-tag">> MEMBERS ONLY</div>
     <h2>Sign in to browse models</h2>
     <p>Create a free account to browse the full model library. Upgrade to Pro to unlock every prompt and download LoRA files.</p>
     <div class="gate-actions">
-      <button class="btn-solid" onclick="openAuth(&#39;signup&#39;)">Sign up free</button>
-      <button class="btn-ghost" onclick="openAuth(&#39;login&#39;)">Log in</button>
+      <button class="btn-solid" onclick="openAuth('signup')">Sign up free</button>
+      <button class="btn-ghost" onclick="openAuth('login')">Log in</button>
     </div>
   </div>
 </div>
 
 <!-- PAGE CONTENT -->
-<div id="pageContent" style="display: none;">
+<div id="pageContent">
   <div class="page-header">
     <div>
-      <div class="page-tag">&gt; AI CHARACTER MODELS</div>
+      <div class="page-tag">> AI CHARACTER MODELS</div>
       <h1>Models</h1>
       <div class="model-count" id="modelCount">Loading...</div>
     </div>
@@ -172,13 +172,13 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
 
   <div class="filter-bar">
     <span class="filter-label">Category</span>
-    <button class="f-btn active" onclick="setFilter(this,&#39;all&#39;)">All</button>
-    <button class="f-btn" onclick="setFilter(this,&#39;female&#39;)">Female</button>
-    <button class="f-btn" onclick="setFilter(this,&#39;fashion&#39;)">Fashion</button>
-    <button class="f-btn" onclick="setFilter(this,&#39;fitness&#39;)">Fitness</button>
-    <button class="f-btn" onclick="setFilter(this,&#39;street&#39;)">Street</button>
-    <button class="f-btn" onclick="setFilter(this,&#39;cinematic&#39;)">Cinematic</button>
-    <button class="f-btn" onclick="setFilter(this,&#39;surreal&#39;)">Surreal</button>
+    <button class="f-btn active" onclick="setFilter(this,'all')">All</button>
+    <button class="f-btn" onclick="setFilter(this,'female')">Female</button>
+    <button class="f-btn" onclick="setFilter(this,'fashion')">Fashion</button>
+    <button class="f-btn" onclick="setFilter(this,'fitness')">Fitness</button>
+    <button class="f-btn" onclick="setFilter(this,'street')">Street</button>
+    <button class="f-btn" onclick="setFilter(this,'cinematic')">Cinematic</button>
+    <button class="f-btn" onclick="setFilter(this,'surreal')">Surreal</button>
   </div>
 
   <div class="models-wrap">
@@ -189,10 +189,10 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
 </div>
 
 <!-- UPGRADE MODAL -->
-<div class="modal-overlay" id="upgradeModal" onclick="closeModalOutside(event,&#39;upgradeModal&#39;)">
+<div class="modal-overlay" id="upgradeModal" onclick="closeModalOutside(event,'upgradeModal')">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal(&#39;upgradeModal&#39;)">[ close ]</button>
-    <div class="modal-tag">&gt; PRO ACCESS</div>
+    <button class="modal-close" onclick="closeModal('upgradeModal')">[ close ]</button>
+    <div class="modal-tag">> PRO ACCESS</div>
     <h3>Unlock this model</h3>
     <p class="modal-desc">Upgrade to Pro to download every LoRA file and access every prompt. New models added regularly.</p>
     <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:24px;">
@@ -205,15 +205,15 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
 </div>
 
 <!-- AUTH MODAL -->
-<div class="modal-overlay" id="authModal" onclick="closeModalOutside(event,&#39;authModal&#39;)">
+<div class="modal-overlay" id="authModal" onclick="closeModalOutside(event,'authModal')">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal(&#39;authModal&#39;)">[ close ]</button>
-    <div class="modal-tag">&gt; AFTERFRAME</div>
+    <button class="modal-close" onclick="closeModal('authModal')">[ close ]</button>
+    <div class="modal-tag">> AFTERFRAME</div>
     <h3>Join for free</h3>
     <p class="modal-desc">Create your free account to browse the model library.</p>
     <div class="modal-tabs">
-      <button class="modal-tab active" id="tab-signup" onclick="switchTab(&#39;signup&#39;)">Sign up</button>
-      <button class="modal-tab" id="tab-login" onclick="switchTab(&#39;login&#39;)">Log in</button>
+      <button class="modal-tab active" id="tab-signup" onclick="switchTab('signup')">Sign up</button>
+      <button class="modal-tab" id="tab-login" onclick="switchTab('login')">Log in</button>
     </div>
     <div class="tab-content active" id="content-signup">
       <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" id="signupEmail" placeholder="you@example.com"></div>
@@ -221,19 +221,19 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
       <button class="form-submit" id="signupBtn" onclick="doSignUp()">Create free account</button>
       <div class="form-error" id="signupError"></div>
       <div class="form-success" id="signupSuccess"></div>
-      <div class="upgrade-note">Want full access? <span onclick="closeModal(&#39;authModal&#39;);openUpgrade()">Upgrade to Pro for £7/month</span></div>
+      <div class="upgrade-note">Want full access? <span onclick="closeModal('authModal');openUpgrade()">Upgrade to Pro for £7/month</span></div>
     </div>
     <div class="tab-content" id="content-login">
       <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" id="loginEmail" placeholder="you@example.com"></div>
       <div class="form-group"><label class="form-label">Password</label><input class="form-input" type="password" id="loginPassword" placeholder="Your password"></div>
       <button class="form-submit" id="loginBtn" onclick="doLogIn()">Log in</button>
       <div class="form-error" id="loginError"></div>
-      <div class="modal-switch" style="margin-top:16px;">No account? <span onclick="switchTab(&#39;signup&#39;)">Sign up free</span></div>
+      <div class="modal-switch" style="margin-top:16px;">No account? <span onclick="switchTab('signup')">Sign up free</span></div>
     </div>
   </div>
 </div>
 
-<script src="./models_files/js" data-sdk-integration-source="button-factory" data-uid-auto="uid_mjhnbdvtjqseghzieuoeabthzjrlbg"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AW9bFBdVSIM3akTi9QO732li0jr7lANlHjj2_TsQINXPQNVhpABdwXkqFf4QI2Nx5TyM86dtU1Z_7I1G&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
 
 <script>
 const SUPABASE_URL = 'https://jbsyzrzoiawruusdowpx.supabase.co';
@@ -400,6 +400,5 @@ function initCursor() {
   });
 }
 </script>
-
-
-</body></html>
+</body>
+</html>
