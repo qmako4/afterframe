@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
+<!-- saved from url=(0046)file:///C:/Users/qmako/Downloads/browse_2.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Explore — AFTERFRAME</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link href="./browse_files/css2" rel="stylesheet">
+<script src="./browse_files/supabase.js.download"></script>
+<script src="./browse_files/jspdf.umd.min.js.download"></script>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html,body { height: 100%; }
@@ -231,43 +231,77 @@ body { background: #000; color: #ccc; font-family: 'Share Tech Mono', monospace;
 
 <!-- TOP FILTER BAR -->
 <div class="top-bar" id="topBar">
-  <div class="filter-pill active" id="fpAll" onclick="setTab('images');setFilter(this,'all')">All</div>
-  <div class="filter-pill" id="fpShoots" onclick="setTab('shoots')">Shoots <span class="pill-arrow">▾</span></div>
-  <div class="filter-pill" id="fpMJ" onclick="setTab('images');setFilter(this,'Midjourney')">Midjourney</div>
-  <div class="filter-pill" id="fpFlux" onclick="setTab('images');setFilter(this,'Flux')">Flux</div>
-  <div class="filter-pill" id="fpNB" onclick="setTab('images');setFilter(this,'Nano Banana')">Nano Banana</div>
-  <div class="filter-pill" id="fpDE" onclick="setTab('images');setFilter(this,'DALL-E')">DALL-E</div>
-  <div class="filter-pill" id="fpFree" onclick="setTab('images');setFilter(this,'free')">Free only</div>
+  <div class="filter-pill active" id="fpAll" onclick="setTab(&#39;images&#39;);setFilter(this,&#39;all&#39;)">All</div>
+  <div class="filter-pill" id="fpShoots" onclick="setTab(&#39;shoots&#39;)">Shoots <span class="pill-arrow">▾</span></div>
+  <div class="filter-pill" id="fpMJ" onclick="setTab(&#39;images&#39;);setFilter(this,&#39;Midjourney&#39;)">Midjourney</div>
+  <div class="filter-pill" id="fpFlux" onclick="setTab(&#39;images&#39;);setFilter(this,&#39;Flux&#39;)">Flux</div>
+  <div class="filter-pill" id="fpNB" onclick="setTab(&#39;images&#39;);setFilter(this,&#39;Nano Banana&#39;)">Nano Banana</div>
+  <div class="filter-pill" id="fpDE" onclick="setTab(&#39;images&#39;);setFilter(this,&#39;DALL-E&#39;)">DALL-E</div>
+  <div class="filter-pill" id="fpFree" onclick="setTab(&#39;images&#39;);setFilter(this,&#39;free&#39;)">Free only</div>
 </div>
 
 <div class="main">
 
-  <!-- LOGIN GATE -->
-  <div id="gate">
-    <div class="gate-title">Sign in to explore</div>
-    <p class="gate-desc">Create a free account to access the full image library and browse all shoots.</p>
-    <div class="gate-btns">
-      <button class="gate-btn gate-btn-primary" onclick="openAuth('signup')">Sign up free</button>
-      <button class="gate-btn gate-btn-secondary" onclick="openAuth('login')">Log in</button>
-    </div>
-  </div>
-
-  <!-- BROWSE -->
-  <div id="browseContent">
+  <!-- BROWSE — visible to everyone -->
+  <div id="browseContent" class="show">
     <!-- IMAGES -->
     <div id="tabImages">
-      <div class="masonry" id="imageGrid"><div class="empty">Loading...</div></div>
+      <div class="masonry" id="imageGrid"><div class="masonry-item" onclick="" data-url="https://jbsyzrzoiawruusdowpx.supabase.co/storage/v1/object/public/images/1775497151863-u31qopd902.png" data-model="Midjourney v6" data-prompt="a small faceless woman in a white dress walking away into a surreal landscape of giant rounded topiary hedges in every direction, perfectly manicured vivid green bushes of all sizes, lush green grass floor, figure tiny in the distance, dreamlike and eerie, shot from slightly elevated angle, soft overcast light, no harsh shadows, hyper detailed texture on hedges, immersive and vast
+--chaos 20 
+--ar 2:3 
+--raw 
+--v 6.1 
+added vivid in lightroom"><div class="m-badge-free">FREE</div><img src="./browse_files/1775497151863-u31qopd902.png" alt="" loading="lazy"><div class="m-overlay"><div class="m-model">Midjourney v6</div><div class="m-prompt">a small faceless woman in a white dress walking away into a surreal landscape of giant rounded topiary hedges in every direction, perfectly manicured vivid green bushes of all sizes, lush green grass floor, figure tiny in the distance, dreamlike and eerie, shot from slightly elevated angle, soft overcast light, no harsh shadows, hyper detailed texture on hedges, immersive and vast
+--chaos 20 
+--ar 2:3 
+--raw 
+--v 6.1 
+added vivid in lightroom</div></div></div><div class="masonry-item" onclick="" data-url="https://jbsyzrzoiawruusdowpx.supabase.co/storage/v1/object/public/images/1775495387651-55r8r9lplv.png" data-model="Midjourney v6" data-prompt="five faceless figures standing in a row in the foreground wearing bright cobalt blue robes and wide brim straw hats, long white beards, completely dark featureless faces with no eyes or nose, giant perfectly symmetrical cone shaped mountain filling the background behind them, soft mist at the base of the mountain, hazy blue purple sky above, figures cropped at waist, flat even focus throughout, no depth of field, everything in sharp focus, 1970s documentary photography style, slight film grain, kodachrome colours, eerie surreal atmosphere"><div class="m-badge-free">FREE</div><img src="./browse_files/1775495387651-55r8r9lplv.png" alt="" loading="lazy"><div class="m-overlay"><div class="m-model">Midjourney v6</div><div class="m-prompt">five faceless figures standing in a row in the foreground wearing bright cobalt blue robes and wide brim straw hats, long white beards, completely dark featureless faces with no eyes or nose, giant perfectly symmetrical cone shaped mountain filling the background behind them, soft mist at the base of the mountain, hazy blue purple sky above, figures cropped at waist, flat even focus throughout, no depth of field, everything in sharp focus, 1970s documentary photography style, slight film grain, kodachrome colours, eerie surreal atmosphere</div></div></div><div class="masonry-item" onclick="openPromptModal(this)" data-url="https://jbsyzrzoiawruusdowpx.supabase.co/storage/v1/object/public/images/1775484923520-1l7m8w2nhp3.jpeg" data-model="Midjourney v6" data-prompt="A confident elderly woman in a pastel pink suit, sitting atop a giant surreal creature resembling a moss-covered alligator with soft green and pink hues. The scene is minimalist, neutral studio background, ultra-realistic, 8K resolution, surrealism style."><div class="m-badge-lock">Unlock</div><img src="./browse_files/1775484923520-1l7m8w2nhp3.jpeg" alt="" loading="lazy" style="filter:blur(12px);"><div class="m-overlay"><div class="m-model">Midjourney v6</div><div class="m-prompt blurred">A confident <span class="word-blur">elderly</span> woman <span class="word-blur">in</span> a <span class="word-blur">pastel</span> pink <span class="word-blur">suit,</span> sitting <span class="word-blur">atop</span> a <span class="word-blur">giant</span> surreal <span class="word-blur">creature</span> resembling <span class="word-blur">a</span> moss-covered <span class="word-blur">alligator</span> with <span class="word-blur">soft</span> green <span class="word-blur">and</span> pink <span class="word-blur">hues.</span> The <span class="word-blur">scene</span> is <span class="word-blur">minimalist,</span> neutral <span class="word-blur">studio</span> background, <span class="word-blur">ultra-realistic,</span> 8K <span class="word-blur">resolution,</span> surrealism <span class="word-blur">style.</span></div></div></div></div>
     </div>
     <!-- SHOOTS -->
     <div id="tabShoots" style="display:none;">
-      <div class="shoots-grid" id="shootsGrid"><div class="empty">Loading...</div></div>
+      <div class="shoots-grid" id="shootsGrid"><div class="empty">No shoots yet.</div></div>
+    </div>
+    <!-- MODELS -->
+    <div id="tabModels" style="display:none;">
+      <div class="masonry" id="modelsGrid"><div class="empty">Models coming soon.</div></div>
+    </div>
+    <!-- ACCOUNT -->
+    <div id="tabAccount" style="display:none;">
+      <div id="accountGuest" style="padding: 40px 20px; text-align: center; display: block;">
+        <div style="font-family:&#39;Syne&#39;,sans-serif;font-size:22px;font-weight:800;color:#fff;margin-bottom:12px;">Your account</div>
+        <p style="font-size:13px;color:#555;line-height:1.8;margin-bottom:28px;">Sign in to manage your account and access Pro features.</p>
+        <button class="gate-btn gate-btn-primary" style="margin:0 auto 10px;display:block;max-width:280px;width:100%;" onclick="openAuth(&#39;signup&#39;)">Sign up free</button>
+        <button class="gate-btn gate-btn-secondary" style="margin:0 auto;display:block;max-width:280px;width:100%;" onclick="openAuth(&#39;login&#39;)">Log in</button>
+      </div>
+      <div id="accountLoggedIn" style="display:none;padding:32px 20px;">
+        <div style="background:#0a0a0a;border:1px solid #1a1a1a;border-radius:16px;padding:28px;max-width:480px;margin:0 auto;">
+          <div style="width:56px;height:56px;border-radius:50%;background:rgba(77,255,77,0.1);border:1px solid rgba(77,255,77,0.3);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 20px;">◎</div>
+          <div style="font-family:&#39;Syne&#39;,sans-serif;font-size:18px;font-weight:800;color:#fff;text-align:center;margin-bottom:6px;" id="accountEmail">—</div>
+          <div style="text-align:center;margin-bottom:28px;" id="accountBadge"></div>
+          <div style="border-top:1px solid #111;padding-top:20px;display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;padding:10px 0;border-bottom:1px solid #0a0a0a;">
+              <span style="color:#555;">Member since</span>
+              <span style="color:#aaa;" id="accountJoined">—</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;padding:10px 0;border-bottom:1px solid #0a0a0a;">
+              <span style="color:#555;">Access level</span>
+              <span id="accountLevel" style="color:#aaa;">Free</span>
+            </div>
+          </div>
+          <div id="accountUpgradeBtn" style="margin-top:20px;display:none;">
+            <button class="gate-btn gate-btn-primary" style="width:100%;" onclick="openUpgrade()">Upgrade to Pro — £7/mo</button>
+          </div>
+          <button onclick="doSignOut()" style="width:100%;margin-top:12px;font-family:&#39;Share Tech Mono&#39;,monospace;font-size:11px;letter-spacing:2px;color:#555;background:transparent;border:1px solid #1a1a1a;padding:12px;cursor:pointer;border-radius:100px;text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.color=&#39;#fff&#39;" onmouseout="this.style.color=&#39;#555&#39;">Sign out</button>
+        </div>
+      </div>
     </div>
   </div>
 
 </div>
 
 <!-- BOTTOM INPUT -->
-<div class="bottom-input" id="bottomInput" onclick="openAuth('signup')">
+<div class="bottom-input" id="bottomInput" onclick="openAuth(&#39;signup&#39;)" style="display:none;">
   <span id="bottomInputText">Log in to start creating...</span>
   <span class="bottom-input-icon">⚙</span>
 </div>
@@ -278,13 +312,17 @@ body { background: #000; color: #ccc; font-family: 'Share Tech Mono', monospace;
     <span class="nav-icon">☰</span>
     <span class="nav-label">Menu</span>
   </a>
-  <a href="https://qmako4.github.io/afterframe/browse.html" class="nav-item active">
+  <button class="nav-item active" id="navExplore" onclick="switchMainTab(&#39;images&#39;)">
     <span class="nav-icon">◉</span>
     <span class="nav-label">Explore</span>
-  </a>
-  <button class="nav-item" id="navRight" onclick="openAuth('signup')">
+  </button>
+  <button class="nav-item" id="navModels" onclick="switchMainTab(&#39;models&#39;)">
+    <span class="nav-icon">◈</span>
+    <span class="nav-label">Models</span>
+  </button>
+  <button class="nav-item" id="navAccount" onclick="switchMainTab(&#39;account&#39;)">
     <span class="nav-icon">◎</span>
-    <span class="nav-label" id="navRightLabel">Sign up</span>
+    <span class="nav-label">Account</span>
   </button>
 </div>
 
@@ -296,7 +334,7 @@ body { background: #000; color: #ccc; font-family: 'Share Tech Mono', monospace;
   </div>
   <div class="lb-body">
     <div class="lb-main">
-      <img id="lbImg" class="lb-img" src="" alt="">
+      <img id="lbImg" class="lb-img" src="file:///C:/Users/qmako/Downloads/browse_2.html" alt="">
       <div id="lbLockedOv" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:12px;">
         <div style="font-size:12px;letter-spacing:2px;color:#fff;">Step locked</div>
         <button class="lb-btn lb-btn-green" onclick="openUpgrade()">Unlock Pro — £7/mo</button>
@@ -321,14 +359,14 @@ body { background: #000; color: #ccc; font-family: 'Share Tech Mono', monospace;
 </div>
 
 <!-- UPGRADE MODAL -->
-<div class="modal-overlay" id="upgradeModal" onclick="closeModalOut(event,'upgradeModal')">
+<div class="modal-overlay" id="upgradeModal" onclick="closeModalOut(event,&#39;upgradeModal&#39;)">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal('upgradeModal')">[ close ]</button>
-    <div class="modal-tag">> PRO ACCESS</div>
+    <button class="modal-close" onclick="closeModal(&#39;upgradeModal&#39;)">[ close ]</button>
+    <div class="modal-tag">&gt; PRO ACCESS</div>
     <h3>Unlock AFTERFRAME</h3>
     <p class="modal-desc">Every prompt, shoot breakdown, PDF download and LoRA file. New content every Monday.</p>
     <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:20px;">
-      <span style="font-family:'Syne',sans-serif;font-size:48px;font-weight:800;color:#4dff4d;">£7</span>
+      <span style="font-family:&#39;Syne&#39;,sans-serif;font-size:48px;font-weight:800;color:#4dff4d;">£7</span>
       <span style="font-size:12px;color:#444;">/month</span>
     </div>
     <div id="paypal-button-container-P-2A405868K6260041WNHKGJUQ"></div>
@@ -337,15 +375,15 @@ body { background: #000; color: #ccc; font-family: 'Share Tech Mono', monospace;
 </div>
 
 <!-- AUTH MODAL -->
-<div class="modal-overlay" id="authModal" onclick="closeModalOut(event,'authModal')">
+<div class="modal-overlay" id="authModal" onclick="closeModalOut(event,&#39;authModal&#39;)">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal('authModal')">[ close ]</button>
-    <div class="modal-tag">> AFTERFRAME</div>
+    <button class="modal-close" onclick="closeModal(&#39;authModal&#39;)">[ close ]</button>
+    <div class="modal-tag">&gt; AFTERFRAME</div>
     <h3>Join for free</h3>
     <p class="modal-desc">Browse images, save favourites, get notified on drops.</p>
     <div class="modal-tabs">
-      <button class="modal-tab active" id="tab-signup" onclick="switchTab('signup')">Sign up</button>
-      <button class="modal-tab" id="tab-login" onclick="switchTab('login')">Log in</button>
+      <button class="modal-tab active" id="tab-signup" onclick="switchTab(&#39;signup&#39;)">Sign up</button>
+      <button class="modal-tab" id="tab-login" onclick="switchTab(&#39;login&#39;)">Log in</button>
     </div>
     <div class="tab-content active" id="content-signup">
       <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" id="signupEmail" placeholder="you@example.com"></div>
@@ -353,23 +391,23 @@ body { background: #000; color: #ccc; font-family: 'Share Tech Mono', monospace;
       <button class="form-submit" id="signupBtn" onclick="doSignUp()">Create free account</button>
       <div class="form-error" id="signupError"></div>
       <div class="form-success" id="signupSuccess"></div>
-      <div class="upgrade-note">Want full access? <span onclick="closeModal('authModal');openUpgrade()">Upgrade to Pro £7/mo</span></div>
+      <div class="upgrade-note">Want full access? <span onclick="closeModal(&#39;authModal&#39;);openUpgrade()">Upgrade to Pro £7/mo</span></div>
     </div>
     <div class="tab-content" id="content-login">
       <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" id="loginEmail" placeholder="you@example.com"></div>
       <div class="form-group"><label class="form-label">Password</label><input class="form-input" type="password" id="loginPassword" placeholder="Your password"></div>
       <button class="form-submit" id="loginBtn" onclick="doLogIn()">Log in</button>
       <div class="form-error" id="loginError"></div>
-      <div class="modal-switch" style="margin-top:12px;">No account? <span onclick="switchTab('signup')">Sign up free</span></div>
+      <div class="modal-switch" style="margin-top:12px;">No account? <span onclick="switchTab(&#39;signup&#39;)">Sign up free</span></div>
     </div>
   </div>
 </div>
 
 <!-- PROMPT MODAL -->
-<div class="modal-overlay" id="promptModal" onclick="closeModalOut(event,'promptModal')">
+<div class="modal-overlay" id="promptModal" onclick="closeModalOut(event,&#39;promptModal&#39;)">
   <div class="modal" style="max-width:440px;">
-    <button class="modal-close" onclick="closeModal('promptModal')">[ close ]</button>
-    <div class="modal-tag">> PROMPT PREVIEW</div>
+    <button class="modal-close" onclick="closeModal(&#39;promptModal&#39;)">[ close ]</button>
+    <div class="modal-tag">&gt; PROMPT PREVIEW</div>
     <img id="promptImg" style="width:100%;max-height:200px;object-fit:cover;margin-bottom:14px;display:none;border-radius:8px;" alt="">
     <div style="margin-bottom:10px;"><span id="promptModel" style="font-size:9px;letter-spacing:2px;color:#4dff4d;border:1px solid rgba(77,255,77,0.25);padding:2px 8px;border-radius:4px;display:inline-block;"></span></div>
     <div style="position:relative;margin-bottom:18px;">
@@ -380,16 +418,16 @@ body { background: #000; color: #ccc; font-family: 'Share Tech Mono', monospace;
       </div>
     </div>
     <div id="guestBtns">
-      <button class="form-submit" style="margin-bottom:8px;" onclick="closeModal('promptModal');openAuth('signup')">Sign up free</button>
-      <button class="form-submit" style="background:transparent;color:#4dff4d;border:1px solid rgba(77,255,77,0.3);" onclick="closeModal('promptModal');openUpgrade()">Go Pro — £7/mo</button>
+      <button class="form-submit" style="margin-bottom:8px;" onclick="closeModal(&#39;promptModal&#39;);openAuth(&#39;signup&#39;)">Sign up free</button>
+      <button class="form-submit" style="background:transparent;color:#4dff4d;border:1px solid rgba(77,255,77,0.3);" onclick="closeModal(&#39;promptModal&#39;);openUpgrade()">Go Pro — £7/mo</button>
     </div>
     <div id="memberBtns" style="display:none;">
-      <button class="form-submit" onclick="closeModal('promptModal');openUpgrade()">Unlock for £7/month</button>
+      <button class="form-submit" onclick="closeModal(&#39;promptModal&#39;);openUpgrade()">Unlock for £7/month</button>
     </div>
   </div>
 </div>
 
-<script src="https://www.paypal.com/sdk/js?client-id=AW9bFBdVSIM3akTi9QO732li0jr7lANlHjj2_TsQINXPQNVhpABdwXkqFf4QI2Nx5TyM86dtU1Z_7I1G&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+<script src="./browse_files/js" data-sdk-integration-source="button-factory" data-uid-auto="uid_mjhnbdvtjqseghzieuoeabthzjrlbg"></script>
 <script>
 const SB_URL='https://jbsyzrzoiawruusdowpx.supabase.co';
 const SB_KEY='sb_publishable_5yHqsw-CdIykq2jiCDwTpw_otaDsUlF';
@@ -398,34 +436,84 @@ let lbShoots=[],lbIdx=0,lbShoot=null;
 
 window.onload=function(){
   sb=window.supabase.createClient(SB_URL,SB_KEY);
+  loadImages();
+  loadShoots();
+  loadModels();
   sb.auth.getSession().then(function(r){
-    if(r.data.session){currentUser=r.data.session.user;loadProfile().then(function(){showBrowse();loadImages();loadShoots();});}
-    else showGate();
+    if(r.data.session){currentUser=r.data.session.user;loadProfile().then(updateAccount);}
+    else updateAccount();
   });
   sb.auth.onAuthStateChange(function(_e,s){
-    if(s){currentUser=s.user;loadProfile().then(function(){showBrowse();loadImages();loadShoots();});}
-    else{currentUser=null;userProfile=null;showGate();}
+    if(s){currentUser=s.user;loadProfile().then(function(){updateAccount();loadImages();});}
+    else{currentUser=null;userProfile=null;updateAccount();loadImages();}
   });
 };
 
 async function loadProfile(){var r=await sb.from('profiles').select('*').eq('id',currentUser.id).single();userProfile=r.data;}
 
-function showGate(){
-  document.getElementById('gate').classList.add('show');
-  document.getElementById('browseContent').classList.remove('show');
-  document.getElementById('bottomInput').style.display='flex';
-  document.getElementById('bottomInputText').textContent='Log in to start browsing...';
+function updateAccount(){
+  var li=!!currentUser;
+  var isPro=userProfile&&userProfile.is_pro;
+  document.getElementById('accountGuest').style.display=li?'none':'block';
+  document.getElementById('accountLoggedIn').style.display=li?'block':'none';
+  if(li){
+    document.getElementById('accountEmail').textContent=currentUser.email;
+    document.getElementById('accountBadge').innerHTML=isPro
+      ?'<span style="background:rgba(77,255,77,0.15);color:#4dff4d;border:1px solid rgba(77,255,77,0.3);font-size:10px;letter-spacing:3px;padding:4px 14px;border-radius:100px;">PRO MEMBER</span>'
+      :'<span style="background:#111;color:#555;border:1px solid #1a1a1a;font-size:10px;letter-spacing:3px;padding:4px 14px;border-radius:100px;">FREE</span>';
+    var joined=new Date(currentUser.created_at||Date.now()).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+    document.getElementById('accountJoined').textContent=joined;
+    document.getElementById('accountLevel').textContent=isPro?'Pro — full access':'Free';
+    document.getElementById('accountLevel').style.color=isPro?'#4dff4d':'#aaa';
+    document.getElementById('accountUpgradeBtn').style.display=isPro?'none':'block';
+  }
 }
-function showBrowse(){
-  document.getElementById('gate').classList.remove('show');
-  document.getElementById('browseContent').classList.add('show');
-  document.getElementById('bottomInput').style.display='none';
-  // Update nav right button
-  var nr=document.getElementById('navRight');
-  var nrl=document.getElementById('navRightLabel');
-  nr.onclick=function(){};
-  nrl.textContent=userProfile&&userProfile.is_pro?'Pro':'Account';
+
+function switchMainTab(tab){
+  ['tabImages','tabShoots','tabModels','tabAccount'].forEach(function(t){
+    document.getElementById(t).style.display='none';
+  });
+  ['navExplore','navModels','navAccount'].forEach(function(id){
+    var el=document.getElementById(id);if(el)el.classList.remove('active');
+  });
+  // show top filter bar only for images/shoots
+  document.getElementById('topBar').style.display=(tab==='account'||tab==='models')?'none':'flex';
+
+  if(tab==='images'){
+    document.getElementById('tabImages').style.display='block';
+    document.getElementById('navExplore').classList.add('active');
+  } else if(tab==='shoots'){
+    document.getElementById('tabShoots').style.display='block';
+    document.getElementById('navExplore').classList.add('active');
+  } else if(tab==='models'){
+    document.getElementById('tabModels').style.display='block';
+    document.getElementById('navModels').classList.add('active');
+  } else if(tab==='account'){
+    document.getElementById('tabAccount').style.display='block';
+    document.getElementById('navAccount').classList.add('active');
+  }
 }
+
+async function loadModels(){
+  var r=await fetch(SB_URL+'/rest/v1/models?select=*&order=created_at.desc',{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
+  var models=await r.json();
+  var grid=document.getElementById('modelsGrid');
+  var isPro=userProfile&&userProfile.is_pro;
+  if(!Array.isArray(models)||!models.length){grid.innerHTML='<div class="empty">Models coming soon.</div>';return;}
+  grid.innerHTML=models.map(function(m){
+    return '<div class="masonry-item" onclick="'+(!isPro?'openUpgrade()':'')+'" style="background:#0a0a0a;">'
+      +(isPro?'':'<div class="m-badge-lock">Pro only</div>')
+      +(m.image_url?'<img src="'+m.image_url+'" alt="" loading="lazy">':'<div style="height:220px;background:#111;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:32px;">◈</div>')
+      +'<div class="m-overlay" style="opacity:1;background:linear-gradient(to top,rgba(0,0,0,0.95) 0%,transparent 60%);">'
+      +'<div class="m-model">'+(m.ai_model||'')+'</div>'
+      +'<div style="font-family:\'Syne\',sans-serif;font-size:14px;font-weight:800;color:#fff;margin-bottom:4px;">'+m.name+'</div>'
+      +'<div style="font-size:10px;color:#666;letter-spacing:1px;">'+( m.style||'')+'</div>'
+      +(isPro&&m.lora_url?'<a href="'+m.lora_url+'" download target="_blank" style="margin-top:8px;display:inline-block;font-size:9px;letter-spacing:2px;color:#4dff4d;border:1px solid rgba(77,255,77,0.3);padding:3px 10px;border-radius:100px;text-decoration:none;">Download LoRA</a>':'')
+      +'</div></div>';
+  }).join('');
+}
+
+async function doSignOut(){await sb.auth.signOut();}
 
 async function loadImages(){
   var r=await fetch(SB_URL+'/rest/v1/images?select=*&order=created_at.desc',{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
@@ -477,13 +565,10 @@ function renderShoots(){
 }
 
 function setTab(tab){
-  document.getElementById('tabImages').style.display=tab==='images'?'block':'none';
-  document.getElementById('tabShoots').style.display=tab==='shoots'?'block':'none';
-  // update filter pills
-  ['fpAll','fpMJ','fpFlux','fpNB','fpDE','fpFree','fpShoots'].forEach(function(id){
-    document.getElementById(id).classList.remove('active');
-  });
-  if(tab==='shoots')document.getElementById('fpShoots').classList.add('active');
+  if(tab==='shoots'){switchMainTab('shoots');return;}
+  switchMainTab('images');
+  document.getElementById('tabImages').style.display='block';
+  document.getElementById('tabShoots').style.display='none';
 }
 
 function setFilter(el,filter){
@@ -624,5 +709,6 @@ function switchTab(tab){
   });
 }
 </script>
-</body>
-</html>
+
+
+</body></html>
