@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/qmako/Downloads/browse_9.html -->
+<!-- saved from url=(0047)file:///C:/Users/qmako/Downloads/browse_12.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -320,8 +320,33 @@ img { -webkit-touch-callout: none; }
 .detail-back:hover { color: #fff; }
 .detail-actions-top { display: flex; gap: 8px; }
 .detail-body { flex: 1; overflow-y: auto; }
-.detail-img-wrap { position: relative; }
+.detail-img-wrap { position: relative; cursor: zoom-in; }
 .detail-img { width: 100%; display: block; max-height: 60vh; object-fit: contain; background: #050505; }
+
+/* Full screen image viewer */
+#imgFullscreen {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 99999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+#imgFullscreen.open { display: flex; }
+#imgFullscreen img { max-width: 100%; max-height: 100%; object-fit: contain; }
+#imgFullscreen button {
+  position: absolute;
+  top: 16px; right: 16px;
+  background: rgba(0,0,0,0.7);
+  border: 1px solid #333;
+  color: #fff;
+  font-size: 20px;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
 .detail-info { padding: 20px 16px; }
 .detail-model-tag {
   font-size: 9px;
@@ -456,43 +481,7 @@ img { -webkit-touch-callout: none; }
   <div id="browseContent" style="display:block;">
     <!-- IMAGES -->
     <div id="tabImages">
-      <div class="masonry" id="imageGrid"><div class="masonry-item" onclick="openDetail(&#39;https://jbsyzrzoiawruusdowpx.supabase.co/storage/v1/object/public/images/1775613836560-1n8awy54rc8.png&#39;,&#39;Midjourney v8 Alpha&#39;,&#39;A surreal London underground subway station, wide-angle perspective, clean tiled walls, a stopped train on the left, platform lighting, highly realistic photo style. A massive glossy yellow smiley sphere wedged tightly between the train and the wall, distorted slightly from pressure, reflective surface. Inside the sphere, visible through a semi-transparent glossy shell, a spiky orange 3D character (round, cartoonish, soft spikes, vibrant orange, playful but slightly mischievous expression), glowing subtly. On the wall, a London Underground roundel sign. Above, a digital announcement board in dot-matrix LED style displaying: &quot;AFTERFRAME&quot; Cinematic lighting, ultra realistic, depth of field, 8k, high detail, reflections, shadows, photorealism, surreal scale contrast.
-
---chaos 20 
---ar 9:16 
---raw 
---v 8 
---hd 
---profile x58ja87&#39;,true,null)" data-url="https://jbsyzrzoiawruusdowpx.supabase.co/storage/v1/object/public/images/1775613836560-1n8awy54rc8.png" data-model="Midjourney v8 Alpha" data-prompt="A surreal London underground subway station, wide-angle perspective, clean tiled walls, a stopped train on the left, platform lighting, highly realistic photo style. A massive glossy yellow smiley sphere wedged tightly between the train and the wall, distorted slightly from pressure, reflective surface. Inside the sphere, visible through a semi-transparent glossy shell, a spiky orange 3D character (round, cartoonish, soft spikes, vibrant orange, playful but slightly mischievous expression), glowing subtly. On the wall, a London Underground roundel sign. Above, a digital announcement board in dot-matrix LED style displaying: &quot;AFTERFRAME&quot; Cinematic lighting, ultra realistic, depth of field, 8k, high detail, reflections, shadows, photorealism, surreal scale contrast.
-
---chaos 20 
---ar 9:16 
---raw 
---v 8 
---hd 
---profile x58ja87"><div class="m-badge-free">FREE</div><img src="./browse_files/1775613836560-1n8awy54rc8.png" alt="" loading="lazy"><div class="m-overlay"><div class="m-model">Midjourney v8 Alpha</div><div class="m-prompt">A surreal London underground subway station, wide-angle perspective, clean tiled walls, a stopped train on the left, platform lighting, highly realistic photo style. A massive glossy yellow smiley sphere wedged tightly between the train and the wall, distorted slightly from pressure, reflective surface. Inside the sphere, visible through a semi-transparent glossy shell, a spiky orange 3D character (round, cartoonish, soft spikes, vibrant orange, playful but slightly mischievous expression), glowing subtly. On the wall, a London Underground roundel sign. Above, a digital announcement board in dot-matrix LED style displaying: "AFTERFRAME" Cinematic lighting, ultra realistic, depth of field, 8k, high detail, reflections, shadows, photorealism, surreal scale contrast.
-
---chaos 20 
---ar 9:16 
---raw 
---v 8 
---hd 
---profile x58ja87</div></div></div><div class="masonry-item" onclick="openDetail(&#39;https://jbsyzrzoiawruusdowpx.supabase.co/storage/v1/object/public/images/1775497151863-u31qopd902.png&#39;,&#39;Midjourney v6&#39;,&#39;a small faceless woman in a white dress walking away into a surreal landscape of giant rounded topiary hedges in every direction, perfectly manicured vivid green bushes of all sizes, lush green grass floor, figure tiny in the distance, dreamlike and eerie, shot from slightly elevated angle, soft overcast light, no harsh shadows, hyper detailed texture on hedges, immersive and vast
---chaos 20 
---ar 2:3 
---raw 
---v 6.1 
-added vivid in lightroom&#39;,true,null)" data-url="https://jbsyzrzoiawruusdowpx.supabase.co/storage/v1/object/public/images/1775497151863-u31qopd902.png" data-model="Midjourney v6" data-prompt="a small faceless woman in a white dress walking away into a surreal landscape of giant rounded topiary hedges in every direction, perfectly manicured vivid green bushes of all sizes, lush green grass floor, figure tiny in the distance, dreamlike and eerie, shot from slightly elevated angle, soft overcast light, no harsh shadows, hyper detailed texture on hedges, immersive and vast
---chaos 20 
---ar 2:3 
---raw 
---v 6.1 
-added vivid in lightroom"><div class="m-badge-free">FREE</div><img src="./browse_files/1775497151863-u31qopd902.png" alt="" loading="lazy"><div class="m-overlay"><div class="m-model">Midjourney v6</div><div class="m-prompt">a small faceless woman in a white dress walking away into a surreal landscape of giant rounded topiary hedges in every direction, perfectly manicured vivid green bushes of all sizes, lush green grass floor, figure tiny in the distance, dreamlike and eerie, shot from slightly elevated angle, soft overcast light, no harsh shadows, hyper detailed texture on hedges, immersive and vast
---chaos 20 
---ar 2:3 
---raw 
---v 6.1 
-added vivid in lightroom</div></div></div><div class="masonry-item" onclick="openDetail(&#39;https://jbsyzrzoiawruusdowpx.supabase.co/storage/v1/object/public/images/1775495387651-55r8r9lplv.png&#39;,&#39;Midjourney v6&#39;,&#39;five faceless figures standing in a row in the foreground wearing bright cobalt blue robes and wide brim straw hats, long white beards, completely dark featureless faces with no eyes or nose, giant perfectly symmetrical cone shaped mountain filling the background behind them, soft mist at the base of the mountain, hazy blue purple sky above, figures cropped at waist, flat even focus throughout, no depth of field, everything in sharp focus, 1970s documentary photography style, slight film grain, kodachrome colours, eerie surreal atmosphere&#39;,true,null)" data-url="https://jbsyzrzoiawruusdowpx.supabase.co/storage/v1/object/public/images/1775495387651-55r8r9lplv.png" data-model="Midjourney v6" data-prompt="five faceless figures standing in a row in the foreground wearing bright cobalt blue robes and wide brim straw hats, long white beards, completely dark featureless faces with no eyes or nose, giant perfectly symmetrical cone shaped mountain filling the background behind them, soft mist at the base of the mountain, hazy blue purple sky above, figures cropped at waist, flat even focus throughout, no depth of field, everything in sharp focus, 1970s documentary photography style, slight film grain, kodachrome colours, eerie surreal atmosphere"><div class="m-badge-free">FREE</div><img src="./browse_files/1775495387651-55r8r9lplv.png" alt="" loading="lazy"><div class="m-overlay"><div class="m-model">Midjourney v6</div><div class="m-prompt">five faceless figures standing in a row in the foreground wearing bright cobalt blue robes and wide brim straw hats, long white beards, completely dark featureless faces with no eyes or nose, giant perfectly symmetrical cone shaped mountain filling the background behind them, soft mist at the base of the mountain, hazy blue purple sky above, figures cropped at waist, flat even focus throughout, no depth of field, everything in sharp focus, 1970s documentary photography style, slight film grain, kodachrome colours, eerie surreal atmosphere</div></div></div><div class="masonry-item" onclick="openDetail(&#39;https://jbsyzrzoiawruusdowpx.supabase.co/storage/v1/object/public/images/1775484923520-1l7m8w2nhp3.jpeg&#39;,&#39;Midjourney v6&#39;,&#39;A confident elderly woman in a pastel pink suit, sitting atop a giant surreal creature resembling a moss-covered alligator with soft green and pink hues. The scene is minimalist, neutral studio background, ultra-realistic, 8K resolution, surrealism style.&#39;,false,null)" data-url="https://jbsyzrzoiawruusdowpx.supabase.co/storage/v1/object/public/images/1775484923520-1l7m8w2nhp3.jpeg" data-model="Midjourney v6" data-prompt="A confident elderly woman in a pastel pink suit, sitting atop a giant surreal creature resembling a moss-covered alligator with soft green and pink hues. The scene is minimalist, neutral studio background, ultra-realistic, 8K resolution, surrealism style."><div class="m-badge-lock">Unlock</div><img src="./browse_files/1775484923520-1l7m8w2nhp3.jpeg" alt="" loading="lazy"><div class="m-overlay"><div class="m-model">Midjourney v6</div><div class="m-prompt blurred">A confident <span class="word-blur">elderly</span> woman <span class="word-blur">in</span> a <span class="word-blur">pastel</span> pink <span class="word-blur">suit,</span> sitting <span class="word-blur">atop</span> a <span class="word-blur">giant</span> surreal <span class="word-blur">creature</span> resembling <span class="word-blur">a</span> moss-covered <span class="word-blur">alligator</span> with <span class="word-blur">soft</span> green <span class="word-blur">and</span> pink <span class="word-blur">hues.</span> The <span class="word-blur">scene</span> is <span class="word-blur">minimalist,</span> neutral <span class="word-blur">studio</span> background, <span class="word-blur">ultra-realistic,</span> 8K <span class="word-blur">resolution,</span> surrealism <span class="word-blur">style.</span></div></div></div></div>
+      <div class="masonry" id="imageGrid"><div class="masonry-item" onclick="openDetailByIdx(0)"><div class="m-badge-free">FREE</div><img src="./browse_files/1775613836560-1n8awy54rc8.png" alt="" loading="lazy"></div><div class="masonry-item" onclick="openDetailByIdx(1)"><div class="m-badge-free">FREE</div><img src="./browse_files/1775497151863-u31qopd902.png" alt="" loading="lazy"></div><div class="masonry-item" onclick="openDetailByIdx(2)"><div class="m-badge-free">FREE</div><img src="./browse_files/1775495387651-55r8r9lplv.png" alt="" loading="lazy"></div><div class="masonry-item" onclick="openDetailByIdx(3)"><div class="m-badge-lock">Unlock</div><img src="./browse_files/1775484923520-1l7m8w2nhp3.jpeg" alt="" loading="lazy"></div></div>
     </div>
     <!-- SHOOTS -->
     <div id="tabShoots" style="display:none;">
@@ -571,8 +560,8 @@ added vivid in lightroom</div></div></div><div class="masonry-item" onclick="ope
     </div>
   </div>
   <div class="detail-body">
-    <div class="detail-img-wrap">
-      <img id="detailImg" class="detail-img" src="file:///C:/Users/qmako/Downloads/browse_9.html" alt="">
+    <div class="detail-img-wrap" onclick="openFullscreen(document.getElementById(&#39;detailImg&#39;).src)">
+      <img id="detailImg" class="detail-img" src="file:///C:/Users/qmako/Downloads/browse_12.html" alt="">
     </div>
     <div class="detail-info">
       <div class="detail-prompt-label">Prompt</div>
@@ -593,7 +582,7 @@ added vivid in lightroom</div></div></div><div class="masonry-item" onclick="ope
   </div>
   <div class="lb-body">
     <div class="lb-main">
-      <img id="lbImg" class="lb-img" src="file:///C:/Users/qmako/Downloads/browse_9.html" alt="">
+      <img id="lbImg" class="lb-img" src="file:///C:/Users/qmako/Downloads/browse_12.html" alt="">
       <div id="lbLockedOv" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:12px;">
         <div style="font-size:12px;letter-spacing:2px;color:#fff;">Step locked</div>
         <button class="lb-btn lb-btn-green" onclick="openUpgrade()">Unlock Pro — £7/mo</button>
@@ -617,9 +606,15 @@ added vivid in lightroom</div></div></div><div class="masonry-item" onclick="ope
   </div>
 </div>
 
+<!-- FULLSCREEN IMAGE VIEWER -->
+<div id="imgFullscreen">
+  <img id="imgFullscreenSrc" src="file:///C:/Users/qmako/Downloads/browse_12.html" alt="">
+  <button onclick="document.getElementById(&#39;imgFullscreen&#39;).classList.remove(&#39;open&#39;)">✕</button>
+</div>
+
 <!-- UPGRADE MODAL -->
 <div class="modal-overlay" id="upgradeModal" onclick="closeModalOut(event,&#39;upgradeModal&#39;)">
-  <div class="modal">
+  <div class="modal" style="max-height:90vh;overflow-y:auto;">
     <button class="modal-close" onclick="closeModal(&#39;upgradeModal&#39;)">[ close ]</button>
     <div class="modal-tag">&gt; PRO ACCESS</div>
     <h3>Unlock AFTERFRAME</h3>
@@ -628,7 +623,7 @@ added vivid in lightroom</div></div></div><div class="masonry-item" onclick="ope
       <span style="font-family:&#39;Syne&#39;,sans-serif;font-size:48px;font-weight:800;color:#4dff4d;">£7</span>
       <span style="font-size:12px;color:#444;">/month</span>
     </div>
-    <div id="paypal-button-container-P-2A405868K6260041WNHKGJUQ"></div>
+    <div id="paypal-button-container-P-2A405868K6260041WNHKGJUQ" style="min-height:50px;"></div>
     <div style="font-size:9px;color:#333;text-align:center;margin-top:10px;">Secured by PayPal. Cancel anytime.</div>
   </div>
 </div>
@@ -801,53 +796,77 @@ function renderImages(filter){
   else if(filter!=='all')filtered=allImages.filter(function(i){return i.ai_model.toLowerCase().includes(filter.toLowerCase());});
   var grid=document.getElementById('imageGrid');
   if(!filtered.length){grid.innerHTML='<div class="empty">No images found.</div>';return;}
+  // Store images in a global map so we can look them up by index safely
+  window._imgMap = filtered;
   grid.innerHTML=filtered.map(function(img,idx){
     var canView=isPro||img.is_free;
     var blurImg=!canView&&idx%2===0;
-    var words=img.prompt.split(' ');
-    var promptHtml=!canView?words.map(function(w,wi){return(wi>1&&wi%2===0)?'<span class="word-blur">'+w+'</span>':w;}).join(' '):img.prompt;
     var imgHtml=blurImg
       ?'<img src="'+img.image_url+'" alt="" loading="lazy" style="filter:blur(12px);">'
       :'<img src="'+img.image_url+'" alt="" loading="lazy">';
-    var su=img.image_url;var sm=img.ai_model.replace(/'/g,'&#39;');var sp=img.prompt.replace(/'/g,'&#39;').replace(/"/g,'&quot;');
-    return '<div class="masonry-item" onclick="openDetail(\''+su+'\',\''+sm+'\',\''+sp+'\','+canView+','+isPro+')" data-url="'+su+'" data-model="'+sm+'" data-prompt="'+sp+'">'
+    return '<div class="masonry-item" onclick="openDetailByIdx('+idx+')">'
       +(img.is_free?'<div class="m-badge-free">FREE</div>':(!canView?'<div class="m-badge-lock">Unlock</div>':''))
       +imgHtml
-      +'<div class="m-overlay"><div class="m-model">'+img.ai_model+'</div><div class="m-prompt'+(canView?'':' blurred')+'">'+promptHtml+'</div></div>'
       +'</div>';
   }).join('');
+}
+
+function openDetailByIdx(idx){
+  var img = window._imgMap[idx];
+  if(!img) return;
+  var isPro = userProfile && userProfile.is_pro;
+  var canView = isPro || img.is_free;
+  openDetail(img.image_url, img.ai_model, img.prompt, canView, isPro);
 }
 
 function openDetail(url, model, prompt, canView, isPro){
   document.getElementById('detailImg').src = url;
   document.getElementById('detailModelTag').textContent = model;
-  var promptDecoded = prompt.replace(/&#39;/g,"'").replace(/&quot;/g,'"');
   var ptEl = document.getElementById('detailPromptText');
+
   if(canView){
-    ptEl.textContent = promptDecoded;
+    // Show full prompt clearly
+    ptEl.innerHTML = prompt;
     ptEl.className = 'detail-prompt-text';
   } else {
-    ptEl.textContent = promptDecoded;
-    ptEl.className = 'detail-prompt-blurred';
+    // Blur most words — keep first 2 visible, blur the rest
+    var words = prompt.split(' ');
+    var html = words.map(function(w, wi){
+      if(wi < 2) return '<span>'+w+' </span>';
+      return '<span style="filter:blur(5px);user-select:none;">'+w+' </span>';
+    }).join('');
+    ptEl.innerHTML = html;
+    ptEl.className = 'detail-prompt-text';
   }
+
   var actions = document.getElementById('detailActions');
   if(canView && isPro){
     actions.innerHTML =
-      '<button class="detail-copy-btn" onclick="copyPrompt(\''+prompt.replace(/'/g,"&#39;")+'\')">⎘ Copy prompt</button>'
-      +'<button class="detail-download-btn" onclick="downloadImg(\''+url+'\')">↓ Save / Download image</button>';
+      '<button class="detail-copy-btn" id="copyBtn">⎘ Copy prompt</button>'
+      +'<button class="detail-download-btn" id="dlBtn">↓ Save / Download image</button>';
+    document.getElementById('copyBtn').onclick = function(){ copyPrompt(prompt); };
+    document.getElementById('dlBtn').onclick = function(){ downloadImg(url); };
   } else if(canView && !isPro){
     actions.innerHTML =
-      '<button class="detail-copy-btn" onclick="copyPrompt(\''+prompt.replace(/'/g,"&#39;")+'\')">⎘ Copy prompt</button>'
-      +'<div class="detail-locked-box"><p>Upgrade to Pro to download this image in full resolution.</p><button class="form-submit" style="border-radius:100px;" onclick="openUpgrade()">Unlock Pro — £7/mo</button></div>';
+      '<button class="detail-copy-btn" id="copyBtn">⎘ Copy prompt</button>'
+      +'<div class="detail-locked-box"><p>Upgrade to Pro to download images.</p>'
+      +'<button class="form-submit" style="border-radius:100px;" onclick="openUpgrade()">Unlock Pro — £7/mo</button></div>';
+    document.getElementById('copyBtn').onclick = function(){ copyPrompt(prompt); };
   } else {
     actions.innerHTML =
-      '<div class="detail-locked-box"><p>Sign up free to unlock some prompts, or go Pro for full access including downloads.</p>'
+      '<div class="detail-locked-box">'
+      +'<p>Sign up free to unlock some prompts, or go Pro for full access and downloads.</p>'
       +'<button class="form-submit" style="border-radius:100px;margin-bottom:8px;" onclick="openAuth(\'signup\')">Sign up free</button>'
       +'<button class="form-submit" style="border-radius:100px;background:transparent;color:#4dff4d;border:1px solid rgba(77,255,77,0.3);" onclick="openUpgrade()">Go Pro — £7/mo</button>'
       +'</div>';
   }
   document.getElementById('imageDetail').classList.add('open');
   document.body.style.overflow = 'hidden';
+}
+
+function openFullscreen(src){
+  document.getElementById('imgFullscreenSrc').src = src;
+  document.getElementById('imgFullscreen').classList.add('open');
 }
 
 function closeDetail(){
