@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
+<!-- saved from url=(0046)file:///C:/Users/qmako/Downloads/browse_5.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Explore — AFTERFRAME</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link href="./browse_files/css2" rel="stylesheet">
+<script src="./browse_files/supabase.js.download"></script>
+<script src="./browse_files/jspdf.umd.min.js.download"></script>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html,body { height: 100%; }
@@ -212,6 +212,140 @@ body { background: #000; color: #ccc; font-family: 'Share Tech Mono', monospace;
 .modal-switch { font-size: 11px; color: #444; text-align: center; margin-top: 14px; }
 .modal-switch span { color: #4dff4d; cursor: pointer; }
 
+/* IMAGE DETAIL PANEL */
+#imageDetail {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 20000;
+  display: none;
+  flex-direction: column;
+}
+#imageDetail.open { display: flex; }
+.detail-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid #111;
+  flex-shrink: 0;
+}
+.detail-back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #888;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Share Tech Mono', monospace;
+}
+.detail-back:hover { color: #fff; }
+.detail-actions-top { display: flex; gap: 8px; }
+.detail-body { flex: 1; overflow-y: auto; }
+.detail-img-wrap { position: relative; }
+.detail-img { width: 100%; display: block; max-height: 60vh; object-fit: contain; background: #050505; }
+.detail-info { padding: 20px 16px; }
+.detail-model-tag {
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: #4dff4d;
+  border: 1px solid rgba(77,255,77,0.25);
+  padding: 3px 10px;
+  border-radius: 100px;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+.detail-prompt-label {
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: #444;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.detail-prompt-text {
+  font-size: 14px;
+  color: #ddd;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+.detail-prompt-blurred {
+  font-size: 14px;
+  color: #ddd;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  filter: blur(5px);
+  user-select: none;
+}
+.detail-copy-btn {
+  width: 100%;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #000;
+  background: #4dff4d;
+  border: none;
+  padding: 14px;
+  cursor: pointer;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 100px;
+  transition: background 0.2s;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.detail-copy-btn:hover { background: #3de63d; }
+.detail-download-btn {
+  width: 100%;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #888;
+  background: transparent;
+  border: 1px solid #222;
+  padding: 14px;
+  cursor: pointer;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 100px;
+  transition: all 0.2s;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.detail-download-btn:hover { border-color: #4dff4d; color: #4dff4d; }
+.detail-locked-box {
+  background: #080808;
+  border: 1px solid #1a1a1a;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.detail-locked-box p { font-size: 12px; color: #555; line-height: 1.8; margin-bottom: 16px; }
+.copy-toast {
+  position: fixed;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #4dff4d;
+  color: #000;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  padding: 10px 24px;
+  border-radius: 100px;
+  z-index: 99999;
+  display: none;
+  white-space: nowrap;
+}
+
 /* empty state */
 .empty { padding: 60px 20px; text-align: center; font-size: 12px; letter-spacing: 2px; color: #333; }
 
@@ -231,13 +365,13 @@ body { background: #000; color: #ccc; font-family: 'Share Tech Mono', monospace;
 
 <!-- TOP FILTER BAR -->
 <div class="top-bar" id="topBar">
-  <div class="filter-pill active" id="fpAll" onclick="setTab('images');setFilter(this,'all')">All</div>
-  <div class="filter-pill" id="fpShoots" onclick="setTab('shoots')">Shoots <span class="pill-arrow">▾</span></div>
-  <div class="filter-pill" id="fpMJ" onclick="setTab('images');setFilter(this,'Midjourney')">Midjourney</div>
-  <div class="filter-pill" id="fpFlux" onclick="setTab('images');setFilter(this,'Flux')">Flux</div>
-  <div class="filter-pill" id="fpNB" onclick="setTab('images');setFilter(this,'Nano Banana')">Nano Banana</div>
-  <div class="filter-pill" id="fpDE" onclick="setTab('images');setFilter(this,'DALL-E')">DALL-E</div>
-  <div class="filter-pill" id="fpFree" onclick="setTab('images');setFilter(this,'free')">Free only</div>
+  <div class="filter-pill active" id="fpAll" onclick="setTab(&#39;images&#39;);setFilter(this,&#39;all&#39;)">All</div>
+  <div class="filter-pill" id="fpShoots" onclick="setTab(&#39;shoots&#39;)">Shoots <span class="pill-arrow">▾</span></div>
+  <div class="filter-pill" id="fpMJ" onclick="setTab(&#39;images&#39;);setFilter(this,&#39;Midjourney&#39;)">Midjourney</div>
+  <div class="filter-pill" id="fpFlux" onclick="setTab(&#39;images&#39;);setFilter(this,&#39;Flux&#39;)">Flux</div>
+  <div class="filter-pill" id="fpNB" onclick="setTab(&#39;images&#39;);setFilter(this,&#39;Nano Banana&#39;)">Nano Banana</div>
+  <div class="filter-pill" id="fpDE" onclick="setTab(&#39;images&#39;);setFilter(this,&#39;DALL-E&#39;)">DALL-E</div>
+  <div class="filter-pill" id="fpFree" onclick="setTab(&#39;images&#39;);setFilter(this,&#39;free&#39;)">Free only</div>
 </div>
 
 <div class="main">
@@ -246,28 +380,64 @@ body { background: #000; color: #ccc; font-family: 'Share Tech Mono', monospace;
   <div id="browseContent" style="display:block;">
     <!-- IMAGES -->
     <div id="tabImages">
-      <div class="masonry" id="imageGrid"><div class="empty">Loading...</div></div>
+      <div class="masonry" id="imageGrid"><div class="masonry-item" onclick="openDetail(&#39;https://jbsyzrzoiawruusdowpx.supabase.co/storage/v1/object/public/images/1775613836560-1n8awy54rc8.png&#39;,&#39;Midjourney v8 Alpha&#39;,&#39;A surreal London underground subway station, wide-angle perspective, clean tiled walls, a stopped train on the left, platform lighting, highly realistic photo style. A massive glossy yellow smiley sphere wedged tightly between the train and the wall, distorted slightly from pressure, reflective surface. Inside the sphere, visible through a semi-transparent glossy shell, a spiky orange 3D character (round, cartoonish, soft spikes, vibrant orange, playful but slightly mischievous expression), glowing subtly. On the wall, a London Underground roundel sign. Above, a digital announcement board in dot-matrix LED style displaying: &quot;AFTERFRAME&quot; Cinematic lighting, ultra realistic, depth of field, 8k, high detail, reflections, shadows, photorealism, surreal scale contrast.
+
+--chaos 20 
+--ar 9:16 
+--raw 
+--v 8 
+--hd 
+--profile x58ja87&#39;,true,null)" data-url="https://jbsyzrzoiawruusdowpx.supabase.co/storage/v1/object/public/images/1775613836560-1n8awy54rc8.png" data-model="Midjourney v8 Alpha" data-prompt="A surreal London underground subway station, wide-angle perspective, clean tiled walls, a stopped train on the left, platform lighting, highly realistic photo style. A massive glossy yellow smiley sphere wedged tightly between the train and the wall, distorted slightly from pressure, reflective surface. Inside the sphere, visible through a semi-transparent glossy shell, a spiky orange 3D character (round, cartoonish, soft spikes, vibrant orange, playful but slightly mischievous expression), glowing subtly. On the wall, a London Underground roundel sign. Above, a digital announcement board in dot-matrix LED style displaying: &quot;AFTERFRAME&quot; Cinematic lighting, ultra realistic, depth of field, 8k, high detail, reflections, shadows, photorealism, surreal scale contrast.
+
+--chaos 20 
+--ar 9:16 
+--raw 
+--v 8 
+--hd 
+--profile x58ja87"><div class="m-badge-free">FREE</div><img src="./browse_files/1775613836560-1n8awy54rc8.png" alt="" loading="lazy"><div class="m-overlay"><div class="m-model">Midjourney v8 Alpha</div><div class="m-prompt">A surreal London underground subway station, wide-angle perspective, clean tiled walls, a stopped train on the left, platform lighting, highly realistic photo style. A massive glossy yellow smiley sphere wedged tightly between the train and the wall, distorted slightly from pressure, reflective surface. Inside the sphere, visible through a semi-transparent glossy shell, a spiky orange 3D character (round, cartoonish, soft spikes, vibrant orange, playful but slightly mischievous expression), glowing subtly. On the wall, a London Underground roundel sign. Above, a digital announcement board in dot-matrix LED style displaying: "AFTERFRAME" Cinematic lighting, ultra realistic, depth of field, 8k, high detail, reflections, shadows, photorealism, surreal scale contrast.
+
+--chaos 20 
+--ar 9:16 
+--raw 
+--v 8 
+--hd 
+--profile x58ja87</div></div></div><div class="masonry-item" onclick="openDetail(&#39;https://jbsyzrzoiawruusdowpx.supabase.co/storage/v1/object/public/images/1775497151863-u31qopd902.png&#39;,&#39;Midjourney v6&#39;,&#39;a small faceless woman in a white dress walking away into a surreal landscape of giant rounded topiary hedges in every direction, perfectly manicured vivid green bushes of all sizes, lush green grass floor, figure tiny in the distance, dreamlike and eerie, shot from slightly elevated angle, soft overcast light, no harsh shadows, hyper detailed texture on hedges, immersive and vast
+--chaos 20 
+--ar 2:3 
+--raw 
+--v 6.1 
+added vivid in lightroom&#39;,true,null)" data-url="https://jbsyzrzoiawruusdowpx.supabase.co/storage/v1/object/public/images/1775497151863-u31qopd902.png" data-model="Midjourney v6" data-prompt="a small faceless woman in a white dress walking away into a surreal landscape of giant rounded topiary hedges in every direction, perfectly manicured vivid green bushes of all sizes, lush green grass floor, figure tiny in the distance, dreamlike and eerie, shot from slightly elevated angle, soft overcast light, no harsh shadows, hyper detailed texture on hedges, immersive and vast
+--chaos 20 
+--ar 2:3 
+--raw 
+--v 6.1 
+added vivid in lightroom"><div class="m-badge-free">FREE</div><img src="./browse_files/1775497151863-u31qopd902.png" alt="" loading="lazy"><div class="m-overlay"><div class="m-model">Midjourney v6</div><div class="m-prompt">a small faceless woman in a white dress walking away into a surreal landscape of giant rounded topiary hedges in every direction, perfectly manicured vivid green bushes of all sizes, lush green grass floor, figure tiny in the distance, dreamlike and eerie, shot from slightly elevated angle, soft overcast light, no harsh shadows, hyper detailed texture on hedges, immersive and vast
+--chaos 20 
+--ar 2:3 
+--raw 
+--v 6.1 
+added vivid in lightroom</div></div></div><div class="masonry-item" onclick="openDetail(&#39;https://jbsyzrzoiawruusdowpx.supabase.co/storage/v1/object/public/images/1775495387651-55r8r9lplv.png&#39;,&#39;Midjourney v6&#39;,&#39;five faceless figures standing in a row in the foreground wearing bright cobalt blue robes and wide brim straw hats, long white beards, completely dark featureless faces with no eyes or nose, giant perfectly symmetrical cone shaped mountain filling the background behind them, soft mist at the base of the mountain, hazy blue purple sky above, figures cropped at waist, flat even focus throughout, no depth of field, everything in sharp focus, 1970s documentary photography style, slight film grain, kodachrome colours, eerie surreal atmosphere&#39;,true,null)" data-url="https://jbsyzrzoiawruusdowpx.supabase.co/storage/v1/object/public/images/1775495387651-55r8r9lplv.png" data-model="Midjourney v6" data-prompt="five faceless figures standing in a row in the foreground wearing bright cobalt blue robes and wide brim straw hats, long white beards, completely dark featureless faces with no eyes or nose, giant perfectly symmetrical cone shaped mountain filling the background behind them, soft mist at the base of the mountain, hazy blue purple sky above, figures cropped at waist, flat even focus throughout, no depth of field, everything in sharp focus, 1970s documentary photography style, slight film grain, kodachrome colours, eerie surreal atmosphere"><div class="m-badge-free">FREE</div><img src="./browse_files/1775495387651-55r8r9lplv.png" alt="" loading="lazy"><div class="m-overlay"><div class="m-model">Midjourney v6</div><div class="m-prompt">five faceless figures standing in a row in the foreground wearing bright cobalt blue robes and wide brim straw hats, long white beards, completely dark featureless faces with no eyes or nose, giant perfectly symmetrical cone shaped mountain filling the background behind them, soft mist at the base of the mountain, hazy blue purple sky above, figures cropped at waist, flat even focus throughout, no depth of field, everything in sharp focus, 1970s documentary photography style, slight film grain, kodachrome colours, eerie surreal atmosphere</div></div></div><div class="masonry-item" onclick="openDetail(&#39;https://jbsyzrzoiawruusdowpx.supabase.co/storage/v1/object/public/images/1775484923520-1l7m8w2nhp3.jpeg&#39;,&#39;Midjourney v6&#39;,&#39;A confident elderly woman in a pastel pink suit, sitting atop a giant surreal creature resembling a moss-covered alligator with soft green and pink hues. The scene is minimalist, neutral studio background, ultra-realistic, 8K resolution, surrealism style.&#39;,false,null)" data-url="https://jbsyzrzoiawruusdowpx.supabase.co/storage/v1/object/public/images/1775484923520-1l7m8w2nhp3.jpeg" data-model="Midjourney v6" data-prompt="A confident elderly woman in a pastel pink suit, sitting atop a giant surreal creature resembling a moss-covered alligator with soft green and pink hues. The scene is minimalist, neutral studio background, ultra-realistic, 8K resolution, surrealism style."><div class="m-badge-lock">Unlock</div><img src="./browse_files/1775484923520-1l7m8w2nhp3.jpeg" alt="" loading="lazy"><div class="m-overlay"><div class="m-model">Midjourney v6</div><div class="m-prompt blurred">A confident <span class="word-blur">elderly</span> woman <span class="word-blur">in</span> a <span class="word-blur">pastel</span> pink <span class="word-blur">suit,</span> sitting <span class="word-blur">atop</span> a <span class="word-blur">giant</span> surreal <span class="word-blur">creature</span> resembling <span class="word-blur">a</span> moss-covered <span class="word-blur">alligator</span> with <span class="word-blur">soft</span> green <span class="word-blur">and</span> pink <span class="word-blur">hues.</span> The <span class="word-blur">scene</span> is <span class="word-blur">minimalist,</span> neutral <span class="word-blur">studio</span> background, <span class="word-blur">ultra-realistic,</span> 8K <span class="word-blur">resolution,</span> surrealism <span class="word-blur">style.</span></div></div></div></div>
     </div>
     <!-- SHOOTS -->
     <div id="tabShoots" style="display:none;">
-      <div class="shoots-grid" id="shootsGrid"><div class="empty">Loading...</div></div>
+      <div class="shoots-grid" id="shootsGrid"><div class="empty">No shoots yet.</div></div>
     </div>
     <!-- MODELS -->
     <div id="tabModels" style="display:none;">
-      <div class="masonry" id="modelsGrid"><div class="empty">Loading models...</div></div>
+      <div class="masonry" id="modelsGrid"><div class="empty">Models coming soon.</div></div>
     </div>
     <!-- ACCOUNT -->
     <div id="tabAccount" style="display:none;">
-      <div id="accountGuest" style="padding:40px 20px;text-align:center;">
-        <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff;margin-bottom:12px;">Your account</div>
+      <div id="accountGuest" style="padding: 40px 20px; text-align: center; display: block;">
+        <div style="font-family:&#39;Syne&#39;,sans-serif;font-size:22px;font-weight:800;color:#fff;margin-bottom:12px;">Your account</div>
         <p style="font-size:13px;color:#555;line-height:1.8;margin-bottom:28px;">Sign in to manage your account and access Pro features.</p>
-        <button class="gate-btn gate-btn-primary" style="margin:0 auto 10px;display:block;max-width:280px;width:100%;" onclick="openAuth('signup')">Sign up free</button>
-        <button class="gate-btn gate-btn-secondary" style="margin:0 auto;display:block;max-width:280px;width:100%;" onclick="openAuth('login')">Log in</button>
+        <button class="gate-btn gate-btn-primary" style="margin:0 auto 10px;display:block;max-width:280px;width:100%;" onclick="openAuth(&#39;signup&#39;)">Sign up free</button>
+        <button class="gate-btn gate-btn-secondary" style="margin:0 auto;display:block;max-width:280px;width:100%;" onclick="openAuth(&#39;login&#39;)">Log in</button>
       </div>
       <div id="accountLoggedIn" style="display:none;padding:32px 20px;">
         <div style="background:#0a0a0a;border:1px solid #1a1a1a;border-radius:16px;padding:28px;max-width:480px;margin:0 auto;">
           <div style="width:56px;height:56px;border-radius:50%;background:rgba(77,255,77,0.1);border:1px solid rgba(77,255,77,0.3);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 20px;">◎</div>
-          <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#fff;text-align:center;margin-bottom:6px;" id="accountEmail">—</div>
+          <div style="font-family:&#39;Syne&#39;,sans-serif;font-size:18px;font-weight:800;color:#fff;text-align:center;margin-bottom:6px;" id="accountEmail">—</div>
           <div style="text-align:center;margin-bottom:28px;" id="accountBadge"></div>
           <div style="border-top:1px solid #111;padding-top:20px;display:flex;flex-direction:column;gap:10px;">
             <div style="display:flex;justify-content:space-between;font-size:12px;padding:10px 0;border-bottom:1px solid #0a0a0a;">
@@ -282,7 +452,7 @@ body { background: #000; color: #ccc; font-family: 'Share Tech Mono', monospace;
           <div id="accountUpgradeBtn" style="margin-top:20px;display:none;">
             <button class="gate-btn gate-btn-primary" style="width:100%;" onclick="openUpgrade()">Upgrade to Pro — £7/mo</button>
           </div>
-          <button onclick="doSignOut()" style="width:100%;margin-top:12px;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:#555;background:transparent;border:1px solid #1a1a1a;padding:12px;cursor:pointer;border-radius:100px;text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#555'">Sign out</button>
+          <button onclick="doSignOut()" style="width:100%;margin-top:12px;font-family:&#39;Share Tech Mono&#39;,monospace;font-size:11px;letter-spacing:2px;color:#555;background:transparent;border:1px solid #1a1a1a;padding:12px;cursor:pointer;border-radius:100px;text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.color=&#39;#fff&#39;" onmouseout="this.style.color=&#39;#555&#39;">Sign out</button>
         </div>
       </div>
     </div>
@@ -291,7 +461,7 @@ body { background: #000; color: #ccc; font-family: 'Share Tech Mono', monospace;
 </div>
 
 <!-- BOTTOM INPUT -->
-<div class="bottom-input" id="bottomInput" onclick="openAuth('signup')" style="display:none;">
+<div class="bottom-input" id="bottomInput" onclick="openAuth(&#39;signup&#39;)" style="display:none;">
   <span id="bottomInputText">Log in to start creating...</span>
   <span class="bottom-input-icon">⚙</span>
 </div>
@@ -302,19 +472,42 @@ body { background: #000; color: #ccc; font-family: 'Share Tech Mono', monospace;
     <span class="nav-icon">☰</span>
     <span class="nav-label">Menu</span>
   </a>
-  <button class="nav-item active" id="navExplore" onclick="switchMainTab('images')">
+  <button class="nav-item active" id="navExplore" onclick="switchMainTab(&#39;images&#39;)">
     <span class="nav-icon">◉</span>
     <span class="nav-label">Explore</span>
   </button>
-  <button class="nav-item" id="navModels" onclick="switchMainTab('models')">
+  <button class="nav-item" id="navModels" onclick="switchMainTab(&#39;models&#39;)">
     <span class="nav-icon">◈</span>
     <span class="nav-label">Models</span>
   </button>
-  <button class="nav-item" id="navAccount" onclick="switchMainTab('account')">
+  <button class="nav-item" id="navAccount" onclick="switchMainTab(&#39;account&#39;)">
     <span class="nav-icon">◎</span>
     <span class="nav-label">Account</span>
   </button>
 </div>
+
+<!-- IMAGE DETAIL PANEL -->
+<div id="imageDetail">
+  <div class="detail-top">
+    <button class="detail-back" onclick="closeDetail()">‹ Back</button>
+    <div class="detail-actions-top">
+      <span id="detailModelTag" class="detail-model-tag"></span>
+    </div>
+  </div>
+  <div class="detail-body">
+    <div class="detail-img-wrap">
+      <img id="detailImg" class="detail-img" src="file:///C:/Users/qmako/Downloads/browse_5.html" alt="">
+    </div>
+    <div class="detail-info">
+      <div class="detail-prompt-label">Prompt</div>
+      <div id="detailPromptText" class="detail-prompt-text"></div>
+      <div id="detailActions"></div>
+    </div>
+  </div>
+</div>
+
+<!-- COPY TOAST -->
+<div class="copy-toast" id="copyToast">✓ Copied to clipboard</div>
 
 <!-- LIGHTBOX -->
 <div id="lightbox">
@@ -324,7 +517,7 @@ body { background: #000; color: #ccc; font-family: 'Share Tech Mono', monospace;
   </div>
   <div class="lb-body">
     <div class="lb-main">
-      <img id="lbImg" class="lb-img" src="" alt="">
+      <img id="lbImg" class="lb-img" src="file:///C:/Users/qmako/Downloads/browse_5.html" alt="">
       <div id="lbLockedOv" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:12px;">
         <div style="font-size:12px;letter-spacing:2px;color:#fff;">Step locked</div>
         <button class="lb-btn lb-btn-green" onclick="openUpgrade()">Unlock Pro — £7/mo</button>
@@ -349,14 +542,14 @@ body { background: #000; color: #ccc; font-family: 'Share Tech Mono', monospace;
 </div>
 
 <!-- UPGRADE MODAL -->
-<div class="modal-overlay" id="upgradeModal" onclick="closeModalOut(event,'upgradeModal')">
+<div class="modal-overlay" id="upgradeModal" onclick="closeModalOut(event,&#39;upgradeModal&#39;)">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal('upgradeModal')">[ close ]</button>
-    <div class="modal-tag">> PRO ACCESS</div>
+    <button class="modal-close" onclick="closeModal(&#39;upgradeModal&#39;)">[ close ]</button>
+    <div class="modal-tag">&gt; PRO ACCESS</div>
     <h3>Unlock AFTERFRAME</h3>
     <p class="modal-desc">Every prompt, shoot breakdown, PDF download and LoRA file. New content every Monday.</p>
     <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:20px;">
-      <span style="font-family:'Syne',sans-serif;font-size:48px;font-weight:800;color:#4dff4d;">£7</span>
+      <span style="font-family:&#39;Syne&#39;,sans-serif;font-size:48px;font-weight:800;color:#4dff4d;">£7</span>
       <span style="font-size:12px;color:#444;">/month</span>
     </div>
     <div id="paypal-button-container-P-2A405868K6260041WNHKGJUQ"></div>
@@ -365,15 +558,15 @@ body { background: #000; color: #ccc; font-family: 'Share Tech Mono', monospace;
 </div>
 
 <!-- AUTH MODAL -->
-<div class="modal-overlay" id="authModal" onclick="closeModalOut(event,'authModal')">
+<div class="modal-overlay" id="authModal" onclick="closeModalOut(event,&#39;authModal&#39;)">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal('authModal')">[ close ]</button>
-    <div class="modal-tag">> AFTERFRAME</div>
+    <button class="modal-close" onclick="closeModal(&#39;authModal&#39;)">[ close ]</button>
+    <div class="modal-tag">&gt; AFTERFRAME</div>
     <h3>Join for free</h3>
     <p class="modal-desc">Browse images, save favourites, get notified on drops.</p>
     <div class="modal-tabs">
-      <button class="modal-tab active" id="tab-signup" onclick="switchTab('signup')">Sign up</button>
-      <button class="modal-tab" id="tab-login" onclick="switchTab('login')">Log in</button>
+      <button class="modal-tab active" id="tab-signup" onclick="switchTab(&#39;signup&#39;)">Sign up</button>
+      <button class="modal-tab" id="tab-login" onclick="switchTab(&#39;login&#39;)">Log in</button>
     </div>
     <div class="tab-content active" id="content-signup">
       <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" id="signupEmail" placeholder="you@example.com"></div>
@@ -381,23 +574,23 @@ body { background: #000; color: #ccc; font-family: 'Share Tech Mono', monospace;
       <button class="form-submit" id="signupBtn" onclick="doSignUp()">Create free account</button>
       <div class="form-error" id="signupError"></div>
       <div class="form-success" id="signupSuccess"></div>
-      <div class="upgrade-note">Want full access? <span onclick="closeModal('authModal');openUpgrade()">Upgrade to Pro £7/mo</span></div>
+      <div class="upgrade-note">Want full access? <span onclick="closeModal(&#39;authModal&#39;);openUpgrade()">Upgrade to Pro £7/mo</span></div>
     </div>
     <div class="tab-content" id="content-login">
       <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" id="loginEmail" placeholder="you@example.com"></div>
       <div class="form-group"><label class="form-label">Password</label><input class="form-input" type="password" id="loginPassword" placeholder="Your password"></div>
       <button class="form-submit" id="loginBtn" onclick="doLogIn()">Log in</button>
       <div class="form-error" id="loginError"></div>
-      <div class="modal-switch" style="margin-top:12px;">No account? <span onclick="switchTab('signup')">Sign up free</span></div>
+      <div class="modal-switch" style="margin-top:12px;">No account? <span onclick="switchTab(&#39;signup&#39;)">Sign up free</span></div>
     </div>
   </div>
 </div>
 
 <!-- PROMPT MODAL -->
-<div class="modal-overlay" id="promptModal" onclick="closeModalOut(event,'promptModal')">
+<div class="modal-overlay" id="promptModal" onclick="closeModalOut(event,&#39;promptModal&#39;)">
   <div class="modal" style="max-width:440px;">
-    <button class="modal-close" onclick="closeModal('promptModal')">[ close ]</button>
-    <div class="modal-tag">> PROMPT PREVIEW</div>
+    <button class="modal-close" onclick="closeModal(&#39;promptModal&#39;)">[ close ]</button>
+    <div class="modal-tag">&gt; PROMPT PREVIEW</div>
     <img id="promptImg" style="width:100%;max-height:200px;object-fit:cover;margin-bottom:14px;display:none;border-radius:8px;" alt="">
     <div style="margin-bottom:10px;"><span id="promptModel" style="font-size:9px;letter-spacing:2px;color:#4dff4d;border:1px solid rgba(77,255,77,0.25);padding:2px 8px;border-radius:4px;display:inline-block;"></span></div>
     <div style="position:relative;margin-bottom:18px;">
@@ -408,16 +601,16 @@ body { background: #000; color: #ccc; font-family: 'Share Tech Mono', monospace;
       </div>
     </div>
     <div id="guestBtns">
-      <button class="form-submit" style="margin-bottom:8px;" onclick="closeModal('promptModal');openAuth('signup')">Sign up free</button>
-      <button class="form-submit" style="background:transparent;color:#4dff4d;border:1px solid rgba(77,255,77,0.3);" onclick="closeModal('promptModal');openUpgrade()">Go Pro — £7/mo</button>
+      <button class="form-submit" style="margin-bottom:8px;" onclick="closeModal(&#39;promptModal&#39;);openAuth(&#39;signup&#39;)">Sign up free</button>
+      <button class="form-submit" style="background:transparent;color:#4dff4d;border:1px solid rgba(77,255,77,0.3);" onclick="closeModal(&#39;promptModal&#39;);openUpgrade()">Go Pro — £7/mo</button>
     </div>
     <div id="memberBtns" style="display:none;">
-      <button class="form-submit" onclick="closeModal('promptModal');openUpgrade()">Unlock for £7/month</button>
+      <button class="form-submit" onclick="closeModal(&#39;promptModal&#39;);openUpgrade()">Unlock for £7/month</button>
     </div>
   </div>
 </div>
 
-<script src="https://www.paypal.com/sdk/js?client-id=AW9bFBdVSIM3akTi9QO732li0jr7lANlHjj2_TsQINXPQNVhpABdwXkqFf4QI2Nx5TyM86dtU1Z_7I1G&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
+<script src="./browse_files/js" data-sdk-integration-source="button-factory" data-uid-auto="uid_mjhnbdvtjqseghzieuoeabthzjrlbg"></script>
 <script>
 const SB_URL='https://jbsyzrzoiawruusdowpx.supabase.co';
 const SB_KEY='sb_publishable_5yHqsw-CdIykq2jiCDwTpw_otaDsUlF';
@@ -534,12 +727,66 @@ function renderImages(filter){
       ?'<img src="'+img.image_url+'" alt="" loading="lazy" style="filter:blur(12px);">'
       :'<img src="'+img.image_url+'" alt="" loading="lazy">';
     var su=img.image_url;var sm=img.ai_model.replace(/'/g,'&#39;');var sp=img.prompt.replace(/'/g,'&#39;').replace(/"/g,'&quot;');
-    return '<div class="masonry-item" onclick="'+(!canView?'openPromptModal(this)':'')+'" data-url="'+su+'" data-model="'+sm+'" data-prompt="'+sp+'">'
+    return '<div class="masonry-item" onclick="openDetail(\''+su+'\',\''+sm+'\',\''+sp+'\','+canView+','+isPro+')" data-url="'+su+'" data-model="'+sm+'" data-prompt="'+sp+'">'
       +(img.is_free?'<div class="m-badge-free">FREE</div>':(!canView?'<div class="m-badge-lock">Unlock</div>':''))
       +imgHtml
       +'<div class="m-overlay"><div class="m-model">'+img.ai_model+'</div><div class="m-prompt'+(canView?'':' blurred')+'">'+promptHtml+'</div></div>'
       +'</div>';
   }).join('');
+}
+
+function openDetail(url, model, prompt, canView, isPro){
+  document.getElementById('detailImg').src = url;
+  document.getElementById('detailModelTag').textContent = model;
+  var promptDecoded = prompt.replace(/&#39;/g,"'").replace(/&quot;/g,'"');
+  var ptEl = document.getElementById('detailPromptText');
+  if(canView){
+    ptEl.textContent = promptDecoded;
+    ptEl.className = 'detail-prompt-text';
+  } else {
+    ptEl.textContent = promptDecoded;
+    ptEl.className = 'detail-prompt-blurred';
+  }
+  var actions = document.getElementById('detailActions');
+  if(canView && isPro){
+    actions.innerHTML =
+      '<button class="detail-copy-btn" onclick="copyPrompt(\''+prompt.replace(/'/g,"&#39;")+'\')">⎘ Copy prompt</button>'
+      +'<button class="detail-download-btn" onclick="downloadImg(\''+url+'\')">↓ Download image</button>';
+  } else if(canView && !isPro){
+    actions.innerHTML =
+      '<button class="detail-copy-btn" onclick="copyPrompt(\''+prompt.replace(/'/g,"&#39;")+'\')">⎘ Copy prompt</button>'
+      +'<div class="detail-locked-box"><p>Upgrade to Pro to download this image in full resolution.</p><button class="form-submit" style="border-radius:100px;" onclick="openUpgrade()">Unlock Pro — £7/mo</button></div>';
+  } else {
+    actions.innerHTML =
+      '<div class="detail-locked-box"><p>Sign up free to unlock some prompts, or go Pro for full access including downloads.</p>'
+      +'<button class="form-submit" style="border-radius:100px;margin-bottom:8px;" onclick="openAuth(\'signup\')">Sign up free</button>'
+      +'<button class="form-submit" style="border-radius:100px;background:transparent;color:#4dff4d;border:1px solid rgba(77,255,77,0.3);" onclick="openUpgrade()">Go Pro — £7/mo</button>'
+      +'</div>';
+  }
+  document.getElementById('imageDetail').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDetail(){
+  document.getElementById('imageDetail').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function copyPrompt(prompt){
+  var decoded = prompt.replace(/&#39;/g,"'").replace(/&quot;/g,'"');
+  navigator.clipboard.writeText(decoded).then(function(){
+    var toast = document.getElementById('copyToast');
+    toast.style.display = 'block';
+    setTimeout(function(){ toast.style.display = 'none'; }, 2000);
+  });
+}
+
+function downloadImg(url){
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'afterframe-image.jpg';
+  a.target = '_blank';
+  a.click();
 }
 
 function renderShoots(){
@@ -688,7 +935,7 @@ function openAuth(tab){document.getElementById('authModal').classList.add('open'
 function closeModal(id){document.getElementById(id).classList.remove('open');}
 function closeModalOut(e,id){if(e.target===document.getElementById(id))closeModal(id);}
 document.addEventListener('keydown',function(e){
-  if(e.key==='Escape'){['authModal','upgradeModal','promptModal'].forEach(closeModal);closeLB();}
+  if(e.key==='Escape'){['authModal','upgradeModal','promptModal'].forEach(closeModal);closeLB();closeDetail();}
   if(e.key==='ArrowLeft'&&document.getElementById('lightbox').classList.contains('open'))lbNav(-1);
   if(e.key==='ArrowRight'&&document.getElementById('lightbox').classList.contains('open'))lbNav(1);
 });
@@ -699,5 +946,6 @@ function switchTab(tab){
   });
 }
 </script>
-</body>
-</html>
+
+
+</body></html>
