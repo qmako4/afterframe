@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/qmako/Downloads/browse_7.html -->
+<!-- saved from url=(0046)file:///C:/Users/qmako/Downloads/browse_8.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -278,6 +278,15 @@ body { background: #000; color: #ccc; font-family: 'Share Tech Mono', monospace;
 .upgrade-note span { color: #4dff4d; cursor: pointer; }
 .modal-switch { font-size: 11px; color: #444; text-align: center; margin-top: 14px; }
 .modal-switch span { color: #4dff4d; cursor: pointer; }
+
+/* Disable long press save on iOS */
+img { -webkit-touch-callout: none; }
+
+/* Disable hover overlay on touch devices */
+@media (hover: none) {
+  .m-overlay { display: none; }
+  .shoot-ov { opacity: 1; }
+}
 
 /* IMAGE DETAIL PANEL */
 #imageDetail {
@@ -563,7 +572,7 @@ added vivid in lightroom</div></div></div><div class="masonry-item" onclick="ope
   </div>
   <div class="detail-body">
     <div class="detail-img-wrap">
-      <img id="detailImg" class="detail-img" src="file:///C:/Users/qmako/Downloads/browse_7.html" alt="">
+      <img id="detailImg" class="detail-img" src="file:///C:/Users/qmako/Downloads/browse_8.html" alt="">
     </div>
     <div class="detail-info">
       <div class="detail-prompt-label">Prompt</div>
@@ -584,7 +593,7 @@ added vivid in lightroom</div></div></div><div class="masonry-item" onclick="ope
   </div>
   <div class="lb-body">
     <div class="lb-main">
-      <img id="lbImg" class="lb-img" src="file:///C:/Users/qmako/Downloads/browse_7.html" alt="">
+      <img id="lbImg" class="lb-img" src="file:///C:/Users/qmako/Downloads/browse_8.html" alt="">
       <div id="lbLockedOv" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:12px;">
         <div style="font-size:12px;letter-spacing:2px;color:#fff;">Step locked</div>
         <button class="lb-btn lb-btn-green" onclick="openUpgrade()">Unlock Pro — £7/mo</button>
@@ -825,7 +834,7 @@ function openDetail(url, model, prompt, canView, isPro){
   if(canView && isPro){
     actions.innerHTML =
       '<button class="detail-copy-btn" onclick="copyPrompt(\''+prompt.replace(/'/g,"&#39;")+'\')">⎘ Copy prompt</button>'
-      +'<button class="detail-download-btn" onclick="downloadImg(\''+url+'\')">↓ Download image</button>';
+      +'<button class="detail-download-btn" onclick="downloadImg(\''+url+'\')">↓ Save / Download image</button>';
   } else if(canView && !isPro){
     actions.innerHTML =
       '<button class="detail-copy-btn" onclick="copyPrompt(\''+prompt.replace(/'/g,"&#39;")+'\')">⎘ Copy prompt</button>'
@@ -856,11 +865,19 @@ function copyPrompt(prompt){
 }
 
 function downloadImg(url){
-  var a = document.createElement('a');
-  a.href = url;
-  a.download = 'afterframe-image.jpg';
-  a.target = '_blank';
-  a.click();
+  // On iOS Safari, open image in new tab so user can long press to save
+  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  if(isIOS){
+    window.open(url, '_blank');
+  } else {
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'afterframe-image.jpg';
+    a.target = '_blank';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
 }
 
 function renderShoots(){
