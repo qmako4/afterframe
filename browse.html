@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0047)file:///C:/Users/qmako/Downloads/browse_12.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="en">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Explore — AFTERFRAME</title>
-<link href="./browse_files/css2" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <script>
 // Minimal Supabase client - no CDN needed
 window.supabase = {
@@ -73,7 +73,7 @@ window.supabase = {
   }
 };
 </script>
-<script src="./browse_files/jspdf.umd.min.js.download"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html,body { height: 100%; }
@@ -466,13 +466,11 @@ img { -webkit-touch-callout: none; }
 
 <!-- TOP FILTER BAR -->
 <div class="top-bar" id="topBar">
-  <div class="filter-pill active" id="fpAll" onclick="setTab(&#39;images&#39;);setFilter(this,&#39;all&#39;)">All</div>
-  <div class="filter-pill" id="fpShoots" onclick="setTab(&#39;shoots&#39;)">Shoots <span class="pill-arrow">▾</span></div>
-  <div class="filter-pill" id="fpMJ" onclick="setTab(&#39;images&#39;);setFilter(this,&#39;Midjourney&#39;)">Midjourney</div>
-  <div class="filter-pill" id="fpFlux" onclick="setTab(&#39;images&#39;);setFilter(this,&#39;Flux&#39;)">Flux</div>
-  <div class="filter-pill" id="fpNB" onclick="setTab(&#39;images&#39;);setFilter(this,&#39;Nano Banana&#39;)">Nano Banana</div>
-  <div class="filter-pill" id="fpDE" onclick="setTab(&#39;images&#39;);setFilter(this,&#39;DALL-E&#39;)">DALL-E</div>
-  <div class="filter-pill" id="fpFree" onclick="setTab(&#39;images&#39;);setFilter(this,&#39;free&#39;)">Free only</div>
+  <div class="filter-pill active" id="fpAll" onclick="setTab('images');setFilter(this,'all')">All</div>
+  <div class="filter-pill" id="fpShoots" onclick="setTab('shoots')">Shoots <span class="pill-arrow">▾</span></div>
+  <div class="filter-pill" id="fpMJ" onclick="setTab('images');setFilter(this,'Midjourney')">Midjourney</div>
+  <div class="filter-pill" id="fpNB" onclick="setTab('images');setFilter(this,'Nano Banana')">Nano Banana</div>
+  <div class="filter-pill" id="fpFree" onclick="setTab('images');setFilter(this,'free')">Free only</div>
 </div>
 
 <div class="main">
@@ -481,28 +479,28 @@ img { -webkit-touch-callout: none; }
   <div id="browseContent" style="display:block;">
     <!-- IMAGES -->
     <div id="tabImages">
-      <div class="masonry" id="imageGrid"><div class="masonry-item" onclick="openDetailByIdx(0)"><div class="m-badge-free">FREE</div><img src="./browse_files/1775613836560-1n8awy54rc8.png" alt="" loading="lazy"></div><div class="masonry-item" onclick="openDetailByIdx(1)"><div class="m-badge-free">FREE</div><img src="./browse_files/1775497151863-u31qopd902.png" alt="" loading="lazy"></div><div class="masonry-item" onclick="openDetailByIdx(2)"><div class="m-badge-free">FREE</div><img src="./browse_files/1775495387651-55r8r9lplv.png" alt="" loading="lazy"></div><div class="masonry-item" onclick="openDetailByIdx(3)"><div class="m-badge-lock">Unlock</div><img src="./browse_files/1775484923520-1l7m8w2nhp3.jpeg" alt="" loading="lazy"></div></div>
+      <div class="masonry" id="imageGrid"><div class="empty">Loading...</div></div>
     </div>
     <!-- SHOOTS -->
     <div id="tabShoots" style="display:none;">
-      <div class="shoots-grid" id="shootsGrid"><div class="empty">No shoots yet.</div></div>
+      <div class="shoots-grid" id="shootsGrid"><div class="empty">Loading...</div></div>
     </div>
     <!-- MODELS -->
     <div id="tabModels" style="display:none;">
-      <div class="masonry" id="modelsGrid"><div class="empty">Models coming soon.</div></div>
+      <div class="masonry" id="modelsGrid"><div class="empty">Loading models...</div></div>
     </div>
     <!-- ACCOUNT -->
     <div id="tabAccount" style="display:none;">
-      <div id="accountGuest" style="padding: 40px 20px; text-align: center; display: block;">
-        <div style="font-family:&#39;Syne&#39;,sans-serif;font-size:22px;font-weight:800;color:#fff;margin-bottom:12px;">Your account</div>
+      <div id="accountGuest" style="padding:40px 20px;text-align:center;">
+        <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:#fff;margin-bottom:12px;">Your account</div>
         <p style="font-size:13px;color:#555;line-height:1.8;margin-bottom:28px;">Sign in to manage your account and access Pro features.</p>
-        <button class="gate-btn gate-btn-primary" style="margin:0 auto 10px;display:block;max-width:280px;width:100%;" onclick="openAuth(&#39;signup&#39;)">Sign up free</button>
-        <button class="gate-btn gate-btn-secondary" style="margin:0 auto;display:block;max-width:280px;width:100%;" onclick="openAuth(&#39;login&#39;)">Log in</button>
+        <button class="gate-btn gate-btn-primary" style="margin:0 auto 10px;display:block;max-width:280px;width:100%;" onclick="openAuth('signup')">Sign up free</button>
+        <button class="gate-btn gate-btn-secondary" style="margin:0 auto;display:block;max-width:280px;width:100%;" onclick="openAuth('login')">Log in</button>
       </div>
       <div id="accountLoggedIn" style="display:none;padding:32px 20px;">
         <div style="background:#0a0a0a;border:1px solid #1a1a1a;border-radius:16px;padding:28px;max-width:480px;margin:0 auto;">
           <div style="width:56px;height:56px;border-radius:50%;background:rgba(77,255,77,0.1);border:1px solid rgba(77,255,77,0.3);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 20px;">◎</div>
-          <div style="font-family:&#39;Syne&#39;,sans-serif;font-size:18px;font-weight:800;color:#fff;text-align:center;margin-bottom:6px;" id="accountEmail">—</div>
+          <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#fff;text-align:center;margin-bottom:6px;" id="accountEmail">—</div>
           <div style="text-align:center;margin-bottom:28px;" id="accountBadge"></div>
           <div style="border-top:1px solid #111;padding-top:20px;display:flex;flex-direction:column;gap:10px;">
             <div style="display:flex;justify-content:space-between;font-size:12px;padding:10px 0;border-bottom:1px solid #0a0a0a;">
@@ -517,7 +515,7 @@ img { -webkit-touch-callout: none; }
           <div id="accountUpgradeBtn" style="margin-top:20px;display:none;">
             <button class="gate-btn gate-btn-primary" style="width:100%;" onclick="openUpgrade()">Upgrade to Pro — £7/mo</button>
           </div>
-          <button onclick="doSignOut()" style="width:100%;margin-top:12px;font-family:&#39;Share Tech Mono&#39;,monospace;font-size:11px;letter-spacing:2px;color:#555;background:transparent;border:1px solid #1a1a1a;padding:12px;cursor:pointer;border-radius:100px;text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.color=&#39;#fff&#39;" onmouseout="this.style.color=&#39;#555&#39;">Sign out</button>
+          <button onclick="doSignOut()" style="width:100%;margin-top:12px;font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:#555;background:transparent;border:1px solid #1a1a1a;padding:12px;cursor:pointer;border-radius:100px;text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#555'">Sign out</button>
         </div>
       </div>
     </div>
@@ -526,7 +524,7 @@ img { -webkit-touch-callout: none; }
 </div>
 
 <!-- BOTTOM INPUT -->
-<div class="bottom-input" id="bottomInput" onclick="openAuth(&#39;signup&#39;)" style="display:none;">
+<div class="bottom-input" id="bottomInput" onclick="openAuth('signup')" style="display:none;">
   <span id="bottomInputText">Log in to start creating...</span>
   <span class="bottom-input-icon">⚙</span>
 </div>
@@ -537,15 +535,15 @@ img { -webkit-touch-callout: none; }
     <span class="nav-icon">☰</span>
     <span class="nav-label">Menu</span>
   </a>
-  <button class="nav-item active" id="navExplore" onclick="switchMainTab(&#39;images&#39;)">
+  <button class="nav-item active" id="navExplore" onclick="switchMainTab('images')">
     <span class="nav-icon">◉</span>
     <span class="nav-label">Explore</span>
   </button>
-  <button class="nav-item" id="navModels" onclick="switchMainTab(&#39;models&#39;)">
+  <button class="nav-item" id="navModels" onclick="switchMainTab('models')">
     <span class="nav-icon">◈</span>
     <span class="nav-label">Models</span>
   </button>
-  <button class="nav-item" id="navAccount" onclick="switchMainTab(&#39;account&#39;)">
+  <button class="nav-item" id="navAccount" onclick="switchMainTab('account')">
     <span class="nav-icon">◎</span>
     <span class="nav-label">Account</span>
   </button>
@@ -560,8 +558,8 @@ img { -webkit-touch-callout: none; }
     </div>
   </div>
   <div class="detail-body">
-    <div class="detail-img-wrap" onclick="openFullscreen(document.getElementById(&#39;detailImg&#39;).src)">
-      <img id="detailImg" class="detail-img" src="file:///C:/Users/qmako/Downloads/browse_12.html" alt="">
+    <div class="detail-img-wrap" onclick="openFullscreen(document.getElementById('detailImg').src)">
+      <img id="detailImg" class="detail-img" src="" alt="">
     </div>
     <div class="detail-info">
       <div class="detail-prompt-label">Prompt</div>
@@ -582,7 +580,7 @@ img { -webkit-touch-callout: none; }
   </div>
   <div class="lb-body">
     <div class="lb-main">
-      <img id="lbImg" class="lb-img" src="file:///C:/Users/qmako/Downloads/browse_12.html" alt="">
+      <img id="lbImg" class="lb-img" src="" alt="">
       <div id="lbLockedOv" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:12px;">
         <div style="font-size:12px;letter-spacing:2px;color:#fff;">Step locked</div>
         <button class="lb-btn lb-btn-green" onclick="openUpgrade()">Unlock Pro — £7/mo</button>
@@ -608,19 +606,19 @@ img { -webkit-touch-callout: none; }
 
 <!-- FULLSCREEN IMAGE VIEWER -->
 <div id="imgFullscreen">
-  <img id="imgFullscreenSrc" src="file:///C:/Users/qmako/Downloads/browse_12.html" alt="">
-  <button onclick="document.getElementById(&#39;imgFullscreen&#39;).classList.remove(&#39;open&#39;)">✕</button>
+  <img id="imgFullscreenSrc" src="" alt="">
+  <button onclick="document.getElementById('imgFullscreen').classList.remove('open')">✕</button>
 </div>
 
 <!-- UPGRADE MODAL -->
-<div class="modal-overlay" id="upgradeModal" onclick="closeModalOut(event,&#39;upgradeModal&#39;)">
+<div class="modal-overlay" id="upgradeModal" onclick="closeModalOut(event,'upgradeModal')">
   <div class="modal" style="max-height:90vh;overflow-y:auto;">
-    <button class="modal-close" onclick="closeModal(&#39;upgradeModal&#39;)">[ close ]</button>
-    <div class="modal-tag">&gt; PRO ACCESS</div>
+    <button class="modal-close" onclick="closeModal('upgradeModal')">[ close ]</button>
+    <div class="modal-tag">> PRO ACCESS</div>
     <h3>Unlock AFTERFRAME</h3>
     <p class="modal-desc">Every prompt, shoot breakdown, PDF download and LoRA file. New content every Monday.</p>
     <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:20px;">
-      <span style="font-family:&#39;Syne&#39;,sans-serif;font-size:48px;font-weight:800;color:#4dff4d;">£7</span>
+      <span style="font-family:'Syne',sans-serif;font-size:48px;font-weight:800;color:#4dff4d;">£7</span>
       <span style="font-size:12px;color:#444;">/month</span>
     </div>
     <div id="paypal-button-container-P-2A405868K6260041WNHKGJUQ" style="min-height:50px;"></div>
@@ -629,15 +627,15 @@ img { -webkit-touch-callout: none; }
 </div>
 
 <!-- AUTH MODAL -->
-<div class="modal-overlay" id="authModal" onclick="closeModalOut(event,&#39;authModal&#39;)">
+<div class="modal-overlay" id="authModal" onclick="closeModalOut(event,'authModal')">
   <div class="modal">
-    <button class="modal-close" onclick="closeModal(&#39;authModal&#39;)">[ close ]</button>
-    <div class="modal-tag">&gt; AFTERFRAME</div>
+    <button class="modal-close" onclick="closeModal('authModal')">[ close ]</button>
+    <div class="modal-tag">> AFTERFRAME</div>
     <h3>Join for free</h3>
     <p class="modal-desc">Browse images, save favourites, get notified on drops.</p>
     <div class="modal-tabs">
-      <button class="modal-tab active" id="tab-signup" onclick="switchTab(&#39;signup&#39;)">Sign up</button>
-      <button class="modal-tab" id="tab-login" onclick="switchTab(&#39;login&#39;)">Log in</button>
+      <button class="modal-tab active" id="tab-signup" onclick="switchTab('signup')">Sign up</button>
+      <button class="modal-tab" id="tab-login" onclick="switchTab('login')">Log in</button>
     </div>
     <div class="tab-content active" id="content-signup">
       <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" id="signupEmail" placeholder="you@example.com"></div>
@@ -645,23 +643,23 @@ img { -webkit-touch-callout: none; }
       <button class="form-submit" id="signupBtn" onclick="doSignUp()">Create free account</button>
       <div class="form-error" id="signupError"></div>
       <div class="form-success" id="signupSuccess"></div>
-      <div class="upgrade-note">Want full access? <span onclick="closeModal(&#39;authModal&#39;);openUpgrade()">Upgrade to Pro £7/mo</span></div>
+      <div class="upgrade-note">Want full access? <span onclick="closeModal('authModal');openUpgrade()">Upgrade to Pro £7/mo</span></div>
     </div>
     <div class="tab-content" id="content-login">
       <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email" id="loginEmail" placeholder="you@example.com"></div>
       <div class="form-group"><label class="form-label">Password</label><input class="form-input" type="password" id="loginPassword" placeholder="Your password"></div>
       <button class="form-submit" id="loginBtn" onclick="doLogIn()">Log in</button>
       <div class="form-error" id="loginError"></div>
-      <div class="modal-switch" style="margin-top:12px;">No account? <span onclick="switchTab(&#39;signup&#39;)">Sign up free</span></div>
+      <div class="modal-switch" style="margin-top:12px;">No account? <span onclick="switchTab('signup')">Sign up free</span></div>
     </div>
   </div>
 </div>
 
 <!-- PROMPT MODAL -->
-<div class="modal-overlay" id="promptModal" onclick="closeModalOut(event,&#39;promptModal&#39;)">
+<div class="modal-overlay" id="promptModal" onclick="closeModalOut(event,'promptModal')">
   <div class="modal" style="max-width:440px;">
-    <button class="modal-close" onclick="closeModal(&#39;promptModal&#39;)">[ close ]</button>
-    <div class="modal-tag">&gt; PROMPT PREVIEW</div>
+    <button class="modal-close" onclick="closeModal('promptModal')">[ close ]</button>
+    <div class="modal-tag">> PROMPT PREVIEW</div>
     <img id="promptImg" style="width:100%;max-height:200px;object-fit:cover;margin-bottom:14px;display:none;border-radius:8px;" alt="">
     <div style="margin-bottom:10px;"><span id="promptModel" style="font-size:9px;letter-spacing:2px;color:#4dff4d;border:1px solid rgba(77,255,77,0.25);padding:2px 8px;border-radius:4px;display:inline-block;"></span></div>
     <div style="position:relative;margin-bottom:18px;">
@@ -672,16 +670,16 @@ img { -webkit-touch-callout: none; }
       </div>
     </div>
     <div id="guestBtns">
-      <button class="form-submit" style="margin-bottom:8px;" onclick="closeModal(&#39;promptModal&#39;);openAuth(&#39;signup&#39;)">Sign up free</button>
-      <button class="form-submit" style="background:transparent;color:#4dff4d;border:1px solid rgba(77,255,77,0.3);" onclick="closeModal(&#39;promptModal&#39;);openUpgrade()">Go Pro — £7/mo</button>
+      <button class="form-submit" style="margin-bottom:8px;" onclick="closeModal('promptModal');openAuth('signup')">Sign up free</button>
+      <button class="form-submit" style="background:transparent;color:#4dff4d;border:1px solid rgba(77,255,77,0.3);" onclick="closeModal('promptModal');openUpgrade()">Go Pro — £7/mo</button>
     </div>
     <div id="memberBtns" style="display:none;">
-      <button class="form-submit" onclick="closeModal(&#39;promptModal&#39;);openUpgrade()">Unlock for £7/month</button>
+      <button class="form-submit" onclick="closeModal('promptModal');openUpgrade()">Unlock for £7/month</button>
     </div>
   </div>
 </div>
 
-<script src="./browse_files/js" data-sdk-integration-source="button-factory" data-uid-auto="uid_mjhnbdvtjqseghzieuoeabthzjrlbg"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AW9bFBdVSIM3akTi9QO732li0jr7lANlHjj2_TsQINXPQNVhpABdwXkqFf4QI2Nx5TyM86dtU1Z_7I1G&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
 <script>
 const SB_URL='https://jbsyzrzoiawruusdowpx.supabase.co';
 const SB_KEY='sb_publishable_5yHqsw-CdIykq2jiCDwTpw_otaDsUlF';
@@ -919,7 +917,9 @@ function setTab(tab){
 }
 
 function setFilter(el,filter){
-  ['fpAll','fpMJ','fpFlux','fpNB','fpDE','fpFree'].forEach(function(id){document.getElementById(id).classList.remove('active');});
+  ['fpAll','fpMJ','fpNB','fpFree'].forEach(function(id){
+    var el2=document.getElementById(id);if(el2)el2.classList.remove('active');
+  });
   el.classList.add('active');
   currentFilter=filter;
   renderImages(filter);
@@ -1056,6 +1056,5 @@ function switchTab(tab){
   });
 }
 </script>
-
-
-</body></html>
+</body>
+</html>
