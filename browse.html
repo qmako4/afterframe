@@ -1,11 +1,78 @@
 <!DOCTYPE html>
-<!-- saved from url=(0046)file:///C:/Users/qmako/Downloads/browse_5.html -->
+<!-- saved from url=(0046)file:///C:/Users/qmako/Downloads/browse_6.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Explore — AFTERFRAME</title>
 <link href="./browse_files/css2" rel="stylesheet">
-<script src="./browse_files/supabase.js.download"></script>
+<script>
+// Minimal Supabase client - no CDN needed
+window.supabase = {
+  createClient: function(url, key) {
+    var _url = url, _key = key, _session = null;
+    var _listeners = [];
+    function headers(extra) {
+      var h = {'apikey': _key, 'Authorization': 'Bearer ' + (_session ? _session.access_token : _key), 'Content-Type': 'application/json'};
+      if(extra) Object.assign(h, extra);
+      return h;
+    }
+    // Try to restore session from localStorage
+    try {
+      var stored = localStorage.getItem('af_session');
+      if(stored) _session = JSON.parse(stored);
+    } catch(e){}
+    return {
+      auth: {
+        getSession: async function() {
+          return { data: { session: _session } };
+        },
+        onAuthStateChange: function(cb) {
+          _listeners.push(cb);
+          setTimeout(function(){ cb('INITIAL_SESSION', _session); }, 100);
+        },
+        signUp: async function(opts) {
+          var r = await fetch(_url+'/auth/v1/signup', {method:'POST', headers:{'apikey':_key,'Content-Type':'application/json'}, body:JSON.stringify({email:opts.email,password:opts.password})});
+          var d = await r.json();
+          if(d.error) return {error:{message:d.error.message||d.msg||'Sign up failed'}};
+          if(d.access_token){_session={access_token:d.access_token,user:d.user};try{localStorage.setItem('af_session',JSON.stringify(_session));}catch(e){} _listeners.forEach(function(l){l('SIGNED_IN',_session);});}
+          return {data:d, error:null};
+        },
+        signInWithPassword: async function(opts) {
+          var r = await fetch(_url+'/auth/v1/token?grant_type=password', {method:'POST', headers:{'apikey':_key,'Content-Type':'application/json'}, body:JSON.stringify({email:opts.email,password:opts.password})});
+          var d = await r.json();
+          if(d.error_description||d.error) return {error:{message:d.error_description||d.error||'Login failed'}};
+          _session={access_token:d.access_token,user:d.user};
+          try{localStorage.setItem('af_session',JSON.stringify(_session));}catch(e){}
+          _listeners.forEach(function(l){l('SIGNED_IN',_session);});
+          return {data:d, error:null};
+        },
+        signOut: async function() {
+          _session=null;
+          try{localStorage.removeItem('af_session');}catch(e){}
+          _listeners.forEach(function(l){l('SIGNED_OUT',null);});
+        }
+      },
+      from: function(table) {
+        return {
+          select: function(cols) {
+            return {
+              eq: function(col, val) {
+                return {
+                  single: async function() {
+                    var r = await fetch(_url+'/rest/v1/'+table+'?'+col+'=eq.'+val+'&select='+(cols||'*'), {headers:headers()});
+                    var d = await r.json();
+                    return {data: Array.isArray(d)?d[0]:d, error:null};
+                  }
+                };
+              }
+            };
+          }
+        };
+      }
+    };
+  }
+};
+</script>
 <script src="./browse_files/jspdf.umd.min.js.download"></script>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -496,7 +563,7 @@ added vivid in lightroom</div></div></div><div class="masonry-item" onclick="ope
   </div>
   <div class="detail-body">
     <div class="detail-img-wrap">
-      <img id="detailImg" class="detail-img" src="file:///C:/Users/qmako/Downloads/browse_5.html" alt="">
+      <img id="detailImg" class="detail-img" src="file:///C:/Users/qmako/Downloads/browse_6.html" alt="">
     </div>
     <div class="detail-info">
       <div class="detail-prompt-label">Prompt</div>
@@ -517,7 +584,7 @@ added vivid in lightroom</div></div></div><div class="masonry-item" onclick="ope
   </div>
   <div class="lb-body">
     <div class="lb-main">
-      <img id="lbImg" class="lb-img" src="file:///C:/Users/qmako/Downloads/browse_5.html" alt="">
+      <img id="lbImg" class="lb-img" src="file:///C:/Users/qmako/Downloads/browse_6.html" alt="">
       <div id="lbLockedOv" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:12px;">
         <div style="font-size:12px;letter-spacing:2px;color:#fff;">Step locked</div>
         <button class="lb-btn lb-btn-green" onclick="openUpgrade()">Unlock Pro — £7/mo</button>
@@ -699,10 +766,17 @@ async function loadModels(){
 async function doSignOut(){await sb.auth.signOut();}
 
 async function loadImages(){
-  var r=await fetch(SB_URL+'/rest/v1/images?select=*&order=created_at.desc',{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
-  allImages=await r.json();
-  if(!Array.isArray(allImages))allImages=[];
-  renderImages('all');
+  try {
+    var r=await fetch(SB_URL+'/rest/v1/images?select=*&order=created_at.desc',{
+      headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}
+    });
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    allImages=await r.json();
+    if(!Array.isArray(allImages))allImages=[];
+    renderImages('all');
+  } catch(e) {
+    document.getElementById('imageGrid').innerHTML='<div class="empty">Failed to load images: '+e.message+'</div>';
+  }
 }
 async function loadShoots(){
   var r=await fetch(SB_URL+'/rest/v1/shoots?select=*&order=created_at.desc',{headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY}});
