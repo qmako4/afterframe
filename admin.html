@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<!-- saved from url=(0045)file:///C:/Users/qmako/Downloads/admin_6.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="en">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AFTERFRAME — Admin</title>
-<link href="./admin_files/css2" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 <style>
 :root {
   --green: #4dff4d;
@@ -100,11 +100,11 @@ select.form-input option { background: #09100a; }
 <div id="loginScreen">
   <div class="login-box">
     <div class="login-logo">AFTERFRAME</div>
-    <div class="login-tag">&gt; Admin access only</div>
-    <div class="login-error" id="loginError">&gt; Wrong password. Try again.</div>
+    <div class="login-tag">> Admin access only</div>
+    <div class="login-error" id="loginError">> Wrong password. Try again.</div>
     <div class="form-group">
       <label class="form-label">Admin password</label>
-      <input class="form-input" type="password" id="passwordInput" placeholder="Enter password" onkeydown="if(event.key===&#39;Enter&#39;)login()">
+      <input class="form-input" type="password" id="passwordInput" placeholder="Enter password" onkeydown="if(event.key==='Enter')login()">
     </div>
     <button class="submit-btn" onclick="login()">Access admin panel</button>
   </div>
@@ -113,24 +113,24 @@ select.form-input option { background: #09100a; }
 <div id="adminScreen">
   <header>
     <div class="header-logo">AFTERFRAME</div>
-    <div style="font-size:10px;letter-spacing:3px;color:var(--text-dim);">&gt; Admin</div>
+    <div style="font-size:10px;letter-spacing:3px;color:var(--text-dim);">> Admin</div>
     <button class="logout-btn" onclick="logout()">Log out</button>
   </header>
 
   <div class="admin-tabs">
-    <button class="admin-tab active" id="tab-images" onclick="switchTab(&#39;images&#39;)">Images</button>
-    <button class="admin-tab" id="tab-shoots" onclick="switchTab(&#39;shoots&#39;)">Shoots</button>
-    <button class="admin-tab" id="tab-models" onclick="switchTab(&#39;models&#39;)">Models</button>
+    <button class="admin-tab active" id="tab-images" onclick="switchTab('images')">Images</button>
+    <button class="admin-tab" id="tab-shoots" onclick="switchTab('shoots')">Shoots</button>
+    <button class="admin-tab" id="tab-models" onclick="switchTab('models')">Models</button>
   </div>
 
   <!-- IMAGES TAB -->
   <div class="tab-panel active" id="panel-images">
     <div class="admin-wrap">
       <div class="upload-card">
-        <div class="card-title">&gt; Upload new image</div>
+        <div class="card-title">> Upload new image</div>
         <img id="imagePreview" class="preview-img" alt="">
         <div class="image-picker" id="imgPickerArea">
-          <input type="file" id="imageFile" accept="image/*" onchange="previewFile(&#39;imageFile&#39;,&#39;imagePreview&#39;,&#39;imgPickerArea&#39;)">
+          <input type="file" id="imageFile" accept="image/*" onchange="previewFile('imageFile','imagePreview','imgPickerArea')">
           <div class="picker-icon">+</div>
           <div class="picker-text">Tap to choose image</div>
           <div class="picker-hint">JPG, PNG, WEBP from camera roll</div>
@@ -156,7 +156,7 @@ select.form-input option { background: #09100a; }
             <label class="form-label" style="margin-bottom:0;">Prompt used</label>
             <span class="char-count" id="imgCharCount">0 chars</span>
           </div>
-          <textarea class="form-input" id="promptText" rows="4" placeholder="Paste the full prompt here..." oninput="document.getElementById(&#39;imgCharCount&#39;).textContent=this.value.length+&#39; chars&#39;"></textarea>
+          <textarea class="form-input" id="promptText" rows="4" placeholder="Paste the full prompt here..." oninput="document.getElementById('imgCharCount').textContent=this.value.length+' chars'"></textarea>
         </div>
         <div class="toggle-row">
           <div>
@@ -172,7 +172,7 @@ select.form-input option { background: #09100a; }
 
       <div class="list-card">
         <div class="list-header">
-          <div class="card-title" style="margin-bottom:0;">&gt; Published images</div>
+          <div class="card-title" style="margin-bottom:0;">> Published images</div>
           <div class="items-count" id="imagesCount">Loading...</div>
         </div>
         <div id="imgList"><div class="empty-list">Loading...</div></div>
@@ -184,7 +184,7 @@ select.form-input option { background: #09100a; }
   <div class="tab-panel" id="panel-shoots">
     <div class="admin-wrap">
       <div class="upload-card">
-        <div class="card-title">&gt; Create new shoot</div>
+        <div class="card-title">> Create new shoot</div>
         <div class="form-group">
           <label class="form-label">Shoot title</label>
           <input class="form-input" type="text" id="shootTitle" placeholder="e.g. The Surfer — Golden Hour Series">
@@ -204,7 +204,7 @@ select.form-input option { background: #09100a; }
         </div>
 
         <div class="section-divider"></div>
-        <div class="card-title" style="margin-bottom:16px;">&gt; Add images (up to 5)</div>
+        <div class="card-title" style="margin-bottom:16px;">> Add images (up to 5)</div>
         <div id="shootSteps"></div>
         <button class="submit-btn" style="background:transparent;color:var(--green);border:1px solid var(--border-bright);margin-bottom:16px;" id="addStepBtn" onclick="addShootStep()">+ Add image</button>
 
@@ -216,7 +216,7 @@ select.form-input option { background: #09100a; }
 
       <div class="list-card">
         <div class="list-header">
-          <div class="card-title" style="margin-bottom:0;">&gt; Published shoots</div>
+          <div class="card-title" style="margin-bottom:0;">> Published shoots</div>
           <div class="items-count" id="shootsCount">Loading...</div>
         </div>
         <div id="shootList"><div class="empty-list">Loading...</div></div>
@@ -228,11 +228,11 @@ select.form-input option { background: #09100a; }
   <div class="tab-panel" id="panel-models">
     <div class="admin-wrap">
       <div class="upload-card">
-        <div class="card-title">&gt; Upload new model</div>
+        <div class="card-title">> Upload new model</div>
 
         <img id="modelPreview" class="preview-img" alt="">
         <div class="image-picker" id="modelPickerArea">
-          <input type="file" id="modelImageFile" accept="image/*" onchange="previewFile(&#39;modelImageFile&#39;,&#39;modelPreview&#39;,&#39;modelPickerArea&#39;)">
+          <input type="file" id="modelImageFile" accept="image/*" onchange="previewFile('modelImageFile','modelPreview','modelPickerArea')">
           <div class="picker-icon">+</div>
           <div class="picker-text">Tap to choose model image</div>
           <div class="picker-hint">Portrait image works best</div>
@@ -274,11 +274,11 @@ select.form-input option { background: #09100a; }
             <label class="form-label" style="margin-bottom:0;">Prompt</label>
             <span class="char-count" id="modelCharCount">0 chars</span>
           </div>
-          <textarea class="form-input" id="modelPrompt" rows="4" placeholder="Full prompt to recreate this model..." oninput="document.getElementById(&#39;modelCharCount&#39;).textContent=this.value.length+&#39; chars&#39;"></textarea>
+          <textarea class="form-input" id="modelPrompt" rows="4" placeholder="Full prompt to recreate this model..." oninput="document.getElementById('modelCharCount').textContent=this.value.length+' chars'"></textarea>
         </div>
 
         <div class="section-divider"></div>
-        <div class="lora-note">&gt; LoRA file upload: paste a public download URL below (e.g. from Google Drive, Dropbox, or Civitai). Pro members will get a direct download link.</div>
+        <div class="lora-note">> LoRA file upload: paste a public download URL below (e.g. from Google Drive, Dropbox, or Civitai). Pro members will get a direct download link.</div>
 
         <div class="form-group">
           <label class="form-label">LoRA file URL (optional)</label>
@@ -292,7 +292,7 @@ select.form-input option { background: #09100a; }
 
       <div class="list-card">
         <div class="list-header">
-          <div class="card-title" style="margin-bottom:0;">&gt; Published models</div>
+          <div class="card-title" style="margin-bottom:0;">> Published models</div>
           <div class="items-count" id="modelsCount">Loading...</div>
         </div>
         <div id="modelList"><div class="empty-list">Loading...</div></div>
@@ -555,22 +555,28 @@ async function uploadModel() {
 
 // LOAD IMAGES
 async function loadImages() {
-  var res = await fetch(SUPABASE_URL + '/rest/v1/images?select=*&order=created_at.desc&t=' + Date.now(), {
-    headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Cache-Control': 'no-cache' }
-  });
-  var images = await res.json();
-  window._adminImages = images;
-  document.getElementById('imagesCount').textContent = images.length + ' published';
   var list = document.getElementById('imgList');
-  if (!images.length) { list.innerHTML = '<div class="empty-list">No images yet.</div>'; return; }
-  list.innerHTML = images.map(function(img, idx) {
-    return '<div class="item-row" id="img-' + img.id + '">'
-      + '<img class="item-thumb" src="' + img.image_url + '" alt="">'
-      + '<div class="item-info"><div class="item-model">' + img.ai_model + '</div><div class="item-name">' + img.prompt.substring(0,60) + '...</div><div class="item-meta">' + new Date(img.created_at).toLocaleDateString('en-GB') + '</div></div>'
-      + (img.is_free ? '<div class="item-free">FREE</div>' : '')
-      + '<button class="item-delete" onclick="deleteImage(' + idx + ')">Delete</button>'
-      + '</div>';
-  }).join('');
+  list.innerHTML = '<div class="empty-list">Loading...</div>';
+  try {
+    var res = await fetch(SUPABASE_URL + '/rest/v1/images?select=*&order=created_at.desc', {
+      headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
+    });
+    var images = await res.json();
+    if (!Array.isArray(images)) { list.innerHTML = '<div class="empty-list">Error loading images.</div>'; return; }
+    window._adminImages = images;
+    document.getElementById('imagesCount').textContent = images.length + ' published';
+    if (!images.length) { list.innerHTML = '<div class="empty-list">No images yet.</div>'; return; }
+    list.innerHTML = images.map(function(img, idx) {
+      return '<div class="item-row" id="img-' + img.id + '">'
+        + '<img class="item-thumb" src="' + img.image_url + '" alt="">'
+        + '<div class="item-info"><div class="item-model">' + img.ai_model + '</div><div class="item-name">' + (img.prompt||'').substring(0,60) + '...</div><div class="item-meta">' + new Date(img.created_at).toLocaleDateString('en-GB') + '</div></div>'
+        + (img.is_free ? '<div class="item-free">FREE</div>' : '')
+        + '<button class="item-delete" onclick="deleteImage(' + idx + ')">Delete</button>'
+        + '</div>';
+    }).join('');
+  } catch(e) {
+    list.innerHTML = '<div class="empty-list">Failed to load: ' + e.message + '</div>';
+  }
 }
 
 // LOAD MODELS
@@ -603,19 +609,18 @@ async function deleteImage(idx) {
       method: 'DELETE',
       headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Prefer': 'return=minimal' }
     });
-    if (!res.ok) { alert('Delete failed: ' + res.status); return; }
+    if (!res.ok) { alert('Delete failed — status: ' + res.status); return; }
+    // Remove from DOM
+    var row = document.getElementById('img-' + img.id);
+    if (row) row.remove();
+    window._adminImages.splice(idx, 1);
+    document.getElementById('imagesCount').textContent = window._adminImages.length + ' published';
+    // Try storage delete
     var fileName = img.image_url.split('/images/').pop();
-    await fetch(SUPABASE_URL + '/storage/v1/object/images/' + fileName, {
+    fetch(SUPABASE_URL + '/storage/v1/object/images/' + fileName, {
       method: 'DELETE',
       headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
     }).catch(function(){});
-    // Remove from DOM immediately
-    var row = document.getElementById('img-' + img.id);
-    if (row) row.remove();
-    // Remove from local array
-    window._adminImages.splice(idx, 1);
-    document.getElementById('imagesCount').textContent = window._adminImages.length + ' published';
-    alert('Deleted!');
   } catch(e) {
     alert('Error: ' + e.message);
   }
@@ -666,6 +671,5 @@ function setProgress(prefix, pct) {
   document.getElementById(prefix + 'ProgressBar').style.width = pct + '%';
 }
 </script>
-
-
-</body></html>
+</body>
+</html>
