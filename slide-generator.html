@@ -311,26 +311,38 @@ function drawSlide(s) {
     ctx.textBaseline = 'alphabetic';
     ctx.fillText('/prompt', 52, promptLabelY);
 
-    // Prompt text
+    // Prompt text - two pass: draw text first, then solid bars on top
     const words = s.prompt.split(' ');
     let wx = 52, wy = promptLabelY + 52;
     const lh = 40, maxX = W - 52, fs = 22;
     ctx.font = `400 ${fs}px Share Tech Mono, monospace`;
     ctx.textBaseline = 'alphabetic';
 
+    // Track positions of words to redact
+    const redactBars = [];
+
+    // Pass 1 — draw all words normally
     words.forEach(word => {
       const ww = ctx.measureText(word + ' ').width;
       if (wx + ww > maxX && wx > 52) { wx = 52; wy += lh; }
-      if (wy > H - 60) return;
+      if (wy > H - 60) { wx += ww; return; }
+
+      ctx.fillStyle = 'rgba(215,215,215,0.9)';
+      ctx.font = `400 ${fs}px Share Tech Mono, monospace`;
+      ctx.fillText(word + ' ', wx, wy);
 
       if (shouldBlur(word)) {
-        drawBlurredWord(ctx, word, wx, wy, fs);
-      } else {
-        ctx.fillStyle = 'rgba(215,215,215,0.9)';
-        ctx.font = `400 ${fs}px Share Tech Mono, monospace`;
-        ctx.fillText(word + ' ', wx, wy);
+        redactBars.push({ x: wx - 2, y: wy - fs - 1, w: ww - 4, h: fs + 8 });
       }
       wx += ww;
+    });
+
+    // Pass 2 — draw solid redaction bars on top of everything
+    redactBars.forEach(bar => {
+      ctx.fillStyle = '#1a1a1a';
+      ctx.fillRect(bar.x, bar.y, bar.w, bar.h);
+      ctx.fillStyle = 'rgba(255,255,255,0.03)';
+      ctx.fillRect(bar.x, bar.y, bar.w, 1);
     });
   };
 
