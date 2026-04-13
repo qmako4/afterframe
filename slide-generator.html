@@ -139,26 +139,66 @@ const BLUR_WORDS = new Set([
 
 function shouldBlur(word) {
   const w = word.replace(/[,\.!?;:]/g,'').toLowerCase();
-  if (w.length <= 1) return false;
+  if (w.length <= 2) return false;
   if (w.startsWith('--')) return true;
   if (w.includes('f/')) return true;
   if (/^\d+mm$/.test(w)) return true;
   if (/^\d+k$/.test(w)) return true;
-  return BLUR_WORDS.has(w);
+
+  // Always blur these specific words
+  const alwaysBlur = new Set([
+    'sony','canon','nikon','hasselblad','leica','fuji','kodak','pentax','mamiya',
+    'arri','alexa','a7r','a7','a1','r5','r3','d850','gh6',
+    '35mm','50mm','85mm','24mm','70mm','135mm','14mm','28mm','200mm',
+    'iso','dslr','mirrorless','aperture','shutter','lens','bokeh',
+    'photorealistic','hyperrealistic','ultrarealistic','realistic',
+    '8k','4k','hdr','raw','subsurface','scattering','raytracing',
+    'octane','cgi','render','rendering','specular','albedo',
+    'pores','anamorphic','chromatic','aberration','vignette','grain',
+    'sharpness','clarity','contrast','saturation','exposure','depth',
+    'masterpiece','intricate','hyperdetailed','ultra-detailed','high-quality',
+    'photographic','photograph','photography','sharp','focus','resolution',
+    'detailed','ultra','hyper','super','highly',
+    'rembrandt','softbox','keylight','catchlight','backlit','backlight',
+    'diffused','ambient','illuminated',
+    'editorial','aesthetic','stylized','cinematic','film',
+    'stunning','gorgeous','breathtaking','exquisite','incredible','perfect',
+    'perfectly','extremely','professional','premium','luxurious','sophisticated',
+    'composition','perspective','framing','overhead','aerial',
+    'dramatic','dynamic','vibrant','atmospheric','immersive','ethereal',
+    'majestic','pristine','serene','tranquil','vivid','lush','sweeping',
+    'diagonal','diagonally','further','toward','between','leading',
+    'slightly','directly','partially','gently','softly','gradually',
+    'flowing','rushing','cascading','glowing','shimmering','reflecting',
+    'turquoise','glacial','riverbank','wildflowers','foreground',
+    'background','midground','shirtless','upright','leaning',
+  ]);
+
+  if (alwaysBlur.has(w)) return true;
+
+  // Blur every other word deterministically using char code sum
+  // This guarantees ~50% of remaining words are blurred
+  const charSum = w.split('').reduce((s, c) => s + c.charCodeAt(0), 0);
+  if (charSum % 3 === 0) return true;
+
+  return false;
 }
 
 function drawBlurredWord(ctx, word, x, y, fs) {
   const ww = ctx.measureText(word + ' ').width;
   ctx.save();
-  ctx.fillStyle = 'rgba(255,255,255,0.07)';
-  ctx.fillRect(x - 2, y - fs, ww + 2, fs + 8);
-  for (let i = 0; i < 3; i++) {
-    ctx.filter = `blur(${6 + i * 2}px)`;
-    ctx.fillStyle = `rgba(255,255,255,${0.3 - i * 0.08})`;
-    ctx.font = `400 ${fs}px Share Tech Mono, monospace`;
-    ctx.fillText(word, x, y);
-  }
-  ctx.filter = 'none';
+  // Draw the word first very faintly
+  ctx.fillStyle = 'rgba(255,255,255,0.08)';
+  ctx.font = `400 ${fs}px Share Tech Mono, monospace`;
+  ctx.fillText(word, x, y);
+  // Draw solid redaction bar over it - completely covers the word
+  const barH = fs + 8;
+  const barY = y - fs - 1;
+  ctx.fillStyle = 'rgba(60,60,60,0.92)';
+  ctx.fillRect(x - 2, barY, ww - 4, barH);
+  // Subtle lighter inner highlight to give it depth
+  ctx.fillStyle = 'rgba(255,255,255,0.04)';
+  ctx.fillRect(x - 2, barY, ww - 4, 1);
   ctx.restore();
 }
 
