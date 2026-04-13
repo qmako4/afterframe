@@ -12,11 +12,8 @@ body { background: #000; color: #b8d8b8; font-family: 'Share Tech Mono', monospa
 .header { text-align: center; padding: 20px 0 28px; }
 .header h1 { font-family: 'Syne', sans-serif; font-size: 30px; font-weight: 800; letter-spacing: 8px; color: #4dff4d; margin-bottom: 4px; }
 .header p { font-size: 10px; letter-spacing: 4px; color: #4a6e4a; }
-
 .panel { background: #080808; border: 1px solid #1a1a1a; border-radius: 12px; padding: 24px; margin-bottom: 20px; }
 .panel-label { font-size: 9px; letter-spacing: 4px; color: #4dff4d; text-transform: uppercase; margin-bottom: 16px; display: block; }
-
-/* IMAGE GRID */
 .img-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; max-height: 360px; overflow-y: auto; padding-right: 4px; }
 .img-grid::-webkit-scrollbar { width: 4px; }
 .img-grid::-webkit-scrollbar-thumb { background: #4dff4d; border-radius: 2px; }
@@ -27,46 +24,28 @@ body { background: #000; color: #b8d8b8; font-family: 'Share Tech Mono', monospa
 .img-thumb .tick { position: absolute; top: 4px; right: 4px; background: #4dff4d; color: #000; width: 22px; height: 22px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
 .img-thumb.selected .tick { display: flex; }
 .loading-msg { color: #333; font-size: 12px; letter-spacing: 2px; padding: 24px; text-align: center; grid-column: 1/-1; }
-
-/* FORM */
-.row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-.field { display: flex; flex-direction: column; gap: 6px; }
+.field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
 .field label { font-size: 9px; letter-spacing: 3px; color: #4a6e4a; text-transform: uppercase; }
-.field input, .field textarea, .field select { background: #030303; border: 1px solid #1a1a1a; color: #ddd; font-family: 'Share Tech Mono', monospace; font-size: 13px; padding: 11px 14px; border-radius: 8px; outline: none; transition: border-color 0.2s; width: 100%; }
-.field input:focus, .field textarea:focus, .field select:focus { border-color: #4dff4d; }
-.field textarea { resize: vertical; min-height: 90px; }
-
-.blur-section { margin-bottom: 20px; }
-.blur-section label { font-size: 9px; letter-spacing: 3px; color: #4a6e4a; text-transform: uppercase; display: block; margin-bottom: 10px; }
-.chips { display: flex; flex-wrap: wrap; gap: 6px; min-height: 28px; }
-.chip { background: #0d0d0d; border: 1px solid #1a1a1a; border-radius: 100px; padding: 5px 14px; font-size: 11px; color: #555; cursor: pointer; transition: all 0.2s; user-select: none; }
-.chip:hover { border-color: #333; color: #888; }
-.chip.on { background: rgba(77,255,77,0.1); border-color: rgba(77,255,77,0.35); color: #4dff4d; }
-
+.field textarea { background: #030303; border: 1px solid #1a1a1a; color: #ddd; font-family: 'Share Tech Mono', monospace; font-size: 13px; padding: 11px 14px; border-radius: 8px; outline: none; transition: border-color 0.2s; width: 100%; resize: vertical; min-height: 90px; }
+.field textarea:focus { border-color: #4dff4d; }
+.sel-preview { display: flex; align-items: center; gap: 12px; background: rgba(77,255,77,0.04); border: 1px solid rgba(77,255,77,0.15); border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; }
+.sel-preview img { width: 48px; height: 64px; object-fit: cover; border-radius: 6px; }
+.sel-info { flex: 1; min-width: 0; }
+.sel-prompt { font-size: 11px; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.clr-sel { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: #333; background: none; border: none; cursor: pointer; }
+.clr-sel:hover { color: #888; }
 .btn-row { display: flex; gap: 10px; }
 .btn { font-family: 'Share Tech Mono', monospace; font-size: 11px; letter-spacing: 2px; padding: 13px 28px; cursor: pointer; border-radius: 100px; transition: all 0.2s; border: none; text-transform: uppercase; }
 .btn-g { background: #4dff4d; color: #000; font-weight: 700; }
 .btn-g:hover { background: #3de63d; }
 .btn-o { background: transparent; color: #555; border: 1px solid #1a1a1a; }
 .btn-o:hover { border-color: #4dff4d; color: #4dff4d; }
-
-/* SELECTED PREVIEW */
-.sel-preview { display: flex; align-items: center; gap: 12px; background: rgba(77,255,77,0.04); border: 1px solid rgba(77,255,77,0.15); border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; }
-.sel-preview img { width: 48px; height: 64px; object-fit: cover; border-radius: 6px; }
-.sel-info { flex: 1; min-width: 0; }
-.sel-model { font-size: 10px; letter-spacing: 2px; color: #4dff4d; margin-bottom: 4px; }
-.sel-prompt { font-size: 11px; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.clr-sel { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: #333; background: none; border: none; cursor: pointer; }
-.clr-sel:hover { color: #888; }
-
-/* OUTPUT */
 .slides-wrap { margin-top: 8px; }
 .slides-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
 .slides-top span { font-size: 9px; letter-spacing: 4px; color: #4dff4d; text-transform: uppercase; }
 .dl-all { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; padding: 8px 18px; cursor: pointer; border-radius: 100px; background: transparent; border: 1px solid #1a1a1a; color: #555; transition: all 0.2s; text-transform: uppercase; }
 .dl-all:hover { border-color: #4dff4d; color: #4dff4d; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
-.slide-item { }
 .canvas-wrap { width: 100%; aspect-ratio: 3/4; background: #000; border: 1px solid #1a1a1a; border-radius: 8px; overflow: hidden; }
 canvas { width: 100%; height: 100%; display: block; }
 .slide-btns { display: flex; gap: 8px; margin-top: 8px; }
@@ -75,7 +54,6 @@ canvas { width: 100%; height: 100%; display: block; }
 .s-dl:hover { background: #3de63d; }
 .s-rm { background: transparent; color: #444; border: 1px solid #1a1a1a; }
 .s-rm:hover { border-color: #ff4444; color: #ff4444; }
-.empty { text-align: center; padding: 48px; color: #222; font-size: 12px; letter-spacing: 2px; grid-column: 1/-1; }
 </style>
 </head>
 <body>
@@ -85,83 +63,28 @@ canvas { width: 100%; height: 100%; display: block; }
     <p>> INSTAGRAM SLIDE GENERATOR // 1080 × 1440</p>
   </div>
 
-  <!-- STEP 1 — PICK IMAGE -->
   <div class="panel">
     <span class="panel-label">> Step 1 — Select an image from your library</span>
-    <div class="img-grid" id="imgGrid">
-      <div class="loading-msg">Loading your images...</div>
-    </div>
+    <div class="img-grid" id="imgGrid"><div class="loading-msg">Loading your images...</div></div>
   </div>
 
-  <!-- STEP 2 — SETTINGS -->
   <div class="panel">
-    <span class="panel-label">> Step 2 — Customise your slide</span>
-
+    <span class="panel-label">> Step 2 — Review and generate</span>
     <div id="selPreview" style="display:none;" class="sel-preview">
       <img id="prevImg" src="" alt="">
-      <div class="sel-info">
-        <div class="sel-model" id="prevModel"></div>
-        <div class="sel-prompt" id="prevPromptTxt"></div>
-      </div>
+      <div class="sel-info"><div class="sel-prompt" id="prevPromptTxt"></div></div>
       <button class="clr-sel" onclick="clearSel()">✕</button>
     </div>
-
-    <div class="row">
-      <div class="field">
-        <label>AI Model (auto-filled)</label>
-        <select id="aiModel">
-          <option>Midjourney v8 Alpha</option>
-          <option>Midjourney v7</option>
-          <option>Midjourney v6.1</option>
-          <option>Midjourney v6</option>
-          <option>Nano Banana Pro</option>
-          <option>Flux 1.1 Dev</option>
-          <option>Stable Diffusion XL</option>
-          <option>DALL-E 3</option>
-        </select>
-      </div>
-      <div class="field">
-        <label>Category (auto-filled)</label>
-        <select id="category">
-          <optgroup label="Models">
-            <option>Female</option>
-            <option>Fashion</option>
-            <option>Fitness</option>
-            <option>Street</option>
-            <option>Cinematic</option>
-            <option>Surreal</option>
-          </optgroup>
-          <optgroup label="Explore">
-            <option>Landscape</option>
-            <option>Abstract</option>
-            <option>Architecture</option>
-            <option>Nature</option>
-            <option>Conceptual</option>
-            <option>Editorial</option>
-            <option>Product</option>
-            <option>Portrait</option>
-          </optgroup>
-        </select>
-      </div>
+    <div class="field">
+      <label>Prompt (auto-filled — edit if needed)</label>
+      <textarea id="prompt" placeholder="Select an image above — prompt auto-fills..."></textarea>
     </div>
-
-    <div class="field" style="margin-bottom:16px;">
-      <label>Prompt (auto-filled from image)</label>
-      <textarea id="prompt" placeholder="Select an image above — prompt auto-fills..." oninput="buildChips()"></textarea>
-    </div>
-
-    <div class="blur-section">
-      <label>Click words to blur on the slide</label>
-      <div class="chips" id="chips"></div>
-    </div>
-
     <div class="btn-row">
       <button class="btn btn-g" onclick="generate()">+ Generate slide</button>
       <button class="btn btn-o" onclick="clearAll()">Clear all</button>
     </div>
   </div>
 
-  <!-- OUTPUT -->
   <div class="slides-wrap" id="slidesWrap" style="display:none;">
     <div class="slides-top">
       <span>> Generated slides (1080×1440)</span>
@@ -175,22 +98,76 @@ canvas { width: 100%; height: 100%; display: block; }
 const SB_URL = 'https://jbsyzrzoiawruusdowpx.supabase.co';
 const SB_KEY = 'sb_publishable_5yHqsw-CdIykq2jiCDwTpw_otaDsUlF';
 const W = 1080, H = 1440;
+let slides = [], selectedImg = null, allImages = [];
 
-let slides = [];
-let blurred = new Set();
-let selectedImg = null;
-let allImages = [];
+// Blur these specific technical/quality words only
+const BLUR_WORDS = new Set([
+  // Camera brands & models
+  'sony','canon','nikon','hasselblad','leica','fuji','kodak','pentax','mamiya',
+  'arri','alexa','phase','a7r','a7','a1','gh6','r5','r3','d850',
+  // Lens specs
+  '35mm','50mm','85mm','24mm','70mm','135mm','14mm','28mm','200mm',
+  // Camera settings
+  'iso','dslr','slr','mirrorless','aperture','shutter',
+  // Quality/render terms
+  'photorealistic','hyperrealistic','ultrarealistic','ultra','realistic',
+  '8k','4k','2k','1080p','hdr','raw','bokeh','subsurface','scattering',
+  'raytracing','octane','unreal','cgi','render','rendering',
+  'specular','albedo','displacement','normal','diffuse',
+  // Technical photo terms
+  'depth','pores','texture','grain','anamorphic','chromatic','aberration',
+  'vignette','sharpness','clarity','contrast','saturation','exposure',
+  // Midjourney params
+  '--ar','--v','--s','--style','--no','--q','--chaos','--seed','--weird',
+  '--exp','--iw','--tile',
+  // Generic quality words
+  'masterpiece','intricate','detailed','hyperdetailed','professional',
+  'photographic','photograph','photography','high-quality','highquality',
+  'ultra-detailed','best','quality','resolution','sharp','focus',
+  // Lighting technical
+  'rembrandt','softbox','keylight','backlit','backlight','rim',
+  'three-point','catchlight','fresnel',
+]);
+
+function shouldBlur(word) {
+  const w = word.replace(/[,\.!?;:]/g,'').toLowerCase();
+  if (w.length <= 1) return false;
+  // Blur if it starts with -- (MJ param)
+  if (w.startsWith('--')) return true;
+  // Blur if it contains f/ (aperture)
+  if (w.includes('f/')) return true;
+  // Blur if it's a number followed by mm
+  if (/^\d+mm$/.test(w)) return true;
+  // Blur if it's just a number
+  if (/^\d+k?$/.test(w)) return true;
+  return BLUR_WORDS.has(w);
+}
+
+function drawBlurredWord(ctx, word, x, y, fs) {
+  const ww = ctx.measureText(word + ' ').width;
+  ctx.save();
+  ctx.fillStyle = 'rgba(255,255,255,0.07)';
+  ctx.fillRect(x - 2, y - fs, ww + 2, fs + 8);
+  for (let i = 0; i < 3; i++) {
+    ctx.filter = `blur(${6 + i * 2}px)`;
+    ctx.fillStyle = `rgba(255,255,255,${0.3 - i * 0.08})`;
+    ctx.font = `400 ${fs}px Share Tech Mono, monospace`;
+    ctx.fillText(word, x, y);
+  }
+  ctx.filter = 'none';
+  ctx.restore();
+}
 
 window.onload = async function() {
   try {
-    const r = await fetch(SB_URL + '/rest/v1/images?select=*&order=created_at.desc&limit=60', {
+    const r = await fetch(SB_URL + '/rest/v1/images?select=*&order=created_at.desc&limit=80', {
       headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY }
     });
     allImages = await r.json();
     if (!Array.isArray(allImages)) allImages = [];
     renderImgGrid();
   } catch(e) {
-    document.getElementById('imgGrid').innerHTML = '<div class="loading-msg">Failed to load images</div>';
+    document.getElementById('imgGrid').innerHTML = '<div class="loading-msg">Failed to load — check connection</div>';
   }
 };
 
@@ -210,36 +187,11 @@ function selectImg(id) {
   selectedImg = img;
   document.querySelectorAll('.img-thumb').forEach(t => t.classList.remove('selected'));
   document.getElementById('th-' + id).classList.add('selected');
-
-  // Auto fill prompt
   document.getElementById('prompt').value = img.prompt || '';
-  buildChips();
-
-  // Auto fill AI model
-  const modelSel = document.getElementById('aiModel');
-  const modelVal = (img.ai_model || '').toLowerCase();
-  for (let i = 0; i < modelSel.options.length; i++) {
-    if (modelSel.options[i].text.toLowerCase().replace(/\s/g,'').includes(modelVal.replace(/\s/g,'').substring(0,8))) {
-      modelSel.selectedIndex = i; break;
-    }
-  }
-
-  // Auto fill category based on ai_model or default
-  // Category stored in image if available
-  if (img.category) {
-    const catSel = document.getElementById('category');
-    for (let i = 0; i < catSel.options.length; i++) {
-      if (catSel.options[i].value.toLowerCase() === img.category.toLowerCase()) {
-        catSel.selectedIndex = i; break;
-      }
-    }
-  }
-
-  // Show preview
   document.getElementById('prevImg').src = img.image_url;
-  document.getElementById('prevModel').textContent = img.ai_model || '';
   document.getElementById('prevPromptTxt').textContent = img.prompt || '';
   document.getElementById('selPreview').style.display = 'flex';
+  document.querySelector('.panel:nth-child(3)').scrollIntoView({ behavior: 'smooth' });
 }
 
 function clearSel() {
@@ -247,40 +199,15 @@ function clearSel() {
   document.querySelectorAll('.img-thumb').forEach(t => t.classList.remove('selected'));
   document.getElementById('selPreview').style.display = 'none';
   document.getElementById('prompt').value = '';
-  document.getElementById('chips').innerHTML = '';
-}
-
-function buildChips() {
-  const words = document.getElementById('prompt').value.trim().split(/\s+/).filter(w => w.replace(/[^a-z0-9]/gi,'').length > 2);
-  const container = document.getElementById('chips');
-  container.innerHTML = '';
-  const seen = new Set();
-  blurred = new Set([...blurred].filter(w => words.map(x=>x.replace(/[,\.]/g,'')).includes(w)));
-  words.forEach(word => {
-    const clean = word.replace(/[,\.!?]/g,'');
-    if (seen.has(clean)) return;
-    seen.add(clean);
-    const chip = document.createElement('div');
-    chip.className = 'chip' + (blurred.has(clean) ? ' on' : '');
-    chip.textContent = clean;
-    chip.onclick = () => {
-      if (blurred.has(clean)) { blurred.delete(clean); chip.classList.remove('on'); }
-      else { blurred.add(clean); chip.classList.add('on'); }
-    };
-    container.appendChild(chip);
-  });
 }
 
 function generate() {
   const prompt = document.getElementById('prompt').value.trim();
-  if (!selectedImg && !prompt) { alert('Please select an image first!'); return; }
+  if (!prompt) { alert('Please select an image or enter a prompt'); return; }
   const s = {
     id: Date.now(),
-    prompt: prompt,
-    model: document.getElementById('aiModel').value,
-    category: document.getElementById('category').value,
-    bgUrl: selectedImg ? selectedImg.image_url : '',
-    blurred: new Set(blurred)
+    prompt,
+    bgUrl: selectedImg ? selectedImg.image_url : ''
   };
   slides.push(s);
   renderGrid();
@@ -294,7 +221,6 @@ function renderGrid() {
   grid.innerHTML = '';
   slides.forEach(s => {
     const div = document.createElement('div');
-    div.className = 'slide-item';
     div.innerHTML = `
       <div class="canvas-wrap"><canvas id="c${s.id}" width="${W}" height="${H}"></canvas></div>
       <div class="slide-btns">
@@ -311,80 +237,70 @@ function drawSlide(s) {
   const ctx = canvas.getContext('2d');
 
   const paint = (hasImg) => {
-    // Black base
-    ctx.fillStyle = '#000';
-    ctx.fillRect(0, 0, W, H);
-
-    if (hasImg) {
-      // Image already drawn underneath — add gradient overlay over bottom 45%
-      const gradStart = H * 0.45;
-      const grad = ctx.createLinearGradient(0, gradStart, 0, H);
-      grad.addColorStop(0, 'rgba(0,0,0,0)');
-      grad.addColorStop(0.35, 'rgba(0,0,0,0.75)');
-      grad.addColorStop(1, 'rgba(0,0,0,0.97)');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, gradStart, W, H - gradStart);
+    if (!hasImg) {
+      ctx.fillStyle = '#000';
+      ctx.fillRect(0, 0, W, H);
     }
 
-    // /prompt label
-    const promptLabelY = H * 0.68;
-    ctx.font = '800 80px Syne, serif';
-    ctx.fillStyle = 'rgba(255,255,255,0.92)';
-    ctx.textBaseline = 'alphabetic';
+    // Dark gradient over bottom 60% so text is readable
+    if (hasImg) {
+      const grad = ctx.createLinearGradient(0, H * 0.25, 0, H);
+      grad.addColorStop(0, 'rgba(0,0,0,0)');
+      grad.addColorStop(0.3, 'rgba(0,0,0,0.55)');
+      grad.addColorStop(0.55, 'rgba(0,0,0,0.82)');
+      grad.addColorStop(1, 'rgba(0,0,0,0.97)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, H * 0.25, W, H * 0.75);
+    }
+
+    // AFTERFRAME watermark top left
+    ctx.font = '800 26px Syne, serif';
+    ctx.fillStyle = 'rgba(255,255,255,0.45)';
+    ctx.textBaseline = 'top';
     ctx.textAlign = 'left';
+    ctx.fillText('AFTERFRAME', 52, 44);
+
+    // /prompt label — positioned in middle of canvas
+    const promptLabelY = H * 0.55;
+    ctx.font = '800 78px Syne, serif';
+    ctx.fillStyle = 'rgba(255,255,255,0.93)';
+    ctx.textBaseline = 'alphabetic';
     ctx.fillText('/prompt', 52, promptLabelY);
 
-    // Prompt text below label
+    // Prompt text
     const words = s.prompt.split(' ');
-    let wx = 52, wy = promptLabelY + 48;
-    const lh = 38, maxX = W - 52, fs = 22;
+    let wx = 52, wy = promptLabelY + 52;
+    const lh = 40, maxX = W - 52, fs = 22;
     ctx.font = `400 ${fs}px Share Tech Mono, monospace`;
     ctx.textBaseline = 'alphabetic';
 
     words.forEach(word => {
-      const clean = word.replace(/[,\.!?]/g,'');
       const ww = ctx.measureText(word + ' ').width;
       if (wx + ww > maxX && wx > 52) { wx = 52; wy += lh; }
-      if (wy > H - 80) return;
+      if (wy > H - 60) return;
 
-      if (s.blurred.has(clean)) {
-        ctx.save();
-        ctx.fillStyle = 'rgba(255,255,255,0.08)';
-        ctx.fillRect(wx-2, wy-fs, ww+2, fs+8);
-        ctx.filter = 'blur(7px)';
-        ctx.fillStyle = 'rgba(255,255,255,0.5)';
-        ctx.fillText(word + ' ', wx, wy);
-        ctx.filter = 'none';
-        ctx.restore();
+      if (shouldBlur(word)) {
+        drawBlurredWord(ctx, word, wx, wy, fs);
       } else {
-        ctx.fillStyle = 'rgba(220,220,220,0.88)';
+        ctx.fillStyle = 'rgba(215,215,215,0.9)';
+        ctx.font = `400 ${fs}px Share Tech Mono, monospace`;
         ctx.fillText(word + ' ', wx, wy);
       }
       wx += ww;
     });
-
-    // AFTERFRAME watermark top left
-    ctx.font = '800 28px Syne, serif';
-    ctx.fillStyle = 'rgba(255,255,255,0.5)';
-    ctx.textBaseline = 'top';
-    ctx.fillText('AFTERFRAME', 52, 40);
-
-    // Model + category tag top right
-    ctx.font = '400 18px Share Tech Mono, monospace';
-    ctx.fillStyle = 'rgba(255,255,255,0.35)';
-    ctx.textAlign = 'right';
-    ctx.fillText(s.model + ' // ' + s.category.toUpperCase(), W-52, 46);
-    ctx.textAlign = 'left';
   };
 
   if (s.bgUrl) {
-    // Fetch image as blob to bypass CORS
     fetch(s.bgUrl)
-      .then(r => r.blob())
+      .then(r => {
+        if (!r.ok) throw new Error('fetch failed');
+        return r.blob();
+      })
       .then(blob => {
         const url = URL.createObjectURL(blob);
         const img = new Image();
         img.onload = () => {
+          // Cover fill
           const imgAR = img.width / img.height;
           const canAR = W / H;
           let sx=0, sy=0, sw=img.width, sh=img.height;
@@ -413,10 +329,8 @@ function dlSlide(id) {
 function dlAll() { slides.forEach((s,i) => setTimeout(() => dlSlide(s.id), i*500)); }
 function rmSlide(id) { slides = slides.filter(s=>s.id!==id); renderGrid(); }
 function clearAll() {
-  slides=[]; blurred=new Set(); selectedImg=null;
-  renderGrid();
+  slides=[]; selectedImg=null; renderGrid();
   document.getElementById('prompt').value='';
-  document.getElementById('chips').innerHTML='';
   document.getElementById('selPreview').style.display='none';
   document.querySelectorAll('.img-thumb').forEach(t=>t.classList.remove('selected'));
 }
