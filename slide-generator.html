@@ -41,7 +41,7 @@ body { background: #000; color: #b8d8b8; font-family: 'Share Tech Mono', monospa
 .slides-top span { font-size: 9px; letter-spacing: 3px; color: #4dff4d; text-transform: uppercase; }
 .dl-all { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 1px; padding: 8px 16px; cursor: pointer; border-radius: 100px; background: transparent; border: 1px solid #1a1a1a; color: #555; transition: all 0.2s; text-transform: uppercase; -webkit-tap-highlight-color: transparent; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 16px; }
-.canvas-wrap { width: 100%; aspect-ratio: 3/4; background: #000; border: 1px solid #1a1a1a; border-radius: 8px; overflow: hidden; }
+.canvas-wrap { width: 100%; aspect-ratio: 9/16; background: #000; border: 1px solid #1a1a1a; border-radius: 8px; overflow: hidden; }
 canvas { width: 100%; height: 100%; display: block; }
 .slide-btns { display: flex; gap: 8px; margin-top: 8px; }
 .s-btn { flex: 1; font-family: 'Share Tech Mono', monospace; font-size: clamp(9px, 2.5vw, 10px); letter-spacing: 1px; padding: 10px 6px; cursor: pointer; border-radius: 6px; transition: all 0.2s; text-transform: uppercase; -webkit-tap-highlight-color: transparent; }
@@ -62,7 +62,7 @@ canvas { width: 100%; height: 100%; display: block; }
 <div class="app">
   <div class="header">
     <h1>AFTERFRAME</h1>
-    <p>> INSTAGRAM SLIDE GENERATOR // 1080 × 1440</p>
+    <p>> INSTAGRAM SLIDE GENERATOR // 1080 × 1920 — 9:16</p>
   </div>
 
   <div class="panel">
@@ -89,7 +89,7 @@ canvas { width: 100%; height: 100%; display: block; }
 
   <div class="slides-wrap" id="slidesWrap" style="display:none;">
     <div class="slides-top">
-      <span>> Generated slides (1080×1440)</span>
+      <span>> Generated slides (1080×1920 — 9:16)</span>
       <button class="dl-all" onclick="dlAll()">↓ Download all</button>
     </div>
     <div class="grid" id="grid"></div>
@@ -99,7 +99,7 @@ canvas { width: 100%; height: 100%; display: block; }
 <script>
 const SB_URL = 'https://jbsyzrzoiawruusdowpx.supabase.co';
 const SB_KEY = 'sb_publishable_5yHqsw-CdIykq2jiCDwTpw_otaDsUlF';
-const W = 1080, H = 1440;
+const W = 1080, H = 1920;
 let slides = [], selectedImg = null, allImages = [];
 
 // Blur ~52% of words - technical, quality and style terms
@@ -268,11 +268,42 @@ function renderGrid() {
     div.innerHTML = `
       <div class="canvas-wrap"><canvas id="c${s.id}" width="${W}" height="${H}"></canvas></div>
       <div class="slide-btns">
-        <button class="s-btn s-dl" onclick="dlSlide(${s.id})">↓ Download 1080×1440</button>
+        <button class="s-btn s-dl" onclick="dlSlide(${s.id})">↓ Download 9:16</button>
         <button class="s-btn s-rm" onclick="rmSlide(${s.id})">✕</button>
       </div>`;
     grid.appendChild(div);
   });
+}
+
+function blurCanvas(ctx, x, y, w, h, radius) {
+  if (w <= 0 || h <= 0) return;
+  const imgData = ctx.getImageData(x, y, w, h);
+  const pixels = imgData.data;
+  const width = w, height = h;
+  const passes = Math.ceil(radius / 2);
+  for (let pass = 0; pass < passes; pass++) {
+    for (let py = 0; py < height; py++) {
+      for (let px = 1; px < width - 1; px++) {
+        const i = (py * width + px) * 4;
+        const l = (py * width + px - 1) * 4;
+        const r2 = (py * width + px + 1) * 4;
+        for (let c = 0; c < 3; c++) {
+          pixels[i+c] = (pixels[l+c] + pixels[i+c] * 2 + pixels[r2+c]) >> 2;
+        }
+      }
+    }
+    for (let px = 0; px < width; px++) {
+      for (let py = 1; py < height - 1; py++) {
+        const i = (py * width + px) * 4;
+        const u = ((py-1) * width + px) * 4;
+        const d = ((py+1) * width + px) * 4;
+        for (let c = 0; c < 3; c++) {
+          pixels[i+c] = (pixels[u+c] + pixels[i+c] * 2 + pixels[d+c]) >> 2;
+        }
+      }
+    }
+  }
+  ctx.putImageData(imgData, x, y);
 }
 
 function drawSlide(s) {
@@ -286,82 +317,88 @@ function drawSlide(s) {
       ctx.fillRect(0, 0, W, H);
     }
 
-    // Dark gradient over bottom 60% so text is readable
     if (hasImg) {
-      const grad = ctx.createLinearGradient(0, H * 0.25, 0, H);
+      const grad = ctx.createLinearGradient(0, H * 0.58, 0, H);
       grad.addColorStop(0, 'rgba(0,0,0,0)');
-      grad.addColorStop(0.3, 'rgba(0,0,0,0.55)');
-      grad.addColorStop(0.55, 'rgba(0,0,0,0.82)');
-      grad.addColorStop(1, 'rgba(0,0,0,0.97)');
+      grad.addColorStop(0.18, 'rgba(0,0,0,0.35)');
+      grad.addColorStop(0.4, 'rgba(0,0,0,0.62)');
+      grad.addColorStop(1, 'rgba(0,0,0,0.78)');
       ctx.fillStyle = grad;
-      ctx.fillRect(0, H * 0.25, W, H * 0.75);
+      ctx.fillRect(0, H * 0.58, W, H * 0.42);
     }
 
-    // AFTERFRAME watermark top left
+    // AFTERFRAME watermark
     ctx.font = '800 26px Syne, serif';
-    ctx.fillStyle = 'rgba(255,255,255,0.45)';
+    ctx.fillStyle = 'rgba(255,255,255,0.4)';
     ctx.textBaseline = 'top';
     ctx.textAlign = 'left';
     ctx.fillText('AFTERFRAME', 52, 44);
 
-    // /prompt label — positioned in middle of canvas
-    const promptLabelY = H * 0.55;
-    ctx.font = '800 78px Syne, serif';
+    // /prompt label — at 74% so image dominates
+    const promptLabelY = H * 0.75;
+    ctx.font = '800 72px Syne, serif';
     ctx.fillStyle = 'rgba(255,255,255,0.93)';
     ctx.textBaseline = 'alphabetic';
     ctx.fillText('/prompt', 52, promptLabelY);
 
-    // Prompt text - two pass: draw text first, then solid bars on top
-    const words = s.prompt.split(' ');
+    // Only show first 18 words of prompt max to keep text compact
+    const allWords = s.prompt.split(' ');
+    const words = allWords.slice(0, 18);
+    const hasMore = allWords.length > 18;
+
     let wx = 52, wy = promptLabelY + 52;
-    const lh = 40, maxX = W - 52, fs = 22;
+    const lh = 40, maxX = W - 52, fs = 21;
     ctx.font = `400 ${fs}px Share Tech Mono, monospace`;
     ctx.textBaseline = 'alphabetic';
 
-    // Track positions of words to redact
-    const redactBars = [];
-
-    // Pass 1 — draw all words normally
+    // Pass 1 — draw all words
+    const blurRegions = [];
     words.forEach(word => {
       const ww = ctx.measureText(word + ' ').width;
       if (wx + ww > maxX && wx > 52) { wx = 52; wy += lh; }
-      if (wy > H - 60) { wx += ww; return; }
-
-      ctx.fillStyle = 'rgba(215,215,215,0.9)';
+      if (wy > H - 80) { wx += ww; return; }
+      ctx.fillStyle = 'rgba(210,210,210,0.88)';
       ctx.font = `400 ${fs}px Share Tech Mono, monospace`;
       ctx.fillText(word + ' ', wx, wy);
-
       if (shouldBlur(word)) {
-        redactBars.push({ x: wx - 2, y: wy - fs - 1, w: ww - 4, h: fs + 8 });
+        const bx = Math.max(0, Math.floor(wx) - 2);
+        const by = Math.max(0, Math.floor(wy) - fs - 2);
+        const bw = Math.min(W - bx, Math.ceil(ww) + 4);
+        const bh = fs + 12;
+        blurRegions.push({ bx, by, bw, bh });
       }
       wx += ww;
     });
 
-    // Pass 2 — draw solid redaction bars on top of everything
-    redactBars.forEach(bar => {
-      ctx.fillStyle = '#1a1a1a';
-      ctx.fillRect(bar.x, bar.y, bar.w, bar.h);
-      ctx.fillStyle = 'rgba(255,255,255,0.03)';
-      ctx.fillRect(bar.x, bar.y, bar.w, 1);
+    // Pass 2 — pixel blur each region individually
+    blurRegions.forEach(({ bx, by, bw, bh }) => {
+      try { blurCanvas(ctx, bx, by, bw, bh, 12); } catch(e) {}
     });
+
+    // Draw ... if prompt was truncated
+    if (hasMore) {
+      ctx.fillStyle = 'rgba(210,210,210,0.5)';
+      ctx.font = `400 ${fs}px Share Tech Mono, monospace`;
+      ctx.fillText('...', wx, wy);
+    }
   };
 
   if (s.bgUrl) {
-    fetch(s.bgUrl)
-      .then(r => {
-        if (!r.ok) throw new Error('fetch failed');
-        return r.blob();
-      })
+    // Strip any Supabase transform params to get full resolution
+    const fullResUrl = s.bgUrl.split('?')[0];
+    fetch(fullResUrl)
+      .then(r => { if (!r.ok) throw new Error(); return r.blob(); })
       .then(blob => {
         const url = URL.createObjectURL(blob);
         const img = new Image();
         img.onload = () => {
-          // Cover fill
           const imgAR = img.width / img.height;
           const canAR = W / H;
           let sx=0, sy=0, sw=img.width, sh=img.height;
           if (imgAR > canAR) { sw = img.height * canAR; sx = (img.width - sw) / 2; }
           else { sh = img.width / canAR; sy = (img.height - sh) / 2; }
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = 'high';
           ctx.drawImage(img, sx, sy, sw, sh, 0, 0, W, H);
           URL.revokeObjectURL(url);
           paint(true);
@@ -379,7 +416,7 @@ function dlSlide(id) {
   const c = document.getElementById('c' + id);
   const a = document.createElement('a');
   a.download = 'afterframe-slide-' + id + '.png';
-  a.href = c.toDataURL('image/png');
+  a.href = c.toDataURL('image/png', 1.0);
   a.click();
 }
 function dlAll() { slides.forEach((s,i) => setTimeout(() => dlSlide(s.id), i*500)); }
