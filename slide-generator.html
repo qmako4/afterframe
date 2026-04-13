@@ -7,53 +7,55 @@
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: #000; color: #b8d8b8; font-family: 'Share Tech Mono', monospace; min-height: 100vh; padding: 24px; }
+body { background: #000; color: #b8d8b8; font-family: 'Share Tech Mono', monospace; min-height: 100vh; padding: 16px; }
 .app { max-width: 1100px; margin: 0 auto; }
-.header { text-align: center; padding: 20px 0 28px; }
-.header h1 { font-family: 'Syne', sans-serif; font-size: 30px; font-weight: 800; letter-spacing: 8px; color: #4dff4d; margin-bottom: 4px; }
-.header p { font-size: 10px; letter-spacing: 4px; color: #4a6e4a; }
-.panel { background: #080808; border: 1px solid #1a1a1a; border-radius: 12px; padding: 24px; margin-bottom: 20px; }
-.panel-label { font-size: 9px; letter-spacing: 4px; color: #4dff4d; text-transform: uppercase; margin-bottom: 16px; display: block; }
-.img-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; max-height: 360px; overflow-y: auto; padding-right: 4px; }
+.header { text-align: center; padding: 16px 0 24px; }
+.header h1 { font-family: 'Syne', sans-serif; font-size: clamp(20px, 5vw, 30px); font-weight: 800; letter-spacing: clamp(4px, 2vw, 8px); color: #4dff4d; margin-bottom: 4px; }
+.header p { font-size: clamp(8px, 2vw, 10px); letter-spacing: clamp(2px, 1vw, 4px); color: #4a6e4a; }
+.panel { background: #080808; border: 1px solid #1a1a1a; border-radius: 12px; padding: clamp(16px, 4vw, 24px); margin-bottom: 16px; }
+.panel-label { font-size: 9px; letter-spacing: 3px; color: #4dff4d; text-transform: uppercase; margin-bottom: 14px; display: block; }
+.img-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 6px; max-height: 320px; overflow-y: auto; padding-right: 4px; -webkit-overflow-scrolling: touch; }
 .img-grid::-webkit-scrollbar { width: 4px; }
 .img-grid::-webkit-scrollbar-thumb { background: #4dff4d; border-radius: 2px; }
-.img-thumb { position: relative; aspect-ratio: 3/4; overflow: hidden; border-radius: 6px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; background: #0a0a0a; }
-.img-thumb:hover { border-color: rgba(77,255,77,0.4); }
+.img-thumb { position: relative; aspect-ratio: 3/4; overflow: hidden; border-radius: 6px; cursor: pointer; border: 2px solid transparent; transition: border-color 0.2s; background: #0a0a0a; }
 .img-thumb.selected { border-color: #4dff4d; }
 .img-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.img-thumb .tick { position: absolute; top: 4px; right: 4px; background: #4dff4d; color: #000; width: 22px; height: 22px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
+.img-thumb .tick { position: absolute; top: 4px; right: 4px; background: #4dff4d; color: #000; width: 20px; height: 20px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
 .img-thumb.selected .tick { display: flex; }
 .loading-msg { color: #333; font-size: 12px; letter-spacing: 2px; padding: 24px; text-align: center; grid-column: 1/-1; }
 .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
-.field label { font-size: 9px; letter-spacing: 3px; color: #4a6e4a; text-transform: uppercase; }
-.field textarea { background: #030303; border: 1px solid #1a1a1a; color: #ddd; font-family: 'Share Tech Mono', monospace; font-size: 13px; padding: 11px 14px; border-radius: 8px; outline: none; transition: border-color 0.2s; width: 100%; resize: vertical; min-height: 90px; }
+.field label { font-size: 9px; letter-spacing: 2px; color: #4a6e4a; text-transform: uppercase; }
+.field textarea { background: #030303; border: 1px solid #1a1a1a; color: #ddd; font-family: 'Share Tech Mono', monospace; font-size: 13px; padding: 11px 14px; border-radius: 8px; outline: none; transition: border-color 0.2s; width: 100%; resize: vertical; min-height: 90px; -webkit-appearance: none; }
 .field textarea:focus { border-color: #4dff4d; }
-.sel-preview { display: flex; align-items: center; gap: 12px; background: rgba(77,255,77,0.04); border: 1px solid rgba(77,255,77,0.15); border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; }
-.sel-preview img { width: 48px; height: 64px; object-fit: cover; border-radius: 6px; }
+.sel-preview { display: flex; align-items: center; gap: 10px; background: rgba(77,255,77,0.04); border: 1px solid rgba(77,255,77,0.15); border-radius: 8px; padding: 10px 14px; margin-bottom: 16px; }
+.sel-preview img { width: 40px; height: 54px; object-fit: cover; border-radius: 5px; flex-shrink: 0; }
 .sel-info { flex: 1; min-width: 0; }
 .sel-prompt { font-size: 11px; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.clr-sel { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: #333; background: none; border: none; cursor: pointer; }
-.clr-sel:hover { color: #888; }
-.btn-row { display: flex; gap: 10px; }
-.btn { font-family: 'Share Tech Mono', monospace; font-size: 11px; letter-spacing: 2px; padding: 13px 28px; cursor: pointer; border-radius: 100px; transition: all 0.2s; border: none; text-transform: uppercase; }
+.clr-sel { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: #333; background: none; border: none; cursor: pointer; padding: 4px; flex-shrink: 0; }
+.btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn { font-family: 'Share Tech Mono', monospace; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 1px; padding: clamp(11px, 3vw, 13px) clamp(18px, 5vw, 28px); cursor: pointer; border-radius: 100px; transition: all 0.2s; border: none; text-transform: uppercase; -webkit-tap-highlight-color: transparent; }
 .btn-g { background: #4dff4d; color: #000; font-weight: 700; }
-.btn-g:hover { background: #3de63d; }
 .btn-o { background: transparent; color: #555; border: 1px solid #1a1a1a; }
-.btn-o:hover { border-color: #4dff4d; color: #4dff4d; }
 .slides-wrap { margin-top: 8px; }
-.slides-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-.slides-top span { font-size: 9px; letter-spacing: 4px; color: #4dff4d; text-transform: uppercase; }
-.dl-all { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; padding: 8px 18px; cursor: pointer; border-radius: 100px; background: transparent; border: 1px solid #1a1a1a; color: #555; transition: all 0.2s; text-transform: uppercase; }
-.dl-all:hover { border-color: #4dff4d; color: #4dff4d; }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+.slides-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px; }
+.slides-top span { font-size: 9px; letter-spacing: 3px; color: #4dff4d; text-transform: uppercase; }
+.dl-all { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 1px; padding: 8px 16px; cursor: pointer; border-radius: 100px; background: transparent; border: 1px solid #1a1a1a; color: #555; transition: all 0.2s; text-transform: uppercase; -webkit-tap-highlight-color: transparent; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 16px; }
 .canvas-wrap { width: 100%; aspect-ratio: 3/4; background: #000; border: 1px solid #1a1a1a; border-radius: 8px; overflow: hidden; }
 canvas { width: 100%; height: 100%; display: block; }
 .slide-btns { display: flex; gap: 8px; margin-top: 8px; }
-.s-btn { flex: 1; font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 1px; padding: 9px; cursor: pointer; border-radius: 6px; transition: all 0.2s; text-transform: uppercase; }
+.s-btn { flex: 1; font-family: 'Share Tech Mono', monospace; font-size: clamp(9px, 2.5vw, 10px); letter-spacing: 1px; padding: 10px 6px; cursor: pointer; border-radius: 6px; transition: all 0.2s; text-transform: uppercase; -webkit-tap-highlight-color: transparent; }
 .s-dl { background: #4dff4d; color: #000; border: none; font-weight: 700; }
-.s-dl:hover { background: #3de63d; }
 .s-rm { background: transparent; color: #444; border: 1px solid #1a1a1a; }
-.s-rm:hover { border-color: #ff4444; color: #ff4444; }
+
+@media (max-width: 480px) {
+  body { padding: 12px; }
+  .panel { padding: 14px; }
+  .img-grid { grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); max-height: 260px; }
+  .btn-row { flex-direction: column; }
+  .btn { text-align: center; }
+  .grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -100,46 +102,48 @@ const SB_KEY = 'sb_publishable_5yHqsw-CdIykq2jiCDwTpw_otaDsUlF';
 const W = 1080, H = 1440;
 let slides = [], selectedImg = null, allImages = [];
 
-// Blur these specific technical/quality words only
+// Blur ~52% of words - technical, quality and style terms
 const BLUR_WORDS = new Set([
-  // Camera brands & models
+  // Camera brands
   'sony','canon','nikon','hasselblad','leica','fuji','kodak','pentax','mamiya',
-  'arri','alexa','phase','a7r','a7','a1','gh6','r5','r3','d850',
+  'arri','alexa','a7r','a7','a1','r5','r3','d850','gh6',
   // Lens specs
   '35mm','50mm','85mm','24mm','70mm','135mm','14mm','28mm','200mm',
-  // Camera settings
-  'iso','dslr','slr','mirrorless','aperture','shutter',
-  // Quality/render terms
-  'photorealistic','hyperrealistic','ultrarealistic','ultra','realistic',
-  '8k','4k','2k','1080p','hdr','raw','bokeh','subsurface','scattering',
-  'raytracing','octane','unreal','cgi','render','rendering',
-  'specular','albedo','displacement','normal','diffuse',
-  // Technical photo terms
-  'depth','pores','texture','grain','anamorphic','chromatic','aberration',
-  'vignette','sharpness','clarity','contrast','saturation','exposure',
+  // Camera tech
+  'iso','dslr','mirrorless','aperture','shutter','lens','bokeh',
+  // Quality buzzwords
+  'photorealistic','hyperrealistic','ultrarealistic','realistic',
+  '8k','4k','hdr','raw','subsurface','scattering','raytracing',
+  'octane','cgi','render','rendering','specular','albedo',
+  // Technical photo
+  'pores','anamorphic','chromatic','aberration','vignette','grain',
+  'sharpness','clarity','contrast','saturation','exposure','depth',
   // Midjourney params
-  '--ar','--v','--s','--style','--no','--q','--chaos','--seed','--weird',
-  '--exp','--iw','--tile',
-  // Generic quality words
-  'masterpiece','intricate','detailed','hyperdetailed','professional',
-  'photographic','photograph','photography','high-quality','highquality',
-  'ultra-detailed','best','quality','resolution','sharp','focus',
+  '--ar','--v','--s','--style','--no','--q','--chaos','--seed','--exp',
+  // Quality descriptors
+  'masterpiece','intricate','hyperdetailed','ultra-detailed','high-quality',
+  'photographic','photograph','photography','sharp','focus','resolution',
+  'detailed','ultra','hyper','super','high','highly',
   // Lighting technical
-  'rembrandt','softbox','keylight','backlit','backlight','rim',
-  'three-point','catchlight','fresnel',
+  'rembrandt','softbox','keylight','catchlight','backlit','backlight',
+  'three-point','diffused','ambient','illuminated','lit',
+  // Style tags
+  'editorial','aesthetic','stylized','cinematic','film','anamorphic',
+  // Filler quality adjectives
+  'stunning','gorgeous','breathtaking','exquisite','incredible','perfect',
+  'perfectly','extremely','professional','premium','luxurious','sophisticated',
+  // Shot/composition terms
+  'shot','captured','taken','closeup','close-up','angle','framing',
+  'composition','perspective','medium','wide','aerial','overhead',
 ]);
 
 function shouldBlur(word) {
   const w = word.replace(/[,\.!?;:]/g,'').toLowerCase();
   if (w.length <= 1) return false;
-  // Blur if it starts with -- (MJ param)
   if (w.startsWith('--')) return true;
-  // Blur if it contains f/ (aperture)
   if (w.includes('f/')) return true;
-  // Blur if it's a number followed by mm
   if (/^\d+mm$/.test(w)) return true;
-  // Blur if it's just a number
-  if (/^\d+k?$/.test(w)) return true;
+  if (/^\d+k$/.test(w)) return true;
   return BLUR_WORDS.has(w);
 }
 
