@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AFTERFRAME — Slide Generator</title>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: #000; color: #b8d8b8; font-family: 'Share Tech Mono', monospace; min-height: 100vh; padding: 24px; }
@@ -13,34 +13,28 @@ body { background: #000; color: #b8d8b8; font-family: 'Share Tech Mono', monospa
 .header h1 { font-family: 'Syne', sans-serif; font-size: 30px; font-weight: 800; letter-spacing: 8px; color: #4dff4d; margin-bottom: 4px; }
 .header p { font-size: 10px; letter-spacing: 4px; color: #4a6e4a; }
 
-/* IMAGE PICKER */
-.picker-panel { background: #080808; border: 1px solid #1a1a1a; border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+.panel { background: #080808; border: 1px solid #1a1a1a; border-radius: 12px; padding: 24px; margin-bottom: 20px; }
 .panel-label { font-size: 9px; letter-spacing: 4px; color: #4dff4d; text-transform: uppercase; margin-bottom: 16px; display: block; }
-.img-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px; max-height: 380px; overflow-y: auto; padding-right: 4px; }
+
+/* IMAGE GRID */
+.img-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; max-height: 360px; overflow-y: auto; padding-right: 4px; }
 .img-grid::-webkit-scrollbar { width: 4px; }
-.img-grid::-webkit-scrollbar-track { background: #111; }
 .img-grid::-webkit-scrollbar-thumb { background: #4dff4d; border-radius: 2px; }
-.img-thumb { position: relative; aspect-ratio: 1; overflow: hidden; border-radius: 6px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; background: #0a0a0a; }
+.img-thumb { position: relative; aspect-ratio: 3/4; overflow: hidden; border-radius: 6px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; background: #0a0a0a; }
 .img-thumb:hover { border-color: rgba(77,255,77,0.4); }
 .img-thumb.selected { border-color: #4dff4d; }
 .img-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.img-thumb .tick { position: absolute; top: 4px; right: 4px; background: #4dff4d; color: #000; width: 20px; height: 20px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+.img-thumb .tick { position: absolute; top: 4px; right: 4px; background: #4dff4d; color: #000; width: 22px; height: 22px; border-radius: 50%; display: none; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; }
 .img-thumb.selected .tick { display: flex; }
 .loading-msg { color: #333; font-size: 12px; letter-spacing: 2px; padding: 24px; text-align: center; grid-column: 1/-1; }
 
-/* SETTINGS */
-.settings-panel { background: #080808; border: 1px solid #1a1a1a; border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+/* FORM */
 .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
 .field { display: flex; flex-direction: column; gap: 6px; }
 .field label { font-size: 9px; letter-spacing: 3px; color: #4a6e4a; text-transform: uppercase; }
 .field input, .field textarea, .field select { background: #030303; border: 1px solid #1a1a1a; color: #ddd; font-family: 'Share Tech Mono', monospace; font-size: 13px; padding: 11px 14px; border-radius: 8px; outline: none; transition: border-color 0.2s; width: 100%; }
 .field input:focus, .field textarea:focus, .field select:focus { border-color: #4dff4d; }
 .field textarea { resize: vertical; min-height: 90px; }
-
-.t-row { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
-.t-btn { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 1px; padding: 8px 16px; cursor: pointer; border-radius: 100px; border: 1px solid #1a1a1a; background: transparent; color: #555; transition: all 0.2s; }
-.t-btn:hover { color: #888; border-color: #333; }
-.t-btn.active { background: rgba(77,255,77,0.1); border-color: rgba(77,255,77,0.4); color: #4dff4d; }
 
 .blur-section { margin-bottom: 20px; }
 .blur-section label { font-size: 9px; letter-spacing: 3px; color: #4a6e4a; text-transform: uppercase; display: block; margin-bottom: 10px; }
@@ -57,23 +51,23 @@ body { background: #000; color: #b8d8b8; font-family: 'Share Tech Mono', monospa
 .btn-o:hover { border-color: #4dff4d; color: #4dff4d; }
 
 /* SELECTED PREVIEW */
-.selected-preview { display: flex; align-items: center; gap: 12px; background: rgba(77,255,77,0.05); border: 1px solid rgba(77,255,77,0.15); border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; }
-.selected-preview img { width: 56px; height: 56px; object-fit: cover; border-radius: 6px; }
-.selected-preview-info { flex: 1; min-width: 0; }
-.selected-preview-model { font-size: 10px; letter-spacing: 2px; color: #4dff4d; margin-bottom: 4px; }
-.selected-preview-prompt { font-size: 11px; color: #666; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.clear-sel { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: #444; background: none; border: none; cursor: pointer; letter-spacing: 1px; }
-.clear-sel:hover { color: #888; }
+.sel-preview { display: flex; align-items: center; gap: 12px; background: rgba(77,255,77,0.04); border: 1px solid rgba(77,255,77,0.15); border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; }
+.sel-preview img { width: 48px; height: 64px; object-fit: cover; border-radius: 6px; }
+.sel-info { flex: 1; min-width: 0; }
+.sel-model { font-size: 10px; letter-spacing: 2px; color: #4dff4d; margin-bottom: 4px; }
+.sel-prompt { font-size: 11px; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.clr-sel { font-family: 'Share Tech Mono', monospace; font-size: 10px; color: #333; background: none; border: none; cursor: pointer; }
+.clr-sel:hover { color: #888; }
 
-/* SLIDES */
+/* OUTPUT */
 .slides-wrap { margin-top: 8px; }
 .slides-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
 .slides-top span { font-size: 9px; letter-spacing: 4px; color: #4dff4d; text-transform: uppercase; }
 .dl-all { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; padding: 8px 18px; cursor: pointer; border-radius: 100px; background: transparent; border: 1px solid #1a1a1a; color: #555; transition: all 0.2s; text-transform: uppercase; }
 .dl-all:hover { border-color: #4dff4d; color: #4dff4d; }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
 .slide-item { }
-.canvas-wrap { width: 100%; aspect-ratio: 1; background: #000; border: 1px solid #1a1a1a; border-radius: 8px; overflow: hidden; }
+.canvas-wrap { width: 100%; aspect-ratio: 3/4; background: #000; border: 1px solid #1a1a1a; border-radius: 8px; overflow: hidden; }
 canvas { width: 100%; height: 100%; display: block; }
 .slide-btns { display: flex; gap: 8px; margin-top: 8px; }
 .s-btn { flex: 1; font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 1px; padding: 9px; cursor: pointer; border-radius: 6px; transition: all 0.2s; text-transform: uppercase; }
@@ -82,67 +76,39 @@ canvas { width: 100%; height: 100%; display: block; }
 .s-rm { background: transparent; color: #444; border: 1px solid #1a1a1a; }
 .s-rm:hover { border-color: #ff4444; color: #ff4444; }
 .empty { text-align: center; padding: 48px; color: #222; font-size: 12px; letter-spacing: 2px; grid-column: 1/-1; }
-
-.tabs { display: flex; gap: 0; margin-bottom: 16px; border-bottom: 1px solid #1a1a1a; }
-.tab { font-family: 'Share Tech Mono', monospace; font-size: 10px; letter-spacing: 2px; padding: 10px 20px; cursor: pointer; border: none; background: none; color: #444; border-bottom: 2px solid transparent; margin-bottom: -1px; text-transform: uppercase; transition: all 0.2s; }
-.tab.active { color: #4dff4d; border-bottom-color: #4dff4d; }
-.tab-panel { display: none; }
-.tab-panel.active { display: block; }
 </style>
 </head>
 <body>
 <div class="app">
-
   <div class="header">
     <h1>AFTERFRAME</h1>
-    <p>> INSTAGRAM SLIDE GENERATOR</p>
+    <p>> INSTAGRAM SLIDE GENERATOR // 1080 × 1440</p>
   </div>
 
-  <!-- IMAGE PICKER -->
-  <div class="picker-panel">
+  <!-- STEP 1 — PICK IMAGE -->
+  <div class="panel">
     <span class="panel-label">> Step 1 — Select an image from your library</span>
-    <div class="tabs">
-      <button class="tab active" onclick="switchTab('images',this)">Images</button>
-      <button class="tab" onclick="switchTab('manual',this)">Manual URL</button>
-    </div>
-
-    <div class="tab-panel active" id="tab-images">
-      <div class="img-grid" id="imgGrid">
-        <div class="loading-msg">Loading your images...</div>
-      </div>
-    </div>
-
-    <div class="tab-panel" id="tab-manual">
-      <div class="row" style="margin-bottom:0;">
-        <div class="field">
-          <label>Image URL</label>
-          <input type="text" id="manualUrl" placeholder="https://jbsyzrzoiawruusdowpx.supabase.co/...">
-        </div>
-        <div class="field">
-          <label>Prompt</label>
-          <input type="text" id="manualPrompt" placeholder="Paste your prompt here">
-        </div>
-      </div>
-      <button class="btn btn-o" style="margin-top:12px;padding:10px 20px;font-size:10px;" onclick="useManual()">Use this image</button>
+    <div class="img-grid" id="imgGrid">
+      <div class="loading-msg">Loading your images...</div>
     </div>
   </div>
 
-  <!-- SETTINGS -->
-  <div class="settings-panel">
+  <!-- STEP 2 — SETTINGS -->
+  <div class="panel">
     <span class="panel-label">> Step 2 — Customise your slide</span>
 
-    <div id="selectedPreview" style="display:none;" class="selected-preview">
+    <div id="selPreview" style="display:none;" class="sel-preview">
       <img id="prevImg" src="" alt="">
-      <div class="selected-preview-info">
-        <div class="selected-preview-model" id="prevModel"></div>
-        <div class="selected-preview-prompt" id="prevPrompt"></div>
+      <div class="sel-info">
+        <div class="sel-model" id="prevModel"></div>
+        <div class="sel-prompt" id="prevPromptTxt"></div>
       </div>
-      <button class="clear-sel" onclick="clearSel()">✕ Clear</button>
+      <button class="clr-sel" onclick="clearSel()">✕</button>
     </div>
 
     <div class="row">
       <div class="field">
-        <label>AI Model</label>
+        <label>AI Model (auto-filled)</label>
         <select id="aiModel">
           <option>Midjourney v8 Alpha</option>
           <option>Midjourney v7</option>
@@ -155,7 +121,7 @@ canvas { width: 100%; height: 100%; display: block; }
         </select>
       </div>
       <div class="field">
-        <label>Category</label>
+        <label>Category (auto-filled)</label>
         <select id="category">
           <optgroup label="Models">
             <option>Female</option>
@@ -179,19 +145,9 @@ canvas { width: 100%; height: 100%; display: block; }
       </div>
     </div>
 
-    <div style="margin-bottom:20px;">
-      <div class="field" style="margin-bottom:8px;"><label>Template</label></div>
-      <div class="t-row">
-        <button class="t-btn active" onclick="setT('dark',this)">Dark minimal</button>
-        <button class="t-btn" onclick="setT('green',this)">Green accent</button>
-        <button class="t-btn" onclick="setT('split',this)">Split layout</button>
-        <button class="t-btn" onclick="setT('corner',this)">Corner tag</button>
-      </div>
-    </div>
-
     <div class="field" style="margin-bottom:16px;">
-      <label>Prompt (auto-filled when you select an image)</label>
-      <textarea id="prompt" placeholder="Select an image above or paste a prompt..." oninput="buildChips()"></textarea>
+      <label>Prompt (auto-filled from image)</label>
+      <textarea id="prompt" placeholder="Select an image above — prompt auto-fills..." oninput="buildChips()"></textarea>
     </div>
 
     <div class="blur-section">
@@ -208,107 +164,90 @@ canvas { width: 100%; height: 100%; display: block; }
   <!-- OUTPUT -->
   <div class="slides-wrap" id="slidesWrap" style="display:none;">
     <div class="slides-top">
-      <span>> Generated slides</span>
+      <span>> Generated slides (1080×1440)</span>
       <button class="dl-all" onclick="dlAll()">↓ Download all</button>
     </div>
     <div class="grid" id="grid"></div>
   </div>
-
 </div>
 
 <script>
 const SB_URL = 'https://jbsyzrzoiawruusdowpx.supabase.co';
 const SB_KEY = 'sb_publishable_5yHqsw-CdIykq2jiCDwTpw_otaDsUlF';
+const W = 1080, H = 1440;
 
 let slides = [];
 let blurred = new Set();
-let tpl = 'dark';
 let selectedImg = null;
 let allImages = [];
 
-// Load images on start
 window.onload = async function() {
   try {
-    const r = await fetch(SB_URL + '/rest/v1/images?select=*&order=created_at.desc&limit=50', {
+    const r = await fetch(SB_URL + '/rest/v1/images?select=*&order=created_at.desc&limit=60', {
       headers: { 'apikey': SB_KEY, 'Authorization': 'Bearer ' + SB_KEY }
     });
     allImages = await r.json();
     if (!Array.isArray(allImages)) allImages = [];
-    renderImgGrid(allImages);
+    renderImgGrid();
   } catch(e) {
-    document.getElementById('imgGrid').innerHTML = '<div class="loading-msg">Failed to load images — check your connection</div>';
+    document.getElementById('imgGrid').innerHTML = '<div class="loading-msg">Failed to load images</div>';
   }
 };
 
-function renderImgGrid(imgs) {
+function renderImgGrid() {
   const grid = document.getElementById('imgGrid');
-  if (!imgs.length) { grid.innerHTML = '<div class="loading-msg">No images found — upload some in the admin panel first!</div>'; return; }
-  grid.innerHTML = imgs.map(img => `
-    <div class="img-thumb" id="thumb-${img.id}" onclick="selectImg('${img.id}')">
+  if (!allImages.length) { grid.innerHTML = '<div class="loading-msg">No images found — upload some in your admin panel first!</div>'; return; }
+  grid.innerHTML = allImages.map(img => `
+    <div class="img-thumb" id="th-${img.id}" onclick="selectImg('${img.id}')">
       <img src="${img.image_url}" alt="" loading="lazy" onerror="this.closest('.img-thumb').style.display='none'">
       <div class="tick">✓</div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
 function selectImg(id) {
   const img = allImages.find(i => i.id === id);
   if (!img) return;
   selectedImg = img;
-  // Update UI
   document.querySelectorAll('.img-thumb').forEach(t => t.classList.remove('selected'));
-  document.getElementById('thumb-' + id).classList.add('selected');
+  document.getElementById('th-' + id).classList.add('selected');
+
   // Auto fill prompt
   document.getElementById('prompt').value = img.prompt || '';
   buildChips();
-  // Auto fill model
+
+  // Auto fill AI model
   const modelSel = document.getElementById('aiModel');
+  const modelVal = (img.ai_model || '').toLowerCase();
   for (let i = 0; i < modelSel.options.length; i++) {
-    if (modelSel.options[i].text.toLowerCase().includes((img.ai_model||'').toLowerCase().split(' ')[0])) {
+    if (modelSel.options[i].text.toLowerCase().replace(/\s/g,'').includes(modelVal.replace(/\s/g,'').substring(0,8))) {
       modelSel.selectedIndex = i; break;
     }
   }
+
+  // Auto fill category based on ai_model or default
+  // Category stored in image if available
+  if (img.category) {
+    const catSel = document.getElementById('category');
+    for (let i = 0; i < catSel.options.length; i++) {
+      if (catSel.options[i].value.toLowerCase() === img.category.toLowerCase()) {
+        catSel.selectedIndex = i; break;
+      }
+    }
+  }
+
   // Show preview
   document.getElementById('prevImg').src = img.image_url;
   document.getElementById('prevModel').textContent = img.ai_model || '';
-  document.getElementById('prevPrompt').textContent = img.prompt || '';
-  document.getElementById('selectedPreview').style.display = 'flex';
-  // Scroll to settings
-  document.querySelector('.settings-panel').scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('prevPromptTxt').textContent = img.prompt || '';
+  document.getElementById('selPreview').style.display = 'flex';
 }
 
 function clearSel() {
   selectedImg = null;
   document.querySelectorAll('.img-thumb').forEach(t => t.classList.remove('selected'));
-  document.getElementById('selectedPreview').style.display = 'none';
+  document.getElementById('selPreview').style.display = 'none';
   document.getElementById('prompt').value = '';
   document.getElementById('chips').innerHTML = '';
-}
-
-function useManual() {
-  const url = document.getElementById('manualUrl').value.trim();
-  const prompt = document.getElementById('manualPrompt').value.trim();
-  if (!url) { alert('Please enter an image URL'); return; }
-  selectedImg = { image_url: url, prompt: prompt, ai_model: document.getElementById('aiModel').value, id: 'manual' };
-  document.getElementById('prompt').value = prompt;
-  buildChips();
-  document.getElementById('prevImg').src = url;
-  document.getElementById('prevModel').textContent = document.getElementById('aiModel').value;
-  document.getElementById('prevPrompt').textContent = prompt;
-  document.getElementById('selectedPreview').style.display = 'flex';
-}
-
-function switchTab(tab, el) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('tab-' + tab).classList.add('active');
-}
-
-function setT(t, el) {
-  tpl = t;
-  document.querySelectorAll('.t-btn').forEach(b => b.classList.remove('active'));
-  el.classList.add('active');
 }
 
 function buildChips() {
@@ -334,19 +273,18 @@ function buildChips() {
 
 function generate() {
   const prompt = document.getElementById('prompt').value.trim();
-  if (!prompt && !selectedImg) { alert('Please select an image or enter a prompt'); return; }
+  if (!selectedImg && !prompt) { alert('Please select an image first!'); return; }
   const s = {
     id: Date.now(),
-    prompt: prompt || (selectedImg ? selectedImg.prompt : ''),
+    prompt: prompt,
     model: document.getElementById('aiModel').value,
     category: document.getElementById('category').value,
     bgUrl: selectedImg ? selectedImg.image_url : '',
-    blurred: new Set(blurred),
-    tpl
+    blurred: new Set(blurred)
   };
   slides.push(s);
   renderGrid();
-  setTimeout(() => drawSlide(s), 50);
+  setTimeout(() => drawSlide(s), 100);
 }
 
 function renderGrid() {
@@ -358,10 +296,10 @@ function renderGrid() {
     const div = document.createElement('div');
     div.className = 'slide-item';
     div.innerHTML = `
-      <div class="canvas-wrap"><canvas id="c${s.id}" width="1080" height="1080"></canvas></div>
+      <div class="canvas-wrap"><canvas id="c${s.id}" width="${W}" height="${H}"></canvas></div>
       <div class="slide-btns">
-        <button class="s-btn s-dl" onclick="dlSlide(${s.id})">↓ Download</button>
-        <button class="s-btn s-rm" onclick="rmSlide(${s.id})">Remove</button>
+        <button class="s-btn s-dl" onclick="dlSlide(${s.id})">↓ Download 1080×1440</button>
+        <button class="s-btn s-rm" onclick="rmSlide(${s.id})">✕</button>
       </div>`;
     grid.appendChild(div);
   });
@@ -371,127 +309,117 @@ function drawSlide(s) {
   const canvas = document.getElementById('c' + s.id);
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  const W = 1080, H = 1080;
 
-  const paint = () => {
+  const paint = (hasImg) => {
+    // Black base
     ctx.fillStyle = '#000';
     ctx.fillRect(0, 0, W, H);
-    for (let y = 0; y < H; y += 4) { ctx.fillStyle = 'rgba(0,0,0,0.05)'; ctx.fillRect(0,y,W,2); }
-    if (s.tpl === 'green') { ctx.fillStyle = '#4dff4d'; ctx.fillRect(0, 72, 5, H-144); }
-    if (s.tpl === 'split') { ctx.fillStyle = 'rgba(77,255,77,0.03)'; ctx.fillRect(0, H*0.56, W, H*0.44); }
 
-    // Top bar
-    ctx.fillStyle = 'rgba(77,255,77,0.05)';
-    ctx.fillRect(0, 0, W, 80);
-    ctx.strokeStyle = 'rgba(77,255,77,0.18)';
-    ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(0,80); ctx.lineTo(W,80); ctx.stroke();
-
-    ctx.font = '800 40px Syne, serif';
-    ctx.fillStyle = '#4dff4d';
-    ctx.textBaseline = 'middle';
-    ctx.textAlign = 'left';
-    ctx.fillText('AFTERFRAME', 48, 40);
-
-    ctx.font = '400 20px Share Tech Mono, monospace';
-    ctx.fillStyle = 'rgba(77,255,77,0.55)';
-    ctx.textAlign = 'right';
-    ctx.fillText(s.model, W-48, 40);
-    ctx.textAlign = 'left';
-
-    if (s.tpl === 'corner') {
-      ctx.fillStyle = '#4dff4d';
-      ctx.fillRect(0, 80, 5, 68);
-      ctx.font = '400 22px Share Tech Mono, monospace';
-      ctx.fillStyle = '#4dff4d';
-      ctx.fillText('> ' + s.category.toUpperCase(), 24, 117);
+    if (hasImg) {
+      // Image already drawn underneath — add gradient overlay over bottom 45%
+      const gradStart = H * 0.45;
+      const grad = ctx.createLinearGradient(0, gradStart, 0, H);
+      grad.addColorStop(0, 'rgba(0,0,0,0)');
+      grad.addColorStop(0.35, 'rgba(0,0,0,0.75)');
+      grad.addColorStop(1, 'rgba(0,0,0,0.97)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, gradStart, W, H - gradStart);
     }
 
-    const pY = s.tpl === 'split' ? H*0.58+24 : H*0.60;
-    ctx.font = '400 18px Share Tech Mono, monospace';
-    ctx.fillStyle = 'rgba(77,255,77,0.4)';
-    ctx.fillText('> PROMPT', 48, pY);
+    // /prompt label
+    const promptLabelY = H * 0.68;
+    ctx.font = '800 80px Syne, serif';
+    ctx.fillStyle = 'rgba(255,255,255,0.92)';
+    ctx.textBaseline = 'alphabetic';
+    ctx.textAlign = 'left';
+    ctx.fillText('/prompt', 52, promptLabelY);
 
-    if (s.tpl !== 'split') {
-      ctx.strokeStyle = 'rgba(77,255,77,0.1)';
-      ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(48, pY+18); ctx.lineTo(W-48, pY+18); ctx.stroke();
-    }
-
+    // Prompt text below label
     const words = s.prompt.split(' ');
-    let wx = 48, wy = pY + 58;
-    const lh = 52, maxX = W-48, fs = 26;
+    let wx = 52, wy = promptLabelY + 48;
+    const lh = 38, maxX = W - 52, fs = 22;
     ctx.font = `400 ${fs}px Share Tech Mono, monospace`;
     ctx.textBaseline = 'alphabetic';
 
     words.forEach(word => {
       const clean = word.replace(/[,\.!?]/g,'');
-      const ww = ctx.measureText(word+' ').width;
-      if (wx+ww > maxX && wx > 48) { wx = 48; wy += lh; }
-      if (wy > H-100) return;
+      const ww = ctx.measureText(word + ' ').width;
+      if (wx + ww > maxX && wx > 52) { wx = 52; wy += lh; }
+      if (wy > H - 80) return;
+
       if (s.blurred.has(clean)) {
         ctx.save();
-        ctx.fillStyle = 'rgba(77,255,77,0.07)';
-        ctx.beginPath();
-        if (ctx.roundRect) ctx.roundRect(wx-2, wy-fs-2, ww+2, fs+10, 4);
-        else ctx.rect(wx-2, wy-fs-2, ww+2, fs+10);
-        ctx.fill();
-        ctx.filter = 'blur(6px)';
-        ctx.fillStyle = 'rgba(180,220,180,0.4)';
-        ctx.fillText(word+' ', wx, wy);
+        ctx.fillStyle = 'rgba(255,255,255,0.08)';
+        ctx.fillRect(wx-2, wy-fs, ww+2, fs+8);
+        ctx.filter = 'blur(7px)';
+        ctx.fillStyle = 'rgba(255,255,255,0.5)';
+        ctx.fillText(word + ' ', wx, wy);
         ctx.filter = 'none';
         ctx.restore();
       } else {
-        ctx.fillStyle = '#b8d8b8';
-        ctx.fillText(word+' ', wx, wy);
+        ctx.fillStyle = 'rgba(220,220,220,0.88)';
+        ctx.fillText(word + ' ', wx, wy);
       }
       wx += ww;
     });
 
-    ctx.fillStyle = 'rgba(77,255,77,0.05)';
-    ctx.fillRect(0, H-72, W, 72);
-    ctx.strokeStyle = 'rgba(77,255,77,0.18)';
-    ctx.lineWidth = 1;
-    ctx.beginPath(); ctx.moveTo(0,H-72); ctx.lineTo(W,H-72); ctx.stroke();
-    ctx.font = '400 20px Share Tech Mono, monospace';
-    ctx.textBaseline = 'middle';
-    ctx.fillStyle = 'rgba(77,255,77,0.4)';
-    ctx.textAlign = 'left';
-    ctx.fillText('afterframe.co', 48, H-36);
+    // AFTERFRAME watermark top left
+    ctx.font = '800 28px Syne, serif';
+    ctx.fillStyle = 'rgba(255,255,255,0.5)';
+    ctx.textBaseline = 'top';
+    ctx.fillText('AFTERFRAME', 52, 40);
+
+    // Model + category tag top right
+    ctx.font = '400 18px Share Tech Mono, monospace';
+    ctx.fillStyle = 'rgba(255,255,255,0.35)';
     ctx.textAlign = 'right';
-    ctx.fillStyle = 'rgba(77,255,77,0.22)';
-    ctx.fillText('// ' + s.category.toUpperCase(), W-48, H-36);
+    ctx.fillText(s.model + ' // ' + s.category.toUpperCase(), W-52, 46);
     ctx.textAlign = 'left';
   };
 
   if (s.bgUrl) {
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = () => {
-      const imgH = Math.round(H * 0.54);
-      ctx.drawImage(img, 0, 80, W, imgH);
-      const grad = ctx.createLinearGradient(0, imgH-180, 0, imgH+20);
-      grad.addColorStop(0,'rgba(0,0,0,0)');
-      grad.addColorStop(1,'rgba(0,0,0,1)');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, imgH-180, W, 210);
-      paint();
-    };
-    img.onerror = paint;
-    img.src = s.bgUrl;
-  } else { paint(); }
+    // Fetch image as blob to bypass CORS
+    fetch(s.bgUrl)
+      .then(r => r.blob())
+      .then(blob => {
+        const url = URL.createObjectURL(blob);
+        const img = new Image();
+        img.onload = () => {
+          const imgAR = img.width / img.height;
+          const canAR = W / H;
+          let sx=0, sy=0, sw=img.width, sh=img.height;
+          if (imgAR > canAR) { sw = img.height * canAR; sx = (img.width - sw) / 2; }
+          else { sh = img.width / canAR; sy = (img.height - sh) / 2; }
+          ctx.drawImage(img, sx, sy, sw, sh, 0, 0, W, H);
+          URL.revokeObjectURL(url);
+          paint(true);
+        };
+        img.onerror = () => paint(false);
+        img.src = url;
+      })
+      .catch(() => paint(false));
+  } else {
+    paint(false);
+  }
 }
 
 function dlSlide(id) {
-  const c = document.getElementById('c'+id);
+  const c = document.getElementById('c' + id);
   const a = document.createElement('a');
-  a.download = 'afterframe-slide-'+id+'.png';
+  a.download = 'afterframe-slide-' + id + '.png';
   a.href = c.toDataURL('image/png');
   a.click();
 }
-function dlAll() { slides.forEach((s,i) => setTimeout(() => dlSlide(s.id), i*400)); }
+function dlAll() { slides.forEach((s,i) => setTimeout(() => dlSlide(s.id), i*500)); }
 function rmSlide(id) { slides = slides.filter(s=>s.id!==id); renderGrid(); }
-function clearAll() { slides=[]; blurred=new Set(); selectedImg=null; renderGrid(); document.getElementById('prompt').value=''; document.getElementById('chips').innerHTML=''; document.getElementById('selectedPreview').style.display='none'; document.querySelectorAll('.img-thumb').forEach(t=>t.classList.remove('selected')); }
+function clearAll() {
+  slides=[]; blurred=new Set(); selectedImg=null;
+  renderGrid();
+  document.getElementById('prompt').value='';
+  document.getElementById('chips').innerHTML='';
+  document.getElementById('selPreview').style.display='none';
+  document.querySelectorAll('.img-thumb').forEach(t=>t.classList.remove('selected'));
+}
 </script>
 </body>
 </html>
