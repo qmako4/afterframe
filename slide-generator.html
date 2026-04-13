@@ -414,10 +414,25 @@ function drawSlide(s) {
 
 function dlSlide(id) {
   const c = document.getElementById('c' + id);
-  const a = document.createElement('a');
-  a.download = 'afterframe-slide-' + id + '.png';
-  a.href = c.toDataURL('image/png', 1.0);
-  a.click();
+  const dataUrl = c.toDataURL('image/png', 1.0);
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  if (isIOS) {
+    // iOS Safari — open in new tab so user can long-press save
+    const win = window.open();
+    win.document.write(`
+      <html><body style="margin:0;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh">
+      <p style="color:#4dff4d;font-family:monospace;font-size:13px;padding:16px;text-align:center">
+        Long press the image below and tap "Save to Photos"
+      </p>
+      <img src="${dataUrl}" style="width:100%;max-width:600px;display:block">
+      </body></html>
+    `);
+  } else {
+    const a = document.createElement('a');
+    a.download = 'afterframe-slide-' + id + '.png';
+    a.href = dataUrl;
+    a.click();
+  }
 }
 function dlAll() { slides.forEach((s,i) => setTimeout(() => dlSlide(s.id), i*500)); }
 function rmSlide(id) { slides = slides.filter(s=>s.id!==id); renderGrid(); }
