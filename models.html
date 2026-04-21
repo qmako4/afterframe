@@ -65,31 +65,56 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
 .f-btn { font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px; color: var(--text-dim); border: 1px solid transparent; padding: 7px 18px; cursor: crosshair; text-transform: uppercase; transition: all 0.2s; background: transparent; }
 .f-btn:hover, .f-btn.active { color: var(--green); border-color: #4dff4d50; }
 
-/* MODELS GRID */
-.models-wrap { padding: 3px; }
-.models-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 3px; }
-.model-card { position: relative; background: var(--bg2); border: 1px solid var(--border); overflow: hidden; transition: border-color 0.3s; }
-.model-card:hover { border-color: var(--border-bright); }
-.model-img-wrap { position: relative; aspect-ratio: 3/4; overflow: hidden; }
-.model-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
-.model-card:hover .model-img-wrap img { transform: scale(1.04); }
-.model-img-placeholder { width: 100%; aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; background: var(--bg3); }
-.model-info { padding: 20px; border-top: 1px solid var(--border); }
-.model-name { font-family: var(--font-display); font-size: 18px; font-weight: 800; color: var(--text-bright); letter-spacing: 2px; margin-bottom: 4px; }
-.model-style-tag { font-size: 10px; letter-spacing: 2px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 8px; }
-.model-ai-tag { display: inline-block; font-size: 9px; letter-spacing: 2px; color: var(--green); border: 1px solid #4dff4d40; padding: 3px 8px; margin-bottom: 16px; }
-.model-actions { display: flex; flex-direction: column; gap: 8px; }
-.btn-prompt { width: 100%; font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; color: var(--text-bright); background: transparent; border: 1px solid var(--border-bright); padding: 10px; cursor: crosshair; text-transform: uppercase; transition: all 0.2s; text-align: center; }
-.btn-prompt:hover { border-color: var(--green); color: var(--green); }
-.btn-lora { width: 100%; font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; color: #050805; background: var(--green); border: 1px solid var(--green); padding: 10px; cursor: crosshair; text-transform: uppercase; font-weight: 700; transition: all 0.2s; text-align: center; text-decoration: none; display: block; }
-.btn-lora:hover { background: #3de63d; }
-.btn-locked { width: 100%; font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; color: var(--text-dim); background: transparent; border: 1px solid var(--border); padding: 10px; cursor: crosshair; text-transform: uppercase; transition: all 0.2s; text-align: center; }
-.btn-locked:hover { border-color: var(--green); color: var(--green); }
-.prompt-box { margin-top: 12px; background: var(--bg3); border: 1px solid var(--border); padding: 14px; display: none; }
-.prompt-box.open { display: block; }
-.prompt-box p { font-size: 12px; color: var(--text-bright); line-height: 1.8; }
-.prompt-blurred { filter: blur(5px); user-select: none; }
-.empty-state { padding: 80px; text-align: center; font-size: 13px; letter-spacing: 2px; color: var(--text-dim); }
+/* PARALLAX HERO */
+.model-hero { position: relative; width: 100%; height: 85vh; overflow: hidden; cursor: crosshair; }
+.model-hero-img { position: absolute; inset: -8%; width: 116%; height: 116%; object-fit: cover; will-change: transform; transition: transform 0.05s linear; }
+.model-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(5,8,5,0.1) 0%, rgba(5,8,5,0) 30%, rgba(5,8,5,0.6) 70%, rgba(5,8,5,0.97) 100%); pointer-events: none; }
+.model-hero-content { position: absolute; bottom: 48px; left: 48px; right: 48px; }
+.model-hero-tag { font-size: 10px; letter-spacing: 4px; color: var(--green); margin-bottom: 10px; }
+.model-hero-name { font-family: var(--font-display); font-size: clamp(36px, 6vw, 72px); font-weight: 800; letter-spacing: 4px; color: var(--text-bright); margin-bottom: 8px; }
+.model-hero-sub { font-size: 12px; letter-spacing: 3px; color: var(--text-dim); }
+.model-hero-gyro { position: absolute; top: 20px; right: 20px; font-size: 9px; letter-spacing: 2px; color: rgba(77,255,77,0.4); }
+
+/* MODEL DETAIL PAGE */
+.model-detail { display: none; padding-top: 64px; }
+.model-detail.active { display: block; }
+.detail-back { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: 2px; color: var(--text-dim); background: none; border: none; cursor: crosshair; text-transform: uppercase; padding: 20px 40px; font-family: var(--font-mono); transition: color 0.2s; }
+.detail-back:hover { color: var(--green); }
+.detail-layout { display: grid; grid-template-columns: 1fr 380px; gap: 0; min-height: calc(100vh - 64px); }
+.detail-gallery { padding: 0 40px 40px; }
+.gallery-hero { position: relative; width: 100%; aspect-ratio: 3/4; overflow: hidden; margin-bottom: 12px; cursor: crosshair; }
+.gallery-hero-img { position: absolute; inset: -5%; width: 110%; height: 110%; object-fit: cover; will-change: transform; transition: transform 0.04s linear; }
+.gallery-thumbs { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+.gallery-thumb { aspect-ratio: 3/4; overflow: hidden; cursor: crosshair; border: 2px solid transparent; transition: border-color 0.2s; opacity: 0.6; transition: all 0.2s; }
+.gallery-thumb:hover { opacity: 1; }
+.gallery-thumb.active { border-color: var(--green); opacity: 1; }
+.gallery-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.detail-info { border-left: 1px solid var(--border); padding: 40px; display: flex; flex-direction: column; gap: 24px; background: var(--bg2); overflow-y: auto; max-height: calc(100vh - 64px); position: sticky; top: 64px; }
+.detail-tag { font-size: 10px; letter-spacing: 4px; color: var(--text-dim); }
+.detail-name { font-family: var(--font-display); font-size: 32px; font-weight: 800; letter-spacing: 3px; color: var(--text-bright); }
+.detail-meta { display: flex; flex-direction: column; gap: 8px; }
+.detail-meta-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 11px; }
+.detail-meta-label { letter-spacing: 2px; color: var(--text-dim); text-transform: uppercase; }
+.detail-meta-value { color: var(--text-bright); letter-spacing: 1px; }
+.detail-prompt-section { flex: 1; }
+.detail-prompt-label { font-size: 10px; letter-spacing: 3px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 12px; }
+.detail-prompt-text { font-size: 13px; color: var(--text-bright); line-height: 1.9; background: var(--bg3); border: 1px solid var(--border); padding: 20px; }
+.detail-prompt-blurred { filter: blur(5px); user-select: none; }
+.detail-actions { display: flex; flex-direction: column; gap: 8px; }
+.detail-angle-label { font-size: 10px; letter-spacing: 3px; color: var(--text-dim); text-transform: uppercase; margin-bottom: 8px; }
+.angle-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.angle-pill { font-family: var(--font-mono); font-size: 9px; letter-spacing: 1px; color: var(--text-dim); border: 1px solid var(--border); padding: 5px 10px; cursor: crosshair; text-transform: uppercase; transition: all 0.2s; background: transparent; }
+.angle-pill:hover, .angle-pill.active { color: var(--green); border-color: #4dff4d50; }
+
+@media (max-width: 768px) {
+  .detail-layout { grid-template-columns: 1fr; }
+  .detail-info { position: relative; top: 0; max-height: none; border-left: none; border-top: 1px solid var(--border); }
+  .model-hero-content { left: 20px; right: 20px; bottom: 32px; }
+  .detail-gallery { padding: 0 20px 20px; }
+  .detail-back { padding: 16px 20px; }
+  .detail-info { padding: 24px 20px; }
+  .gallery-thumbs { grid-template-columns: repeat(6, 1fr); gap: 4px; }
+}
 
 /* MODALS */
 .modal-overlay { position: fixed; inset: 0; background: rgba(3,6,3,0.95); z-index: 10000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.25s; padding: 20px; }
@@ -159,7 +184,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
   </div>
 </div>
 
-<!-- PAGE CONTENT -->
+<!-- PAGE CONTENT — GRID -->
 <div id="pageContent">
   <div class="page-header">
     <div>
@@ -182,8 +207,43 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; display: flex; 
   </div>
 
   <div class="models-wrap">
-    <div class="models-grid" id="modelsGrid">
+    <div class="models-grid" id="modelsGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:3px;padding:3px;">
       <div class="empty-state">Loading models...</div>
+    </div>
+  </div>
+</div>
+
+<!-- MODEL DETAIL VIEW -->
+<div id="modelDetail" class="model-detail">
+  <button class="detail-back" onclick="closeDetail()">← Back to models</button>
+
+  <div class="detail-layout">
+    <!-- Gallery -->
+    <div class="detail-gallery">
+      <!-- Parallax hero -->
+      <div class="gallery-hero" id="galleryHero">
+        <img class="gallery-hero-img" id="galleryHeroImg" src="" alt="">
+        <div class="model-hero-overlay"></div>
+        <div class="model-hero-gyro" id="gyroHint">TILT TO EXPLORE</div>
+      </div>
+      <!-- Thumbnails -->
+      <div class="detail-angle-label">Angles</div>
+      <div class="angle-pills" id="anglePills"></div>
+      <div class="gallery-thumbs" id="galleryThumbs"></div>
+    </div>
+
+    <!-- Info panel -->
+    <div class="detail-info">
+      <div>
+        <div class="detail-tag" id="detailTag"></div>
+        <div class="detail-name" id="detailName"></div>
+      </div>
+      <div class="detail-meta" id="detailMeta"></div>
+      <div class="detail-prompt-section">
+        <div class="detail-prompt-label">> Prompt</div>
+        <div class="detail-prompt-text" id="detailPrompt"></div>
+      </div>
+      <div class="detail-actions" id="detailActions"></div>
     </div>
   </div>
 </div>
@@ -295,39 +355,163 @@ function renderModels(filter) {
   if (filter !== 'all') { filtered = allModels.filter(function(m){ return m.style && m.style.toLowerCase() === filter; }); }
   var grid = document.getElementById('modelsGrid');
   if (!filtered.length) { grid.innerHTML = '<div class="empty-state">No models in this category yet.</div>'; return; }
-  grid.innerHTML = filtered.map(function(model, idx) {
+  grid.innerHTML = filtered.map(function(model) {
     var imgHtml = model.image_url
-      ? '<img src="'+model.image_url+'" alt="'+model.name+'">'
-      : '<div class="model-img-placeholder"><svg width="48" height="48" viewBox="0 0 60 60" fill="none" opacity="0.1"><circle cx="30" cy="18" r="10" stroke="#4dff4d" stroke-width="1"/><path d="M10 55 Q30 35 50 55" stroke="#4dff4d" stroke-width="1" fill="none"/></svg></div>';
-
-    var promptHtml = isPro
-      ? '<div class="prompt-box" id="prompt-'+idx+'"><p>'+(model.prompt||'No prompt added yet.')+'</p></div>'
-      : '<div class="prompt-box" id="prompt-'+idx+'"><p class="prompt-blurred">'+(model.prompt||'No prompt added yet.')+'</p></div>';
-
-    var loraBtn = isPro
-      ? (model.lora_url
-          ? '<a class="btn-lora" href="'+model.lora_url+'" target="_blank" download>Download LoRA file</a>'
-          : '<div class="btn-locked" style="cursor:default;">LoRA coming soon</div>')
-      : '<button class="btn-locked" onclick="openUpgrade()">Download LoRA — Pro only</button>';
-
-    return '<div class="model-card">'
-      + '<div class="model-img-wrap">'+imgHtml+'</div>'
-      + '<div class="model-info">'
-      + '<div class="model-name">'+model.name+'</div>'
-      + '<div class="model-style-tag">'+(model.style||'')+'</div>'
-      + '<div class="model-ai-tag">'+(model.ai_model||'')+'</div>'
-      + '<div class="model-actions">'
-      + '<button class="btn-prompt" onclick="togglePrompt('+idx+')">'+( isPro ? 'View prompt' : 'Preview prompt')+'</button>'
-      + loraBtn
-      + '</div>'
-      + promptHtml
+      ? '<img src="'+model.image_url+'" alt="'+model.name+'" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease;">'
+      : '<div style="width:100%;aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;background:var(--bg3);"><svg width="48" height="48" viewBox="0 0 60 60" fill="none" opacity="0.1"><circle cx="30" cy="18" r="10" stroke="#4dff4d" stroke-width="1"/><path d="M10 55 Q30 35 50 55" stroke="#4dff4d" stroke-width="1" fill="none"/></svg></div>';
+    return '<div onclick="openDetail(\''+model.id+'\')" style="position:relative;background:var(--bg2);border:1px solid var(--border);overflow:hidden;cursor:crosshair;transition:border-color 0.3s;" onmouseover="this.style.borderColor=\'var(--border-bright)\';this.querySelector(\'img\')&&(this.querySelector(\'img\').style.transform=\'scale(1.04)\')" onmouseout="this.style.borderColor=\'var(--border)\';this.querySelector(\'img\')&&(this.querySelector(\'img\').style.transform=\'scale(1)\')">'
+      + '<div style="aspect-ratio:3/4;overflow:hidden;">'+imgHtml+'</div>'
+      + '<div style="padding:16px;border-top:1px solid var(--border);">'
+      + '<div style="font-family:var(--font-display);font-size:16px;font-weight:800;color:var(--text-bright);letter-spacing:2px;margin-bottom:4px;">'+model.name+'</div>'
+      + '<div style="font-size:10px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;">'+( model.style||'')+'</div>'
+      + '<div style="font-size:9px;letter-spacing:2px;color:var(--green);border:1px solid #4dff4d40;padding:3px 8px;display:inline-block;margin-top:8px;">'+(model.ai_model||'')+'</div>'
       + '</div></div>';
   }).join('');
 }
 
-function togglePrompt(idx) {
-  var box = document.getElementById('prompt-' + idx);
-  box.classList.toggle('open');
+// ANGLE NAMES for multi-shot gallery
+var ANGLE_NAMES = ['Hero', 'Back', 'Profile', '¾ View', 'Close Up', 'Full Body', 'Eyes Closed', 'Detail'];
+
+var currentModel = null;
+var currentAngleIdx = 0;
+
+function openDetail(modelId) {
+  currentModel = allModels.find(function(m){ return m.id === modelId; });
+  if (!currentModel) return;
+  var isPro = userProfile && userProfile.is_pro;
+
+  document.getElementById('pageContent').style.display = 'none';
+  document.getElementById('modelDetail').classList.add('active');
+  window.scrollTo(0, 0);
+
+  // Build image list — hero + any extra_images if stored
+  var images = [currentModel.image_url];
+  if (currentModel.extra_images) {
+    try { var extras = JSON.parse(currentModel.extra_images); images = images.concat(extras); } catch(e){}
+  }
+
+  // Set hero image
+  currentAngleIdx = 0;
+  setHeroImage(images[0]);
+
+  // Detail info
+  document.getElementById('detailTag').textContent = '> ' + (currentModel.style || '').toUpperCase();
+  document.getElementById('detailName').textContent = currentModel.name;
+  document.getElementById('detailMeta').innerHTML =
+    '<div class="detail-meta-row"><span class="detail-meta-label">AI Model</span><span class="detail-meta-value">'+(currentModel.ai_model||'—')+'</span></div>'
+    + '<div class="detail-meta-row"><span class="detail-meta-label">Category</span><span class="detail-meta-value">'+(currentModel.style||'—')+'</span></div>';
+
+  // Prompt
+  var promptEl = document.getElementById('detailPrompt');
+  if (isPro) {
+    promptEl.textContent = currentModel.prompt || 'No prompt added yet.';
+    promptEl.classList.remove('detail-prompt-blurred');
+  } else {
+    promptEl.textContent = currentModel.prompt || 'No prompt added yet.';
+    promptEl.classList.add('detail-prompt-blurred');
+  }
+
+  // Actions
+  var actionsEl = document.getElementById('detailActions');
+  if (isPro) {
+    var copyBtn = '<button onclick="copyPrompt()" style="width:100%;font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:var(--text-bright);background:transparent;border:1px solid var(--border-bright);padding:12px;cursor:crosshair;text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.borderColor=\'var(--green)\';this.style.color=\'var(--green)\'" onmouseout="this.style.borderColor=\'var(--border-bright)\';this.style.color=\'var(--text-bright)\'">Copy prompt</button>';
+    var loraBtn = currentModel.lora_url
+      ? '<a href="'+currentModel.lora_url+'" target="_blank" style="width:100%;font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:#050805;background:var(--green);border:1px solid var(--green);padding:12px;cursor:crosshair;text-transform:uppercase;font-weight:700;transition:all 0.2s;text-align:center;text-decoration:none;display:block;">Download LoRA</a>'
+      : '<div style="width:100%;font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:var(--text-dim);background:transparent;border:1px solid var(--border);padding:12px;text-transform:uppercase;text-align:center;">LoRA coming soon</div>';
+    actionsEl.innerHTML = copyBtn + loraBtn;
+  } else {
+    actionsEl.innerHTML = '<button onclick="openUpgrade()" style="width:100%;font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:var(--text-dim);background:transparent;border:1px solid var(--border);padding:12px;cursor:crosshair;text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.borderColor=\'var(--green)\';this.style.color=\'var(--green)\'" onmouseout="this.style.borderColor=\'var(--border)\';this.style.color=\'var(--text-dim)\'">Unlock prompt — Pro only 🔒</button>';
+  }
+
+  // Angle pills
+  var pillsEl = document.getElementById('anglePills');
+  pillsEl.innerHTML = images.map(function(img, i) {
+    return '<button class="angle-pill'+(i===0?' active':'')+'" onclick="switchAngle('+i+')">'+(ANGLE_NAMES[i]||'Shot '+(i+1))+'</button>';
+  }).join('');
+
+  // Thumbnails
+  var thumbsEl = document.getElementById('galleryThumbs');
+  thumbsEl.innerHTML = images.map(function(img, i) {
+    return '<div class="gallery-thumb'+(i===0?' active':'')+'" onclick="switchAngle('+i+')">'
+      + '<img src="'+img+'" alt="'+ANGLE_NAMES[i]+'">'
+      + '</div>';
+  }).join('');
+
+  initParallax();
+}
+
+function switchAngle(idx) {
+  var images = [currentModel.image_url];
+  if (currentModel.extra_images) { try { images = images.concat(JSON.parse(currentModel.extra_images)); } catch(e){} }
+  currentAngleIdx = idx;
+  setHeroImage(images[idx]);
+  document.querySelectorAll('.gallery-thumb').forEach(function(t,i){ t.classList.toggle('active', i===idx); });
+  document.querySelectorAll('.angle-pill').forEach(function(p,i){ p.classList.toggle('active', i===idx); });
+}
+
+function setHeroImage(url) {
+  document.getElementById('galleryHeroImg').src = url || '';
+}
+
+function copyPrompt() {
+  if (!currentModel || !currentModel.prompt) return;
+  navigator.clipboard.writeText(currentModel.prompt).then(function(){ alert('Prompt copied!'); });
+}
+
+function closeDetail() {
+  document.getElementById('modelDetail').classList.remove('active');
+  document.getElementById('pageContent').style.display = 'block';
+  removeParallax();
+}
+
+// PARALLAX
+var parallaxActive = false;
+function initParallax() {
+  parallaxActive = true;
+  var hero = document.getElementById('galleryHero');
+  var img = document.getElementById('galleryHeroImg');
+
+  // Desktop mouse parallax
+  hero.addEventListener('mousemove', onMouseParallax);
+  hero.addEventListener('mouseleave', resetParallax);
+
+  // Mobile gyroscope
+  if (window.DeviceOrientationEvent) {
+    window.addEventListener('deviceorientation', onGyroParallax);
+    document.getElementById('gyroHint').style.display = 'block';
+  } else {
+    document.getElementById('gyroHint').style.display = 'none';
+  }
+}
+
+function onMouseParallax(e) {
+  var img = document.getElementById('galleryHeroImg');
+  var hero = document.getElementById('galleryHero');
+  var rect = hero.getBoundingClientRect();
+  var x = (e.clientX - rect.left) / rect.width - 0.5;
+  var y = (e.clientY - rect.top) / rect.height - 0.5;
+  img.style.transform = 'translate(' + (x * -18) + 'px, ' + (y * -18) + 'px) scale(1.05)';
+}
+
+function resetParallax() {
+  document.getElementById('galleryHeroImg').style.transform = 'translate(0,0) scale(1)';
+}
+
+function onGyroParallax(e) {
+  var img = document.getElementById('galleryHeroImg');
+  if (!img) return;
+  var x = (e.gamma || 0) / 45;
+  var y = (e.beta || 0) / 90;
+  x = Math.max(-1, Math.min(1, x));
+  y = Math.max(-1, Math.min(1, y));
+  img.style.transform = 'translate(' + (x * -16) + 'px, ' + (y * -16) + 'px) scale(1.05)';
+}
+
+function removeParallax() {
+  parallaxActive = false;
+  var hero = document.getElementById('galleryHero');
+  if (hero) hero.removeEventListener('mousemove', onMouseParallax);
+  window.removeEventListener('deviceorientation', onGyroParallax);
 }
 
 function setFilter(el, filter) {
